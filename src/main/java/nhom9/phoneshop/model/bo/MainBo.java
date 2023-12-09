@@ -7,6 +7,12 @@ public class MainBo {
     }
 
     // Controller -> Method -> Bo -> Dao -> Database
+    // Describe what the Controller need to do
+
+
+
+
+    // This is some base methods
 
 
 }

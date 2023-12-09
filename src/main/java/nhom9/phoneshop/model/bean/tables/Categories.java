@@ -3,12 +3,12 @@ package nhom9.phoneshop.model.bean.tables;
 public class Categories {
 
     private int CategoryID;
-    private int CategoryName;
+    private String CategoryName;
 
     public Categories(){
     }
 
-    public Categories(int CategoryID, int CategoryName){
+    public Categories(int CategoryID, String CategoryName){
         this.CategoryID = CategoryID;
         this.CategoryName = CategoryName;
     }
@@ -17,7 +17,7 @@ public class Categories {
         return CategoryID;
     }
 
-    public int getCategoryName(){
+    public String getCategoryName(){
         return CategoryName;
     }
 }
