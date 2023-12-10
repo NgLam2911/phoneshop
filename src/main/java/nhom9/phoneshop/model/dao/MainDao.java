@@ -6,40 +6,11 @@ import nhom9.phoneshop.model.bean.tables.*;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class MainDao{
-    private final Connection connection;
-
-    public MainDao(){
-        //Connect to database
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            this.connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/phoneshop",
-                    "root",
-                    ""
-            );
-        } catch (SQLException e) {
-            throw new RuntimeException("Cannot connect the database!", e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public Connection getConnection(){
-        return this.connection;
-    }
-
-    public void closeConnection(){
-        try {
-            this.connection.close();
-        } catch (SQLException e) {
-            throw new RuntimeException("Cannot close the connection!", e);
-        }
-    }
+public class MainDao extends BaseDao{
 
     public ArrayList<Carts> getAllCarts() throws SQLException {
         String sql = "SELECT * FROM carts";
-        PreparedStatement statement = this.connection.prepareStatement(sql);
+        PreparedStatement statement = this.getConnection().prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
         ArrayList<Carts> carts = new ArrayList<>();
         while (resultSet.next()){
@@ -52,7 +23,7 @@ public class MainDao{
 
     public ArrayList<CartsData> getAllCartsData() throws SQLException {
         String sql = "SELECT * FROM cartsdata";
-        PreparedStatement statement = this.connection.prepareStatement(sql);
+        PreparedStatement statement = this.getConnection().prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
         ArrayList<CartsData> cartsData = new ArrayList<>();
         while (resultSet.next()){
@@ -65,7 +36,7 @@ public class MainDao{
 
     public ArrayList<Categories> getAllCategories() throws SQLException{
         String sql = "SELECT * FROM categories";
-        PreparedStatement statement = this.connection.prepareStatement(sql);
+        PreparedStatement statement = this.getConnection().prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
         ArrayList<Categories> categories = new ArrayList<>();
         while (resultSet.next()){
@@ -78,7 +49,7 @@ public class MainDao{
 
     public ArrayList<CategoriesData> getAllCategoriesData() throws Exception {
         String sql = "SELECT * FROM categoriesdata";
-        PreparedStatement statement = this.connection.prepareStatement(sql);
+        PreparedStatement statement = this.getConnection().prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
         ArrayList<CategoriesData> categoriesData = new ArrayList<>();
         while (resultSet.next()) {
@@ -88,13 +59,4 @@ public class MainDao{
         }
         return categoriesData;
     }
-
-
-
-
-
-
-
-
-
 }
