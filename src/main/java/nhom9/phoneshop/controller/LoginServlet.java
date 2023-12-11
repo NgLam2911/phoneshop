@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import nhom9.phoneshop.model.bo.UserBo;
 
-@WebServlet(value = "/LoginServlet")
+@WebServlet("/")
 public class LoginServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;
 	
@@ -26,9 +26,10 @@ public class LoginServlet extends HttpServlet{
 			case "/LoginServlet": 
 				checkLogin(request, response);
 				break;
-			case "/login":
-				login(request, response);
+			case "/RegisterServlet":
+				checkRegister(request, response);
 				break;
+			
 			default:
 				checkLogin(request, response);
 				break;
@@ -58,5 +59,23 @@ public class LoginServlet extends HttpServlet{
 	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
 		rd.forward(request, response);	
+	}
+
+	private void checkRegister(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String customername = request.getParameter("txtCustomerName");
+		String username = request.getParameter("txtUsername");
+		String email = request.getParameter("txtEmail");
+		String phone = request.getParameter("txtPhone");
+		String address = request.getParameter("txtAddress");
+		String password = request.getParameter("txtPassword");
+
+		UserBo userBo = new UserBo();
+		if (userBo.registerGuest(customername, username, email, phone, password, address)) {
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+			rd.forward(request, response);
+		} else {
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/register.jsp");
+			rd.forward(request, response);
+		}
 	}
 }
