@@ -39,7 +39,106 @@ public class ProductDao extends BaseDao {
         return products;
     }
 
-    public boolean registerProduct(){
-
+    public ProductBean getProduct(int productID){
+        ProductBean product = null;
+        String sql = "SELECt * FROM products INNER JOIN manufacturers ON products.ManufacturerID = manufacturers.ManufacturerID WHERE ProductID = ?";
+        try{
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            statement.setInt(1, productID);
+            var resultSet = statement.executeQuery();
+            if (resultSet.next()){
+                String productName = resultSet.getString("ProductName");
+                double price = resultSet.getDouble("Price");
+                int manufacturerID = resultSet.getInt("ManufacturerID");
+                String manufacturerName = resultSet.getString("ManufacturerName");
+                String cpu = resultSet.getString("CPU");
+                String ram = resultSet.getString("RAM");
+                String displaySize = resultSet.getString("DisplaySize");
+                int displayWidth = resultSet.getInt("DisplayWidth");
+                int displayHeight = resultSet.getInt("DisplayHeight");
+                String os = resultSet.getString("OS");
+                String battery = resultSet.getString("Battery");
+                double capacity = resultSet.getDouble("Capacity");
+                String image = resultSet.getString("Image");
+                product = new ProductBean(productID, productName, price, manufacturerID, manufacturerName, cpu, ram, displaySize, displayWidth, displayHeight, os, battery, capacity, image);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            this.close();
+        }
+        return product;
     }
+
+    public boolean registerProduct(String productName, double price, int manufacturerID, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, String image){
+        String sql = "INSERT INTO products(ProductName, Price, ManufacturerID, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, Image) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try{
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            statement.setString(1, productName);
+            statement.setDouble(2, price);
+            statement.setInt(3, manufacturerID);
+            statement.setString(4, cpu);
+            statement.setString(5, ram);
+            statement.setString(6, displaySize);
+            statement.setInt(7, displayWidth);
+            statement.setInt(8, displayHeight);
+            statement.setString(9, os);
+            statement.setString(10, battery);
+            statement.setDouble(11, capacity);
+            statement.setString(12, image);
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            this.close();
+        }
+    }
+
+    public boolean updateProduct(int productID, String productName, double price, int manufacturerID, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, String image){
+        String sql = "UPDATE products SET ProductName = ?, Price = ?, ManufacturerID = ?, CPU = ?, RAM = ?, DisplaySize = ?, DisplayWidth = ?, DisplayHeight = ?, OS = ?, Battery = ?, Capacity = ?, Image = ? WHERE ProductID = ?";
+        try{
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            statement.setString(1, productName);
+            statement.setDouble(2, price);
+            statement.setInt(3, manufacturerID);
+            statement.setString(4, cpu);
+            statement.setString(5, ram);
+            statement.setString(6, displaySize);
+            statement.setInt(7, displayWidth);
+            statement.setInt(8, displayHeight);
+            statement.setString(9, os);
+            statement.setString(10, battery);
+            statement.setDouble(11, capacity);
+            statement.setString(12, image);
+            statement.setInt(13, productID);
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            this.close();
+        }
+    }
+
+    public boolean deleteProduct(int productID){
+        String sql = "DELETE FROM products WHERE ProductID = ?";
+        try{
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            statement.setInt(1, productID);
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            this.close();
+        }
+    }
+
+    //TODO: Filter products
 }
