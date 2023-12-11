@@ -38,4 +38,8 @@ public class ProductDao extends BaseDao {
         }
         return products;
     }
+
+    public boolean registerProduct(){
+
+    }
 }
