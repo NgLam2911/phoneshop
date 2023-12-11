@@ -8,6 +8,20 @@
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
+<a href="hello-servlet">Hello Servlet</a><br>
+<%
+		session.setAttribute("user", request.getAttribute("user"));
+	%>
+		<h2>Trang chủ</h2>
+        <a href="<%=request.getContextPath()%>/login.jsp">Đăng nhập</a> <br>
+        <a href="<%=request.getContextPath()%>/register.jsp">Đăng ký</a> <br>
+		<a href="<%=request.getContextPath()%>pageProducts/singleProduct.jsp">Test cái :v</a> <br>
+	<%
+		if (session.getAttribute("user") != null ) {
+        String user = (String)request.getAttribute("user");
+	%>
+		<h2>Chào mừng </h2>
+        <h2><%= user %></h2>
+	<% } %>
 </body>
 </html>
