@@ -77,4 +77,20 @@ public class ProductBean {
     public int getDisplayHeight() {
         return DisplayHeight;
     }
+
+    public String getOS() {
+        return OS;
+    }
+
+    public String getBattery() {
+        return Battery;
+    }
+
+    public double getCapacity() {
+        return Capacity;
+    }
+
+    public String getImage() {
+        return Image;
+    }
 }
