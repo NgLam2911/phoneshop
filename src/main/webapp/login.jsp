@@ -53,7 +53,7 @@
 
 <body>
     <h2>Đăng nhập</h2>
-    <form name="loginForm" id="loginForm" action="/LoginServlet" method="post">
+    <form name="loginForm" id="loginForm" action="LoginServlet" method="post">
         <table id="loginTable">
             <tr>
                 <td>Tên tài khoản</td>

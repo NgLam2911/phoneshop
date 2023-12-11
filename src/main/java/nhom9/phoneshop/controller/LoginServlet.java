@@ -3,15 +3,15 @@ package nhom9.phoneshop.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import nhom9.phoneshop.model.bo.UserBo;
 
-@WebServlet(urlPatterns = "/LoginServlet")
+@WebServlet(value = "/LoginServlet")
 public class LoginServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;
 	
@@ -23,10 +23,12 @@ public class LoginServlet extends HttpServlet{
 		String action = request.getServletPath();
 		try {
 			switch (action) {
-			case "/LoginServlet": {
+			case "/LoginServlet": 
 				checkLogin(request, response);
 				break;
-			}
+			case "/login":
+				login(request, response);
+				break;
 			default:
 				checkLogin(request, response);
 				break;
@@ -45,11 +47,16 @@ public class LoginServlet extends HttpServlet{
 		UserBo userBo = new UserBo();
 		if (userBo.login(username, password)) {
 			request.setAttribute("user", username);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/index.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
 		} else {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/login.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
 			rd.forward(request, response);
 		}
+	}
+
+	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+		rd.forward(request, response);	
 	}
 }

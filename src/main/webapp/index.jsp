@@ -13,8 +13,8 @@
 		session.setAttribute("user", request.getAttribute("user"));
 	%>
 		<h2>Trang chủ</h2>
-        <a href="login.jsp">Đăng nhập</a> <br>
-        <a href="register.jsp">Đăng ký</a> <br>
+        <a href="<%=request.getContextPath()%>/login.jsp">Đăng nhập</a> <br>
+        <a href="<%=request.getContextPath()%>/register.jsp">Đăng ký</a> <br>
 	<%
 		if (session.getAttribute("user") != null ) {
         String user = (String)request.getAttribute("user");
