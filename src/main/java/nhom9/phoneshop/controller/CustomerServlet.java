@@ -50,6 +50,7 @@ public class CustomerServlet extends HttpServlet{
     private ArrayList<ProductBean> getAllProducts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<ProductBean> list = new ArrayList<>();
 		list = new ProductBo().getAllProducts();
+		request.setAttribute("productList", list);
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/ListProduct.jsp");
 		rd.forward(request, response);
 		return list;

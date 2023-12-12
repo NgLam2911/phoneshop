@@ -48,7 +48,7 @@ public class AdminServlet extends HttpServlet{
     private void listProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         ProductBo productBo = new ProductBo();
         ArrayList<ProductBean> productList = productBo.getAllProducts();
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/Product/ListProduct.jsp");
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListProduct.jsp");
 		rd.forward(request, response);	
 	}
 
@@ -68,11 +68,11 @@ public class AdminServlet extends HttpServlet{
         Collection<Part> clt = request.getParts();
 		
 		ProductBo productBo = new ProductBo();
-		if (productBo.registerProduct(ProductName, Price, 1, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, part, clt)) {
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/Product/ListProduct.jsp");
+		if (productBo.registerProduct(ProductName, Price, ManufacturerName, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, part, clt)) {
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListProduct.jsp");
 			rd.forward(request, response);
 		} else {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/Product/Error.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/Error.jsp");
 			rd.forward(request, response);
         }
 	}
@@ -81,7 +81,7 @@ public class AdminServlet extends HttpServlet{
 		Integer ProuductID = Integer.parseInt(request.getParameter("ProductID"));
         ProductBo productBo = new ProductBo();
         productBo.deleteProduct(ProuductID);
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/Product/ListProduct.jsp");
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListProduct.jsp");
 		rd.forward(request, response);	
 	}
 

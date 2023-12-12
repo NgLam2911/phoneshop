@@ -21,7 +21,8 @@
 	%>
 		<h2>Chào mừng </h2>
         <h2><%= user %></h2>
-		<a href="<%=request.getContextPath()%>/admin/Product/ListProduct.jsp">Xem sản phẩm</a> <br>
+		<a href="<%=request.getContextPath()%>/admin/ListProduct.jsp">Xem sản phẩm (admin)</a> <br>
+		<a href="<%=request.getContextPath()%>/listProduct.jsp">Xem sản phẩm</a> <br>
 	<% } %>
 </body>
 </html>
