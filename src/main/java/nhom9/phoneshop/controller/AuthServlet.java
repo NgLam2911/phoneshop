@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import nhom9.phoneshop.model.bo.UserBo;
 
 @WebServlet("/")
-public class LoginServlet extends HttpServlet{
+public class AuthServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -15,13 +15,13 @@
 		<h2>Trang chủ</h2>
         <a href="<%=request.getContextPath()%>/login.jsp">Đăng nhập</a> <br>
         <a href="<%=request.getContextPath()%>/register.jsp">Đăng ký</a> <br>
-		<a href="<%=request.getContextPath()%>pageProducts/singleProduct.jsp">Test cái :v</a> <br>
 	<%
 		if (session.getAttribute("user") != null ) {
         String user = (String)request.getAttribute("user");
 	%>
 		<h2>Chào mừng </h2>
         <h2><%= user %></h2>
+		<a href="<%=request.getContextPath()%>/admin/Product/ListProduct.jsp">Xem sản phẩm</a> <br>
 	<% } %>
 </body>
 </html>
