@@ -29,7 +29,7 @@ public class MainDao extends BaseDao{
         while (resultSet.next()){
             int cartID = resultSet.getInt("CartID");
             int productID = resultSet.getInt("ProductID");
-            cartsData.add(new CartsData(cartID, productID));
+            //cartsData.add(new CartsData(cartID, productID));
         }
         return cartsData;
     }
