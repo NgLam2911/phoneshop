@@ -1,14 +1,13 @@
 package nhom9.phoneshop.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import nhom9.phoneshop.model.bo.UserBo;
 
 @WebServlet("/")
@@ -29,7 +28,6 @@ public class AuthServlet extends HttpServlet{
 			case "/RegisterServlet":
 				checkRegister(request, response);
 				break;
-			
 			default:
 				checkLogin(request, response);
 				break;
@@ -38,8 +36,6 @@ public class AuthServlet extends HttpServlet{
 			throw new ServletException(ex);
 		}
 	}
-
-    
 
     private void checkLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("txtusername");
@@ -54,11 +50,6 @@ public class AuthServlet extends HttpServlet{
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
 			rd.forward(request, response);
 		}
-	}
-
-	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
-		rd.forward(request, response);	
 	}
 
 	private void checkRegister(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -78,4 +69,5 @@ public class AuthServlet extends HttpServlet{
 			rd.forward(request, response);
 		}
 	}
+
 }
