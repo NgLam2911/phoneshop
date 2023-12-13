@@ -1,6 +1,5 @@
 package nhom9.phoneshop.model.dao;
 
-import nhom9.phoneshop.model.bean.CartBean;
 import nhom9.phoneshop.model.bean.CartItem;
 import nhom9.phoneshop.model.bean.ProductBean;
 import nhom9.phoneshop.model.bean.tables.Carts;
