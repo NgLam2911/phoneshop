@@ -1,10 +1,12 @@
 package nhom9.phoneshop.model.dao;
 
+import nhom9.phoneshop.model.bean.UserBean;
+
 public class UserDao extends BaseDao{
 
-    public boolean login(String username, String password) {
-        boolean result = false;
-        String sql = "SELECT * FROM users WHERE Username = ? AND Password = ?";
+    public UserBean login(String username, String password) {
+        UserBean result = null;
+        String sql = "SELECT * FROM users INNER JOIN roles ON users.RoleID = roles.RoleID WHERE Username = ? AND Password = ?";
         try {
             this.connect();
             var statement = this.getConnection().prepareStatement(sql);
@@ -12,7 +14,12 @@ public class UserDao extends BaseDao{
             statement.setString(2, password);
             var resultSet = statement.executeQuery();
             if (resultSet.next()){
-                result = true;
+                result = new UserBean(
+                        resultSet.getString("Username"),
+                        resultSet.getString("Password"),
+                        resultSet.getInt("RoleID"),
+                        resultSet.getString("RoleName")
+                );
             }
         } catch (Exception e) {
             throw new RuntimeException("Failed to connect to db", e);

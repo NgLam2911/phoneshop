@@ -1,11 +1,12 @@
 package nhom9.phoneshop.model.bo;
 
+import nhom9.phoneshop.model.bean.UserBean;
 import nhom9.phoneshop.model.dao.RoleDao;
 import nhom9.phoneshop.model.dao.UserDao;
 
 public class UserBo {
 
-    public boolean login(String username, String password) {
+    public UserBean login(String username, String password) {
         UserDao dao = new UserDao();
         return dao.login(username, password);
     }
