@@ -1,32 +1,58 @@
 package nhom9.phoneshop.model.bean;
 
-public class CartBean {
+import java.util.ArrayList;
 
+public class CartBean {
     private int CartID;
     private int CustomerID;
-    private int ProductID;
-    private int Amount;
 
-    public CartBean(int CartID, int CustomerID, int ProductID, int Amount) {
-        this.CartID = CartID;
-        this.CustomerID = CustomerID;
-        this.ProductID = ProductID;
-        this.Amount = Amount;
+    private ArrayList<CartItem> Items;
+
+    public CartBean(){
+        Items = new ArrayList<>();
     }
 
-    public int getCartID() {
+    public CartBean(int CartID, int CustomerID){
+        this.CartID = CartID;
+        this.CustomerID = CustomerID;
+        Items = new ArrayList<>();
+    }
+
+    public CartBean(int CartID, int CustomerID, ArrayList<CartItem> Items){
+        this.CartID = CartID;
+        this.CustomerID = CustomerID;
+        this.Items = Items;
+    }
+
+    public int getCartID(){
         return CartID;
     }
 
-    public int getCustomerID() {
+    public int getCustomerID(){
         return CustomerID;
     }
 
-    public int getProductID() {
-        return ProductID;
+    public ArrayList<CartItem> getItems(){
+        return Items;
     }
 
-    public int getAmount() {
-        return Amount;
+    public void setCartID(int CartID){
+        this.CartID = CartID;
+    }
+
+    public void setCustomerID(int CustomerID){
+        this.CustomerID = CustomerID;
+    }
+
+    public void setItems(ArrayList<CartItem> Items){
+        this.Items = Items;
+    }
+
+    public void addItem(ProductBean product, int Amount){
+        Items.add(new CartItem(product, Amount));
+    }
+
+    public void removeItem(int index){
+        Items.remove(index);
     }
 }
