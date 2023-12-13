@@ -29,7 +29,8 @@ public class MainDao extends BaseDao{
         while (resultSet.next()){
             int cartID = resultSet.getInt("CartID");
             int productID = resultSet.getInt("ProductID");
-            //cartsData.add(new CartsData(cartID, productID));
+            int amount = resultSet.getInt("Amount");
+            cartsData.add(new CartsData(cartID, productID, amount));
         }
         return cartsData;
     }
@@ -58,5 +59,14 @@ public class MainDao extends BaseDao{
             categoriesData.add(new CategoriesData(categoryID, productID));
         }
         return categoriesData;
+    }
+
+    public ArrayList<CartsData> addProductToCart(String id) {
+        
+        return null;
+    }
+
+    public Object removeProductFromCart(String id) {
+        return null;
     }
 }
