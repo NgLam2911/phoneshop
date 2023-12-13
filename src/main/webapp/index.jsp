@@ -21,8 +21,9 @@
 	%>
 		<h2>Chào mừng </h2>
         <h2><%= user %></h2>
-		<a href="<%=request.getContextPath()%>/admin/ListProduct.jsp">Xem sản phẩm (admin)</a> <br>
-		<a href="<%=request.getContextPath()%>/GetProductServlet">Xem sản phẩm</a> <br>
+		<h2><%= session.getAttribute("user") %><h2>
+		<a href="<%=request.getContextPath()%>/AdminGetProduct">Xem sản phẩm (admin)</a> <br>
+		<a href="<%=request.getContextPath()%>/GetProduct">Xem sản phẩm</a> <br>
 	<% } %>
 </body>
 </html>

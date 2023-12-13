@@ -1,4 +1,4 @@
-<%@page language="java" import="model.bean.ProductBean"%>
+<%@page language="java" import="nhom9.phoneshop.model.bean.ProductBean"%>
 <%@page language="java" import="java.util.ArrayList"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -70,22 +70,22 @@
         <td>Xóa</td>
 	</tr>
 	<%
-		ArrayList<ProductBean> productList = (ArrayList<ProductBean>)request.getAttribute("pdList");
-		for (int i = 0; i < productList.size(); i++) {
+		ArrayList<ProductBean> pdList = (ArrayList<ProductBean>)request.getAttribute("pdList");
+		for (int i = 0; i < pdList.size(); i++) {
 	%>
 		<tr>
-			<td><%= productList.get(i).getProductName() %></td>
-			<td><%= productList.get(i).getPrice() %></td>
-			<td><%= productList.get(i).getManufacturerName() %></td>
-			<td><%= productList.get(i).getCPU() %></td>
-            <td><%= productList.get(i).getRAM() %></td>
-			<td><%= productList.get(i).getDisplaySize() %></td>
-			<td><%= productList.get(i).getOS() %></td>
-			<td><%= productList.get(i).getBattery() %></td>
-            <td><%= productList.get(i).getCapacity() %></td>
-			<td><%= productList.get(i).getImage() %></td>
-            <td><a href="<%=request.getContextPath()%>/editProduct?id=<%= productList.get(i).getProductID() %>">Sửa</a></td>
-            <td><a href="<%=request.getContextPath()%>/removeProduct?id=<%= productList.get(i).getProductID() %>">Xóa</a></td>
+			<td><%= pdList.get(i).getProductName() %></td>
+			<td><%= pdList.get(i).getPrice() %></td>
+			<td><%= pdList.get(i).getManufacturerName() %></td>
+			<td><%= pdList.get(i).getCPU() %></td>
+            <td><%= pdList.get(i).getRAM() %></td>
+			<td><%= pdList.get(i).getDisplaySize() %></td>
+			<td><%= pdList.get(i).getOS() %></td>
+			<td><%= pdList.get(i).getBattery() %></td>
+            <td><%= pdList.get(i).getCapacity() %></td>
+			<td><%= pdList.get(i).getImage() %></td>
+            <td><a href="<%=request.getContextPath()%>/editProduct?id=<%= pdList.get(i).getProductID() %>">Sửa</a></td>
+            <td><a href="<%=request.getContextPath()%>/removeProduct?id=<%= pdList.get(i).getProductID() %>">Xóa</a></td>
 		</tr>
 	<% } %>
 	</table>
