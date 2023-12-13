@@ -93,4 +93,60 @@ public class ProductBean {
     public String getImage() {
         return Image;
     }
+
+    public void setProductID(int ProductID) {
+        this.ProductID = ProductID;
+    }
+
+    public void setProductName(String ProductName) {
+        this.ProductName = ProductName;
+    }
+
+    public void setPrice(double Price) {
+        this.Price = Price;
+    }
+
+    public void setManufacturerID(int ManufacturerID) {
+        this.ManufacturerID = ManufacturerID;
+    }
+
+    public void setManufacturerName(String ManufacturerName) {
+        this.ManufacturerName = ManufacturerName;
+    }
+
+    public void setCPU(String CPU) {
+        this.CPU = CPU;
+    }
+
+    public void setRAM(String RAM) {
+        this.RAM = RAM;
+    }
+
+    public void setDisplaySize(String DisplaySize) {
+        this.DisplaySize = DisplaySize;
+    }
+
+    public void setDisplayWidth(int DisplayWidth) {
+        this.DisplayWidth = DisplayWidth;
+    }
+
+    public void setDisplayHeight(int DisplayHeight) {
+        this.DisplayHeight = DisplayHeight;
+    }
+
+    public void setOS(String OS) {
+        this.OS = OS;
+    }
+
+    public void setBattery(String Battery) {
+        this.Battery = Battery;
+    }
+
+    public void setCapacity(double Capacity) {
+        this.Capacity = Capacity;
+    }
+
+    public void setImage(String Image) {
+        this.Image = Image;
+    }
 }
