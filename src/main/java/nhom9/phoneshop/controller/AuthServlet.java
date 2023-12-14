@@ -1,6 +1,9 @@
 package nhom9.phoneshop.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import nhom9.phoneshop.model.bean.ProductBean;
+import nhom9.phoneshop.model.bo.ProductBo;
 import nhom9.phoneshop.model.bo.UserBo;
 
 @WebServlet("/")
@@ -28,11 +33,22 @@ public class AuthServlet extends HttpServlet{
 			case "/RegisterServlet":
 				checkRegister(request, response);
 				break;
+			case "/GetProductServlet":
+				getAllProducts(request, response);
+                break;
+            case "/GetCartServlet":
+                getCartProducts(request, response);
+			case "/AddProductToCartServlet":
+				addProductToCart(request, response);
+                break;
+            case "/RemoveProductFromCartServlet":
+                addProductToCart(request, response);
+                break;
 			default:
 				checkLogin(request, response);
 				break;
 			}
-		} catch (ServletException ex) {
+		} catch (SQLException ex) {
 			throw new ServletException(ex);
 		}
 	}
@@ -70,4 +86,32 @@ public class AuthServlet extends HttpServlet{
 		}
 	}
 
+	private void getAllProducts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ArrayList<ProductBean> list = new ArrayList<>();
+		list = (new ProductBo()).getAllProducts();
+		request.setAttribute("pdList", list);
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/listProduct.jsp");
+		rd.forward(request, response);
+	}
+
+	private void addProductToCart(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+		String id = request.getParameter("id");
+		//new MainBo().addProductToCart(id);
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/Cart.jsp");
+		rd.forward(request, response);
+	}
+
+    private void removeProductFromCart(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        String id = request.getParameter("id");
+        //new MainBo().removeProductFromCart(id);
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/Cart.jsp");
+        rd.forward(request, response);
+    }
+
+    private void getCartProducts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ArrayList<ProductBean> list = new ArrayList<>();
+        //list = new MainBo().getCartProducts();
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/Cart.jsp");
+        rd.forward(request, response);
+    }
 }
