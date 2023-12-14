@@ -52,6 +52,9 @@ public class AuthServlet extends HttpServlet{
 			case "/AddProduct": 
 				addProduct(request, response);
 				break;
+			case "/EditProduct":
+				editProduct(request, response);
+				break;
             case "/RemoveProduct":
                 delete(request, response);
 			default:
@@ -68,12 +71,18 @@ public class AuthServlet extends HttpServlet{
 		String password = request.getParameter("txtpassword");
 		
 		UserBo userBo = new UserBo();
-		if (userBo.login(username, password)) {
+		if (userBo.login(username, password) != null) {
 			request.setAttribute("user", username);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);
+			if (userBo.login(username, password).getRoleID() == 1) {
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/Index.jsp");
+				rd.forward(request, response);
+			} else if (userBo.login(username, password).getRoleID() == 2) {
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}
 		} else {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+			request.setAttribute("login", "Đăng nhập thất bại! Vui lòng thử lại hoặc đăng ký!");
 			rd.forward(request, response);
 		}
 	}
@@ -156,6 +165,15 @@ public class AuthServlet extends HttpServlet{
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/Error.jsp");
 			rd.forward(request, response);
         }
+	}
+
+	private void editProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+		Integer ProductID = Integer.parseInt(request.getParameter("id"));
+		ProductBo productBo = new ProductBo();
+		ProductBean pd = productBo.getProduct(ProductID);
+		request.setAttribute("pd", pd);
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/EditProduct.jsp");
+		rd.forward(request, response);
 	}
 
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
