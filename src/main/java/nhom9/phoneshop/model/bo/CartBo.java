@@ -8,11 +8,11 @@ import java.util.ArrayList;
 
 public class CartBo{
 
-    public CartBean getCartByCustomer(int CustomerID){
+    public CartBean getLastPendingCartByCustomer(int CustomerID){
         CartDao dao = new CartDao();
-        var cart = dao.getCartsByCustomerID(CustomerID);
+        var cart = dao.getLastPendingCartsByCustomerID(CustomerID);
         if (cart == null) return null;
-        CartBean result = new CartBean(cart.getCartID(), cart.getCustomerID());
+        CartBean result = new CartBean(cart.getCartID(), cart.getCustomerID(), cart.getStatus());
         ArrayList<CartItem> items = dao.getCartItems(cart.getCartID());
         result.setItems(items);
         return result;
@@ -22,10 +22,19 @@ public class CartBo{
         CartDao dao = new CartDao();
         var cart = dao.getCartsByID(CartID);
         if (cart == null) return null;
-        CartBean result = new CartBean(cart.getCartID(), cart.getCustomerID());
+        CartBean result = new CartBean(cart.getCartID(), cart.getCustomerID(), cart.getStatus());
         ArrayList<CartItem> items = dao.getCartItems(cart.getCartID());
         result.setItems(items);
         return result;
+    }
+
+    public boolean buyProduct(int CartID, int ProductID, int Amount){
+        //TODO: Buy product
+        return true;
+    }
+
+    public void removeProduct(int CartID, int ProductID){
+        //TODO: Remove product
     }
 
 
