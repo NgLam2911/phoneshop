@@ -45,4 +45,12 @@ public class CartBo{
     public void removeProduct(int CartID, int ProductID){
         (new CartDao()).removeProductFromCart(CartID, ProductID);
     }
+
+    public void paidCart(int CartID){
+        (new CartDao()).updateCartStatus(CartID, CartBean.STATUS_PAID);
+    }
+
+    public void createCart(int CustomerID){
+        (new CartDao()).createCart(CustomerID);
+    }
 }
