@@ -141,5 +141,20 @@ public class ProductDao extends BaseDao {
         }
     }
 
+    public void updateQuantity(int productID, int quantity){
+        String sql = "UPDATE products SET Quantity = ? WHERE ProductID = ?";
+        try{
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            statement.setInt(1, quantity);
+            statement.setInt(2, productID);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            this.close();
+        }
+    }
+
     //TODO: Filter products
 }

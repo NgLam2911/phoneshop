@@ -71,4 +71,37 @@ public class UserDao extends BaseDao{
             this.close();
         }
     }
+
+    public void updatePassword(String username, String password){
+        String sql = "UPDATE users SET Password = ? WHERE Username = ?";
+        try{
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            statement.setString(1, password);
+            statement.setString(2, username);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to connect to db", e);
+        } finally {
+            this.close();
+        }
+    }
+
+    public void updateCustomer(String customerName, String username, String email, String phoneNumber, String address){
+        String sql = "UPDATE customers SET CustomerName = ?, Email = ?, Phone = ?, Address = ? WHERE Username = ?";
+        try{
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            statement.setString(1, customerName);
+            statement.setString(2, email);
+            statement.setString(3, phoneNumber);
+            statement.setString(4, address);
+            statement.setString(5, username);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to connect to db", e);
+        } finally {
+            this.close();
+        }
+    }
 }

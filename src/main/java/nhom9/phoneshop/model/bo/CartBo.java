@@ -2,7 +2,9 @@ package nhom9.phoneshop.model.bo;
 
 import nhom9.phoneshop.model.bean.CartBean;
 import nhom9.phoneshop.model.bean.CartItem;
+import nhom9.phoneshop.model.bean.ProductBean;
 import nhom9.phoneshop.model.dao.CartDao;
+import nhom9.phoneshop.model.dao.ProductDao;
 
 import java.util.ArrayList;
 
@@ -29,13 +31,18 @@ public class CartBo{
     }
 
     public boolean buyProduct(int CartID, int ProductID, int Amount){
-        //TODO: Buy product
-        return true;
+        ProductDao productDao = new ProductDao();
+        ProductBean product = productDao.getProduct(ProductID);
+        if (product.getQuantity() > Amount){
+            product.setQuantity(product.getQuantity() - Amount);
+            productDao.updateQuantity(product.getProductID(), product.getQuantity());
+            (new CartDao()).addProductToCart(CartID, ProductID, Amount);
+            return true;
+        }
+        return false;
     }
 
     public void removeProduct(int CartID, int ProductID){
-        //TODO: Remove product
+        (new CartDao()).removeProductFromCart(CartID, ProductID);
     }
-
-
 }

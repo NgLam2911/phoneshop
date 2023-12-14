@@ -31,5 +31,13 @@ public class UserBo {
         return true;
     }
 
+    public void updatePassword(String username, String password) {
+        UserDao dao = new UserDao();
+        dao.updatePassword(username, password);
+    }
 
+    public void updateCustomer(String username, String customerName, String email, String phoneNumber, String address) {
+        UserDao dao = new UserDao();
+        dao.updateCustomer(username, customerName, email, phoneNumber, address);
+    }
 }
