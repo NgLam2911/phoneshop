@@ -17,10 +17,12 @@ public class Products {
 
     private String Image;
 
+    private int Quantity;
+
     public Products() {
     }
 
-    public Products(int ProductID, String ProductName, double Price, int ManufacturerID, String CPU, String RAM, String DisplaySize, int DisplayWidth, int DisplayHeight, String OS, String Battery, double Capacity, String Image) {
+    public Products(int ProductID, String ProductName, double Price, int ManufacturerID, String CPU, String RAM, String DisplaySize, int DisplayWidth, int DisplayHeight, String OS, String Battery, double Capacity, String Image, int Quantity) {
         this.ProductID = ProductID;
         this.ProductName = ProductName;
         this.Price = Price;
@@ -34,6 +36,7 @@ public class Products {
         this.Battery = Battery;
         this.Capacity = Capacity;
         this.Image = Image;
+        this.Quantity = Quantity;
     }
 
     public int getProductID() {
@@ -86,5 +89,9 @@ public class Products {
 
     public String getImage(){
         return this.Image;
+    }
+
+    public int getQuantity(){
+        return this.Quantity;
     }
 }

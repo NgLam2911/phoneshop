@@ -1,8 +1,8 @@
 package nhom9.phoneshop.model.bean;
 
 public class CartItem {
-    private ProductBean product;
-    private int Amount;
+    private final ProductBean product;
+    private final int Amount;
 
     public CartItem(ProductBean product, int Amount){
         this.product = product;

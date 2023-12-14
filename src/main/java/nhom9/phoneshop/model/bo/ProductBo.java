@@ -16,7 +16,7 @@ public class ProductBo {
         return (new ProductDao()).getAllProducts();
     }
 
-    public boolean registerProduct(String productName, double price, String manufacturerName, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, Part image, Collection<Part> imageContent) throws IOException {
+    public boolean registerProduct(String productName, double price, String manufacturerName, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, Part image, Collection<Part> imageContent, int Quantity) throws IOException {
         String fileName = image.getSubmittedFileName();
         String imageLink = "upload/" + fileName;
         for (Part part : imageContent) {
@@ -29,7 +29,7 @@ public class ProductBo {
             manufacturer = manufacturerDao.getManufactureByName(manufacturerName);
         }
         int manufacturerID = manufacturer.getManufacturerID();
-        (new ProductDao()).registerProduct(productName, price, manufacturerID, cpu, ram, displaySize, displayWidth, displayHeight, os, battery, capacity, fileName);
+        (new ProductDao()).registerProduct(productName, price, manufacturerID, cpu, ram, displaySize, displayWidth, displayHeight, os, battery, capacity, fileName, Quantity);
         return true;
     }
 
@@ -43,9 +43,8 @@ public class ProductBo {
         return true;
     }
 
-    public boolean deleteProduct(int productID) {
+    public void deleteProduct(int productID) {
         (new ProductDao()).deleteProduct(productID);
-        return true;
     }
 
     public ProductBean getProduct(int productID) {
