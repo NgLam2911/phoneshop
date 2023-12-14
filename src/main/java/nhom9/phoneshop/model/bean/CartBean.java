@@ -69,4 +69,12 @@ public class CartBean {
     public void removeItem(int index){
         Items.remove(index);
     }
+
+    public double getTotalPrice(){
+        double result = 0;
+        for (CartItem item : Items){
+            result += item.getProduct().getPrice() * item.getAmount();
+        }
+        return result;
+    }
 }

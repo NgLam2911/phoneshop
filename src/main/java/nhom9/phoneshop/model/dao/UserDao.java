@@ -48,7 +48,7 @@ public class UserDao extends BaseDao{
         return result;
     }
 
-    public void register(String customerName, String username, String email, String phoneNumber, String password, String address, int roleID) {
+    public void registerCustomer(String customerName, String username, String email, String phoneNumber, String password, String address, int roleID) {
         String sql1 = "INSERT INTO users (Username, Password, RoleID) VALUES (?, ?, ?)";
         String sql2 = "INSERT INTO customers (CustomerName, Username, Email, Phone, Address) VALUES (?, ?, ?, ?, ?)";
         try {

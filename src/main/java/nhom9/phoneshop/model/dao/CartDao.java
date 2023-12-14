@@ -55,6 +55,29 @@ public class CartDao extends BaseDao{
         return cart;
     }
 
+    public ArrayList<Carts> getCartsByCustomerID(int CustomerID){
+        ArrayList<Carts> carts = new ArrayList<>();
+        String sql = "SELECT * FROM carts WHERE CustomerID = ?";
+        try{
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            statement.setInt(1, CustomerID);
+            var resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                carts.add(new Carts(
+                        resultSet.getInt("CartID"),
+                        resultSet.getInt("CustomerID"),
+                        resultSet.getInt("Status")
+                ));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            this.close();
+        }
+        return carts;
+    }
+
     public ArrayList<CartItem> getCartItems(int CartID){
         ArrayList<CartItem> items = new ArrayList<>();
         String sql =
@@ -91,5 +114,81 @@ public class CartDao extends BaseDao{
             this.close();
         }
         return items;
+    }
+
+    public void addProductToCart(int CartID, int ProductID, int Amount){
+        String sql = "INSERT INTO cartsdata (CartID, ProductID, Amount) VALUES (?, ?, ?)";
+        try{
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            statement.setInt(1, CartID);
+            statement.setInt(2, ProductID);
+            statement.setInt(3, Amount);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            this.close();
+        }
+    }
+
+    public void removeProductFromCart(int CartID, int ProductID){
+        String sql = "DELETE FROM cartsdata WHERE CartID = ? AND ProductID = ?";
+        try{
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            statement.setInt(1, CartID);
+            statement.setInt(2, ProductID);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            this.close();
+        }
+    }
+
+    public void updateProductAmount(int CartID, int ProductID, int Amount){
+        String sql = "UPDATE cartsdata SET Amount = ? WHERE CartID = ? AND ProductID = ?";
+        try{
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            statement.setInt(1, Amount);
+            statement.setInt(2, CartID);
+            statement.setInt(3, ProductID);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            this.close();
+        }
+    }
+
+    public void updateCartStatus(int CartID, int Status){
+        String sql = "UPDATE carts SET Status = ? WHERE CartID = ?";
+        try{
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            statement.setInt(1, Status);
+            statement.setInt(2, CartID);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            this.close();
+        }
+    }
+
+    public void createCart(int CustomerID){
+        String sql = "INSERT INTO carts (CustomerID, Status) VALUES (?, 0)";
+        try{
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            statement.setInt(1, CustomerID);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            this.close();
+        }
     }
 }
