@@ -16,7 +16,7 @@ public class ProductBo {
         return (new ProductDao()).getAllProducts();
     }
 
-    public boolean registerProduct(String productName, double price, String manufacturerName, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, Part image, Collection<Part> imageContent, int Quantity) throws IOException {
+    public boolean registerProduct(String productName, double price, String manufacturerName, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, Part image, Collection<Part> imageContent, int quantity) throws IOException {
         String fileName = image.getSubmittedFileName();
         String imageLink = "upload/" + fileName;
         for (Part part : imageContent) {
@@ -29,17 +29,17 @@ public class ProductBo {
             manufacturer = manufacturerDao.getManufactureByName(manufacturerName);
         }
         int manufacturerID = manufacturer.getManufacturerID();
-        (new ProductDao()).registerProduct(productName, price, manufacturerID, cpu, ram, displaySize, displayWidth, displayHeight, os, battery, capacity, fileName, Quantity);
+        (new ProductDao()).registerProduct(productName, price, manufacturerID, cpu, ram, displaySize, displayWidth, displayHeight, os, battery, capacity, fileName, quantity);
         return true;
     }
 
-    public boolean updateProduct(int productID, String productName, double price, int manufacturerID, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, Part image, Collection<Part> imageContent) throws IOException {
+    public boolean updateProduct(int productID, String productName, double price, int manufacturerID, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, Part image, Collection<Part> imageContent, int quantity) throws IOException {
         String fileName = image.getSubmittedFileName();
         String imageLink = "upload/" + fileName;
         for (Part part : imageContent) {
             part.write(imageLink);
         }
-        (new ProductDao()).updateProduct(productID, productName, price, manufacturerID, cpu, ram, displaySize, displayWidth, displayHeight, os, battery, capacity, fileName);
+        (new ProductDao()).updateProduct(productID, productName, price, manufacturerID, cpu, ram, displaySize, displayWidth, displayHeight, os, battery, capacity, fileName, quantity);
         return true;
     }
 

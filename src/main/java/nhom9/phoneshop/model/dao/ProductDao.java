@@ -61,7 +61,7 @@ public class ProductDao extends BaseDao {
                 String os = resultSet.getString("OS");
                 String battery = resultSet.getString("Battery");
                 double capacity = resultSet.getDouble("Capacity");
-                String image = resultSet.getString("Image");\
+                String image = resultSet.getString("Image");
                 int quantity = resultSet.getInt("Quantity");
                 product = new ProductBean(productID, productName, price, manufacturerID, manufacturerName, cpu, ram, displaySize, displayWidth, displayHeight, os, battery, capacity, image, quantity);
             }
