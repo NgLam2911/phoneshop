@@ -16,7 +16,8 @@ public class MainDao extends BaseDao{
         while (resultSet.next()){
             int cartID = resultSet.getInt("CartID");
             int customerID = resultSet.getInt("CustomerID");
-            carts.add(new Carts(cartID, customerID));
+            int status = resultSet.getInt("Status");
+            carts.add(new Carts(cartID, customerID, status));
         }
         return carts;
     }

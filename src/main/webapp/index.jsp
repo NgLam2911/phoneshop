@@ -2,13 +2,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>Home Page</title>
+	<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
 </head>
 <body>
-<h1><%= "Hello World!" %>
-</h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a><br>
 <%
 		session.setAttribute("user", request.getAttribute("user"));
 	%>
@@ -21,8 +18,8 @@
 	%>
 		<h2>Chào mừng </h2>
         <h2><%= user %></h2>
-		<a href="<%=request.getContextPath()%>/admin/ListProduct.jsp">Xem sản phẩm (admin)</a> <br>
-		<a href="<%=request.getContextPath()%>/listProduct.jsp">Xem sản phẩm</a> <br>
+		<a href="<%=request.getContextPath()%>/AdminGetProduct">Xem sản phẩm (admin)</a> <br>
+		<a href="<%=request.getContextPath()%>/GetProduct">Xem sản phẩm</a> <br>
 	<% } %>
 </body>
 </html>
