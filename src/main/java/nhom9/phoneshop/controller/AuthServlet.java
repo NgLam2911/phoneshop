@@ -42,14 +42,14 @@ public class AuthServlet extends HttpServlet{
 		String password = request.getParameter("txtpassword");
 		
 		UserBo userBo = new UserBo();
-		if (userBo.login(username, password)) {
-			request.setAttribute("user", username);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);
-		} else {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
-			rd.forward(request, response);
-		}
+		// if (userBo.login(username, password)) {
+		// 	request.setAttribute("user", username);
+		// 	RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+		// 	rd.forward(request, response);
+		// } else {
+		// 	RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+		// 	rd.forward(request, response);
+		// }
 	}
 
 	private void checkRegister(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
