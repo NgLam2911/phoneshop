@@ -18,7 +18,11 @@ public class CartDao extends BaseDao{
             statement.setInt(1, cartID);
             var resultSet = statement.executeQuery();
             if(resultSet.next()){
-                cart = new Carts(resultSet.getInt("CartID"), resultSet.getInt("CustomerID"));
+                cart = new Carts(
+                        resultSet.getInt("CartID"),
+                        resultSet.getInt("CustomerID"),
+                        resultSet.getInt("Status")
+                );
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -28,16 +32,20 @@ public class CartDao extends BaseDao{
         return cart;
     }
 
-    public Carts getCartsByCustomerID(int customerID){
+    public Carts getLastPendingCartsByCustomerID(int customerID){
         Carts cart = null;
-        String sql = "SELECT * FROM carts WHERE CustomerID = ?";
+        String sql = "SELECT * FROM carts WHERE CustomerID = ? AND Status = 0";
         try{
             this.connect();
             var statement = this.getConnection().prepareStatement(sql);
             statement.setInt(1, customerID);
             var resultSet = statement.executeQuery();
             if(resultSet.next()){
-                cart = new Carts(resultSet.getInt("CartID"), resultSet.getInt("CustomerID"));
+                cart = new Carts(
+                        resultSet.getInt("CartID"),
+                        resultSet.getInt("CustomerID"),
+                        resultSet.getInt("Status")
+                );
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
