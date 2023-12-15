@@ -6,4 +6,25 @@
          <welcome-file-list>
             <welcome-file>index.jsp</welcome-file>
          </welcome-file-list>
+
+         <servlet>
+            <servlet-name>AuthServlet</servlet-name>
+            <servlet-class>nhom9.phoneshop.controller.AuthServlet</servlet-class>
+         </servlet>
+
+         <servlet-mapping>
+            <servlet-name>AuthServlet</servlet-name>
+            <url-pattern>/auth/*</url-pattern>
+         </servlet-mapping>
+
+         <servlet>
+            <servlet-name>CustomerServlet</servlet-name>
+            <servlet-class>nhom9.phoneshop.controller.CustomerServlet</servlet-class>
+         </servlet>
+
+         <servlet-mapping>
+            <servlet-name>CustomerServlet</servlet-name>
+            <url-pattern>/customer/*</url-pattern>
+         </servlet-mapping>
+
 </web-app>
