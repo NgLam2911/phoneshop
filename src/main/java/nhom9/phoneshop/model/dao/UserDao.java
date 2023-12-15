@@ -1,6 +1,10 @@
 package nhom9.phoneshop.model.dao;
 
+import nhom9.phoneshop.model.bean.CustomerBean;
+import nhom9.phoneshop.model.bean.RegisterBean;
 import nhom9.phoneshop.model.bean.UserBean;
+
+import java.util.ArrayList;
 
 public class UserDao extends BaseDao{
 
@@ -99,5 +103,33 @@ public class UserDao extends BaseDao{
         } finally {
             this.close();
         }
+    }
+
+    public ArrayList<CustomerBean> getAllCustomers(){
+        ArrayList<CustomerBean> customers = new ArrayList<>();
+        String sql = "SELECT * FROM customers INNER JOIN users ON customers.Username = users.Username INNER JOIN roles ON users.RoleID = roles.RoleID";
+        try{
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            var resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                customers.add(new CustomerBean(
+                        resultSet.getInt("CustomerID"),
+                        resultSet.getString("CustomerName"),
+                        resultSet.getString("Username"),
+                        resultSet.getString("Email"),
+                        resultSet.getString("Phone"),
+                        resultSet.getString("Address"),
+                        resultSet.getString("Password"),
+                        resultSet.getInt("RoleID"),
+                        resultSet.getString("RoleName")
+                ));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to connect to db", e);
+        } finally {
+            this.close();
+        }
+        return customers;
     }
 }
