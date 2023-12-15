@@ -16,11 +16,9 @@ import nhom9.phoneshop.model.bean.CartBean;
 import nhom9.phoneshop.model.bean.CartItem;
 import nhom9.phoneshop.model.bean.ProductBean;
 import nhom9.phoneshop.model.bean.tables.Cart;
-import nhom9.phoneshop.model.bean.tables.CartsData;
 import nhom9.phoneshop.model.bo.CartBo;
 import nhom9.phoneshop.model.bo.MainBo;
 import nhom9.phoneshop.model.bo.ProductBo;
-import nhom9.phoneshop.model.bo.UserBo;
 
 @WebServlet("/customer")
 public class CustomerServlet extends HttpServlet {
