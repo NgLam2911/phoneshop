@@ -1,16 +1,16 @@
 package nhom9.phoneshop.model.bean.tables;
 
-public class Carts {
+public class Cart {
 
     private int CartID;
     private int CustomerID;
 
     private int Status;
 
-    public Carts(){
+    public Cart(){
     }
 
-    public Carts(int CartID, int CustomerID, int Status){
+    public Cart(int CartID, int CustomerID, int Status){
         this.CartID = CartID;
         this.CustomerID = CustomerID;
         this.Status = Status;

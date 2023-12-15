@@ -2,15 +2,15 @@ package nhom9.phoneshop.model.dao;
 
 import nhom9.phoneshop.model.bean.CartItem;
 import nhom9.phoneshop.model.bean.ProductBean;
-import nhom9.phoneshop.model.bean.tables.Carts;
+import nhom9.phoneshop.model.bean.tables.Cart;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CartDao extends BaseDao{
 
-    public Carts getCartsByID(int cartID){
-        Carts cart = null;
+    public Cart getCartByID(int cartID){
+        Cart cart = null;
         String sql = "SELECT * FROM carts WHERE CartID = ?";
         try{
             this.connect();
@@ -18,7 +18,7 @@ public class CartDao extends BaseDao{
             statement.setInt(1, cartID);
             var resultSet = statement.executeQuery();
             if(resultSet.next()){
-                cart = new Carts(
+                cart = new Cart(
                         resultSet.getInt("CartID"),
                         resultSet.getInt("CustomerID"),
                         resultSet.getInt("Status")
@@ -32,8 +32,8 @@ public class CartDao extends BaseDao{
         return cart;
     }
 
-    public Carts getLastPendingCartsByCustomerID(int customerID){
-        Carts cart = null;
+    public Cart getLastPendingCartByCustomerID(int customerID){
+        Cart cart = null;
         String sql = "SELECT * FROM carts WHERE CustomerID = ? AND Status = 0";
         try{
             this.connect();
@@ -41,7 +41,7 @@ public class CartDao extends BaseDao{
             statement.setInt(1, customerID);
             var resultSet = statement.executeQuery();
             if(resultSet.next()){
-                cart = new Carts(
+                cart = new Cart(
                         resultSet.getInt("CartID"),
                         resultSet.getInt("CustomerID"),
                         resultSet.getInt("Status")
@@ -55,27 +55,27 @@ public class CartDao extends BaseDao{
         return cart;
     }
 
-    public ArrayList<Carts> getCartsByCustomerID(int CustomerID){
-        ArrayList<Carts> carts = new ArrayList<>();
+    public Cart getCartByCustomerID(int CustomerID){
+        Cart cart = new Cart();
         String sql = "SELECT * FROM carts WHERE CustomerID = ?";
         try{
             this.connect();
             var statement = this.getConnection().prepareStatement(sql);
             statement.setInt(1, CustomerID);
             var resultSet = statement.executeQuery();
-            while(resultSet.next()){
-                carts.add(new Carts(
+            if(resultSet.next()){
+                cart = new Cart(
                         resultSet.getInt("CartID"),
                         resultSet.getInt("CustomerID"),
                         resultSet.getInt("Status")
-                ));
+                );
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             this.close();
         }
-        return carts;
+        return cart;
     }
 
     public ArrayList<CartItem> getCartItems(int CartID){

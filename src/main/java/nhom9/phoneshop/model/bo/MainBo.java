@@ -2,6 +2,7 @@ package nhom9.phoneshop.model.bo;
 
 import nhom9.phoneshop.model.bean.ProductBean;
 import nhom9.phoneshop.model.bean.tables.*;
+import nhom9.phoneshop.model.dao.CartDao;
 import nhom9.phoneshop.model.dao.MainDao;
 import nhom9.phoneshop.model.dao.ProductDao;
 
@@ -16,7 +17,7 @@ public class MainBo {
 
     // Controller -> Method -> Bo -> Dao -> Database
     // Describe what the Controller need to do
-    public ArrayList<Carts> getAllCarts() throws SQLException {
+    public ArrayList<Cart> getAllCarts() throws SQLException {
         return (new MainDao()).getAllCarts();
     }
 
@@ -32,8 +33,9 @@ public class MainBo {
         return (new MainDao()).getAllCategoriesData();
     }
 
-    public ArrayList<CartsData> getCartProducts() throws SQLException {
-        return (new MainDao()).getAllCartsData();
+    public Cart getCartItems(String username) throws SQLException {
+        int customerID = new MainDao().getCustomerID(username);
+        return (new CartDao()).getCartByCustomerID(customerID);
     }
 
     public void updateProductFromCart(String username) {
