@@ -132,4 +132,33 @@ public class UserDao extends BaseDao{
         }
         return customers;
     }
+
+    public CustomerBean getCustomer(String username){
+        CustomerBean customer = null;
+        String sql = "SELECT * FROM customers INNER JOIN users ON customers.Username = users.Username INNER JOIN roles ON users.RoleID = roles.RoleID WHERE customers.Username = ?";
+        try{
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            statement.setString(1, username);
+            var resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                customer = new CustomerBean(
+                        resultSet.getInt("CustomerID"),
+                        resultSet.getString("CustomerName"),
+                        resultSet.getString("Username"),
+                        resultSet.getString("Email"),
+                        resultSet.getString("Phone"),
+                        resultSet.getString("Address"),
+                        resultSet.getString("Password"),
+                        resultSet.getInt("RoleID"),
+                        resultSet.getString("RoleName")
+                );
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to connect to db", e);
+        } finally {
+            this.close();
+        }
+        return customer;
+    }
 }

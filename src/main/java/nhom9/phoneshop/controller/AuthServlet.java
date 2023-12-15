@@ -1,5 +1,6 @@
 package nhom9.phoneshop.controller;
 
+import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -156,9 +157,10 @@ public class AuthServlet extends HttpServlet{
         Double Capacity = Double.parseDouble(request.getParameter("txtCapacity"));
         Part part = request.getPart("txtImage");
         Collection<Part> clt = request.getParts();
+		String Color = request.getParameter("txtColor");
 		
 		ProductBo productBo = new ProductBo();
-		if (productBo.registerProduct(ProductName, Price, ManufacturerName, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, part, clt, DisplayHeight)) {
+		if (productBo.registerProduct(ProductName, Price, ManufacturerName, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, part, clt, DisplayHeight, Color)) {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListProduct.jsp");
 			rd.forward(request, response);
 		} else {

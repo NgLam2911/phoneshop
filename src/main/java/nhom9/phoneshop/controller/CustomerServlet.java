@@ -15,9 +15,7 @@ import javax.servlet.http.HttpSession;
 import nhom9.phoneshop.model.bean.CartBean;
 import nhom9.phoneshop.model.bean.CartItem;
 import nhom9.phoneshop.model.bean.ProductBean;
-import nhom9.phoneshop.model.bean.tables.Cart;
 import nhom9.phoneshop.model.bo.CartBo;
-import nhom9.phoneshop.model.bo.MainBo;
 import nhom9.phoneshop.model.bo.ProductBo;
 
 @WebServlet("/customer")
@@ -71,9 +69,7 @@ public class CustomerServlet extends HttpServlet {
 			throws ServletException, IOException, SQLException {
 		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("user");
-		CartBean cartBean = new CartBean();
-		ArrayList<CartItem> cartItems = new CartBo().getCartItems(username);
-		cartBean.setItems(cartItems);
+		CartBean cartBean = new CartBo().getCartByUsername(username);
 		request.setAttribute("cartBean", cartBean);
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("customer/test.jsp");
 		rd.forward(request, response);
@@ -84,15 +80,17 @@ public class CustomerServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("user");
 		ArrayList<CartItem> cartItems = (ArrayList<CartItem>) session.getAttribute("cartItems");
-		new CartBo().updateItemFromCart(username, cartItems);
+		new CartBo().updateCartItemsByUsername(username, cartItems);
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("customer/Cart.jsp");
 		rd.forward(request, response);
 	}
 
 	private void removeItemFromCart(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("user");
 		String id = request.getParameter("id");
-		new CartBo().removeItemFromCart(id);
+		new CartBo().removeProductByUsername(username, Integer.parseInt(id)); //TODO: Check Product ID pls.
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("customer/Cart.jsp");
 		rd.forward(request, response);
 	}

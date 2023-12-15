@@ -1,8 +1,11 @@
 package nhom9.phoneshop.model.bo;
 
+import nhom9.phoneshop.model.bean.CartBean;
+import nhom9.phoneshop.model.bean.CartItem;
 import nhom9.phoneshop.model.bean.ProductBean;
 import nhom9.phoneshop.model.dao.CartDao;
 import nhom9.phoneshop.model.dao.ProductDao;
+import nhom9.phoneshop.model.dao.UserDao;
 
 import java.util.ArrayList;
 
@@ -31,4 +34,51 @@ public class CartBo{
     public void clearCart(int CustomerID){
         (new CartDao()).clearCart(CustomerID);
     }
+
+    public CartBean getCart(int CustomerID){
+        CartBean cart = new CartBean();
+        cart.setCustomerID(CustomerID);
+        cart.setItems((new CartDao()).getCartItems(CustomerID));
+        return cart;
+    }
+
+    public void updateCartItems(int CustomerID, ArrayList<CartItem> items){
+        //Clear cart and add back stock to products
+        this.clearCart(CustomerID);
+        //TODO: Check back stock pls
+        for (CartItem item : items){
+            this.addProduct(CustomerID, item.getProduct().getProductID(), item.getAmount());
+        }
+    }
+
+    public CartBean getCartByUsername(String username){
+        int CustomerID = (new UserDao()).getCustomer(username).getCustomerID();
+        return this.getCart(CustomerID);
+    }
+
+    public void addProductByUsername(String username, int ProductID, int Amount){
+        int CustomerID = (new UserDao()).getCustomer(username).getCustomerID();
+        this.addProduct(CustomerID, ProductID, Amount);
+    }
+
+    public void removeProductByUsername(String username, int ProductID){
+        int CustomerID = (new UserDao()).getCustomer(username).getCustomerID();
+        this.removeProduct(CustomerID, ProductID);
+    }
+
+    public void updateProductAmountByUsername(String username, int ProductID, int Amount){
+        int CustomerID = (new UserDao()).getCustomer(username).getCustomerID();
+        this.updateProductAmount(CustomerID, ProductID, Amount);
+    }
+
+    public void clearCartByUsername(String username){
+        int CustomerID = (new UserDao()).getCustomer(username).getCustomerID();
+        this.clearCart(CustomerID);
+    }
+
+    public void updateCartItemsByUsername(String username, ArrayList<CartItem> items){
+        int CustomerID = (new UserDao()).getCustomer(username).getCustomerID();
+        this.updateCartItems(CustomerID, items);
+    }
+
 }
