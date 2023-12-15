@@ -55,14 +55,13 @@ public class CustomerServlet extends HttpServlet {
 		}
 	}
 
-	private ArrayList<ProductBean> getAllProducts(HttpServletRequest request, HttpServletResponse response)
+	private void getAllProducts(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ArrayList<ProductBean> list = new ArrayList<>();
+		ArrayList<ProductBean> list;
 		list = new ProductBo().getAllProducts();
 		request.setAttribute("ItemList", list);
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/listProduct.jsp");
 		rd.forward(request, response);
-		return list;
 	}
 
 	private void getCartItems(HttpServletRequest request, HttpServletResponse response)

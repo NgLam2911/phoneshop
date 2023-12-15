@@ -89,7 +89,7 @@ public class AuthServlet extends HttpServlet{
 	}
 
 	private void checkRegister(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String customername = request.getParameter("txtCustomerName");
+		String customer = request.getParameter("txtCustomerName");
 		String username = request.getParameter("txtUsername");
 		String email = request.getParameter("txtEmail");
 		String phone = request.getParameter("txtPhone");
@@ -97,7 +97,7 @@ public class AuthServlet extends HttpServlet{
 		String password = request.getParameter("txtPassword");
 
 		UserBo userBo = new UserBo();
-		if (userBo.registerGuest(customername, username, email, phone, password, address)) {
+		if (userBo.registerGuest(customer, username, email, phone, password, address)) {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
 			rd.forward(request, response);
 		} else {
@@ -107,7 +107,7 @@ public class AuthServlet extends HttpServlet{
 	}
 
 	private void getAllProducts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<ProductBean> list = new ArrayList<>();
+		ArrayList<ProductBean> list;
 		list = new ProductBo().getAllProducts();
 		request.setAttribute("pdList", list);
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/listProduct.jsp");
@@ -136,7 +136,7 @@ public class AuthServlet extends HttpServlet{
     }
 
 	private void listProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        ArrayList<ProductBean> list = new ArrayList<>();
+        ArrayList<ProductBean> list;
 		list = new ProductBo().getAllProducts();
 		request.setAttribute("pdList", list);
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListProduct.jsp");
@@ -150,11 +150,11 @@ public class AuthServlet extends HttpServlet{
         String CPU = request.getParameter("txtCPU");
         String RAM = request.getParameter("txtRAM");
         String DisplaySize = request.getParameter("txtDisplaySize");
-        Integer DisplayWidth = Integer.parseInt(request.getParameter("txtDisplayWidth"));
-        Integer DisplayHeight = Integer.parseInt(request.getParameter("txtDisplayHeight"));
+        int DisplayWidth = Integer.parseInt(request.getParameter("txtDisplayWidth"));
+        int DisplayHeight = Integer.parseInt(request.getParameter("txtDisplayHeight"));
         String OS = request.getParameter("txtOS");
         String Battery = request.getParameter("txtBattery");
-        Double Capacity = Double.parseDouble(request.getParameter("txtCapacity"));
+        double Capacity = Double.parseDouble(request.getParameter("txtCapacity"));
         Part part = request.getPart("txtImage");
         Collection<Part> clt = request.getParts();
 		String Color = request.getParameter("txtColor");
@@ -170,7 +170,7 @@ public class AuthServlet extends HttpServlet{
 	}
 
 	private void editProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-		Integer ProductID = Integer.parseInt(request.getParameter("id"));
+		int ProductID = Integer.parseInt(request.getParameter("id"));
 		ProductBo productBo = new ProductBo();
 		ProductBean pd = productBo.getProduct(ProductID);
 		request.setAttribute("pd", pd);
@@ -179,9 +179,9 @@ public class AuthServlet extends HttpServlet{
 	}
 
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-		Integer ProuductID = Integer.parseInt(request.getParameter("ProductID"));
+		int ProductID = Integer.parseInt(request.getParameter("ProductID"));
         ProductBo productBo = new ProductBo();
-        productBo.deleteProduct(ProuductID);
+        productBo.deleteProduct(ProductID);
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListProduct.jsp");
 		rd.forward(request, response);	
 	}
