@@ -2,6 +2,7 @@ package nhom9.phoneshop.model.bo;
 
 import nhom9.phoneshop.model.bean.ProductBean;
 import nhom9.phoneshop.model.bean.tables.Manufacturers;
+import nhom9.phoneshop.model.dao.CategoryDao;
 import nhom9.phoneshop.model.dao.ManufacturerDao;
 import nhom9.phoneshop.model.dao.ProductDao;
 
@@ -49,5 +50,15 @@ public class ProductBo {
 
     public ProductBean getProduct(int productID) {
         return (new ProductDao()).getProduct(productID);
+    }
+
+    public void addCategory(int ProductID, String categoryName){
+        CategoryDao categoryDao = new CategoryDao();
+        int categoryID = categoryDao.getCategoryID(categoryName);
+        if (categoryID == -1){
+            categoryDao.addCategory(categoryName);
+            categoryID = categoryDao.getCategoryID(categoryName);
+        }
+        categoryDao.addCategoryToProduct(ProductID, categoryID);
     }
 }
