@@ -16,7 +16,7 @@ public class ProductBo {
         return (new ProductDao()).getAllProducts();
     }
 
-    public boolean registerProduct(String productName, double price, String manufacturerName, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, Part image, Collection<Part> imageContent, int quantity) throws IOException {
+    public boolean registerProduct(String productName, double price, String manufacturerName, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, Part image, Collection<Part> imageContent, int quantity, String color) throws IOException {
         String fileName = image.getSubmittedFileName();
         String imageLink = "upload/" + fileName;
         for (Part part : imageContent) {

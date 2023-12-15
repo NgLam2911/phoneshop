@@ -30,7 +30,8 @@ public class ProductDao extends BaseDao {
                 double capacity = resultSet.getDouble("Capacity");
                 String image = resultSet.getString("Image");
                 int quantity = resultSet.getInt("Quantity");
-                products.add(new ProductBean(productID, productName, price, manufacturerID, manufacturerName, cpu, ram, displaySize, displayWidth, displayHeight, os, battery, capacity, image, quantity));
+                String color = resultSet.getString("Color");
+                products.add(new ProductBean(productID, productName, price, manufacturerID, manufacturerName, cpu, ram, displaySize, displayWidth, displayHeight, os, battery, capacity, image, quantity, color));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -63,7 +64,8 @@ public class ProductDao extends BaseDao {
                 double capacity = resultSet.getDouble("Capacity");
                 String image = resultSet.getString("Image");
                 int quantity = resultSet.getInt("Quantity");
-                product = new ProductBean(productID, productName, price, manufacturerID, manufacturerName, cpu, ram, displaySize, displayWidth, displayHeight, os, battery, capacity, image, quantity);
+                String color = resultSet.getString("Color");
+                product = new ProductBean(productID, productName, price, manufacturerID, manufacturerName, cpu, ram, displaySize, displayWidth, displayHeight, os, battery, capacity, image, quantity, color);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -73,9 +75,9 @@ public class ProductDao extends BaseDao {
         return product;
     }
 
-    public void registerProduct(String productName, double price, int manufacturerID, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, String image, int quantity){
-        String sql = "INSERT INTO products(ProductName, Price, ManufacturerID, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, Image, Quantity) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public void registerProduct(String productName, double price, int manufacturerID, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, String image, int quantity, String color){
+        String sql = "INSERT INTO products(ProductName, Price, ManufacturerID, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, Image, Quantity, Color) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try{
             this.connect();
             var statement = this.getConnection().prepareStatement(sql);
@@ -92,6 +94,7 @@ public class ProductDao extends BaseDao {
             statement.setDouble(11, capacity);
             statement.setString(12, image);
             statement.setInt(13, quantity);
+            statement.setString(14, color);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -100,8 +103,8 @@ public class ProductDao extends BaseDao {
         }
     }
 
-    public void updateProduct(int productID, String productName, double price, int manufacturerID, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, String image, int quantity){
-        String sql = "UPDATE products SET ProductName = ?, Price = ?, ManufacturerID = ?, CPU = ?, RAM = ?, DisplaySize = ?, DisplayWidth = ?, DisplayHeight = ?, OS = ?, Battery = ?, Capacity = ?, Image = ?, Quantity = ? WHERE ProductID = ?";
+    public void updateProduct(int productID, String productName, double price, int manufacturerID, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, String image, int quantity, String color){
+        String sql = "UPDATE products SET ProductName = ?, Price = ?, ManufacturerID = ?, CPU = ?, RAM = ?, DisplaySize = ?, DisplayWidth = ?, DisplayHeight = ?, OS = ?, Battery = ?, Capacity = ?, Image = ?, Quantity = ?, Color = ? WHERE ProductID = ?";
         try{
             this.connect();
             var statement = this.getConnection().prepareStatement(sql);
@@ -118,7 +121,8 @@ public class ProductDao extends BaseDao {
             statement.setDouble(11, capacity);
             statement.setString(12, image);
             statement.setInt(13, quantity);
-            statement.setInt(14, productID);
+            statement.setString(14, color);
+            statement.setInt(15, productID);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

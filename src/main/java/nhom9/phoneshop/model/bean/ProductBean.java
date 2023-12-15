@@ -20,10 +20,12 @@ public class ProductBean {
 
     private int Quantity;
 
+    private String Color;
+
     public ProductBean() {
     }
 
-    public ProductBean(int ProductID, String ProductName, double Price, int ManufacturerID, String ManufacturerName, String CPU, String RAM, String DisplaySize, int DisplayWidth, int DisplayHeight, String OS, String Battery, double Capacity, String Image, int Quantity) {
+    public ProductBean(int ProductID, String ProductName, double Price, int ManufacturerID, String ManufacturerName, String CPU, String RAM, String DisplaySize, int DisplayWidth, int DisplayHeight, String OS, String Battery, double Capacity, String Image, int Quantity, String Color) {
         this.ProductID = ProductID;
         this.ProductName = ProductName;
         this.Price = Price;
@@ -39,6 +41,7 @@ public class ProductBean {
         this.Capacity = Capacity;
         this.Image = Image;
         this.Quantity = Quantity;
+        this.Color = Color;
     }
 
     public int getProductID() {
@@ -101,6 +104,10 @@ public class ProductBean {
         return this.Quantity;
     }
 
+    public String getColor(){
+        return this.Color;
+    }
+
     public void setProductID(int ProductID) {
         this.ProductID = ProductID;
     }
@@ -159,5 +166,9 @@ public class ProductBean {
 
     public void setQuantity(int Quantity){
         this.Quantity = Quantity;
+    }
+
+    public void setColor(String Color){
+        this.Color = Color;
     }
 }
