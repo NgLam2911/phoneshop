@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class CartBo{
 
-    public boolean buyProduct(int CustomerID, int ProductID, int Amount){
+    public boolean addProduct(int CustomerID, int ProductID, int Amount){
         ProductDao productDao = new ProductDao();
         ProductBean product = productDao.getProduct(ProductID);
         if (product.getQuantity() > Amount){
@@ -22,5 +22,13 @@ public class CartBo{
 
     public void removeProduct(int CustomerID, int ProductID){
         (new CartDao()).removeProductFromCart(CustomerID, ProductID);
+    }
+
+    public void updateProductAmount(int CustomerID, int ProductID, int Amount){
+        (new CartDao()).updateProductAmount(CustomerID, ProductID, Amount);
+    }
+
+    public void clearCart(int CustomerID){
+        (new CartDao()).clearCart(CustomerID);
     }
 }
