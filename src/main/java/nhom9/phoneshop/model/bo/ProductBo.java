@@ -72,4 +72,8 @@ public class ProductBo {
     public ArrayList<Categories> getCategories(int ProductID){
         return (new CategoryDao()).getCategoriesOfProduct(ProductID);
     }
+
+    public ArrayList<ProductBean> search(String keyword){
+        return (new ProductDao()).searchProduct(keyword);
+    }
 }
