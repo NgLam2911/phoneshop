@@ -7,9 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Xem danh sách sản phẩm</title>
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-
-</head>
+    </head>
 <body>
 	<h3 align="center">Bảng sản phẩm</h3>
 	<table border="1" width="100%">
@@ -24,8 +22,7 @@
         <td>Dung lượng pin</td>
         <td>Dung lượng bộ nhớ</td>
         <td>Hình ảnh sản phẩm</td>
-        <td>Sửa</td>
-        <td>Xóa</td>
+        <td>Thêm vào giỏ hàng</td>
 	</tr>
 	<%
 		ArrayList<ProductBean> pdList = (ArrayList<ProductBean>)request.getAttribute("pdList");
@@ -42,8 +39,7 @@
 			<td><%= pdList.get(i).getBattery() %></td>
             <td><%= pdList.get(i).getCapacity() %></td>
 			<td><%= pdList.get(i).getImage() %></td>
-            <td><a href="<%=request.getContextPath()%>/editProduct?id=<%= pdList.get(i).getProductID() %>">Sửa</a></td>
-            <td><a href="<%=request.getContextPath()%>/removeProduct?id=<%= pdList.get(i).getProductID() %>">Xóa</a></td>
+            <td><a href="<%=request.getContextPath()%>/addProductToCart?id=<%= pdList.get(i).getProductID() %>">Thêm vào giỏ hàng</a></td>
 		</tr>
 	<% } %>
 	</table>
