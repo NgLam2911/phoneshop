@@ -1,7 +1,5 @@
 package nhom9.phoneshop.model.bo;
 
-import nhom9.phoneshop.model.bean.CartBean;
-import nhom9.phoneshop.model.bean.CartItem;
 import nhom9.phoneshop.model.bean.ProductBean;
 import nhom9.phoneshop.model.dao.CartDao;
 import nhom9.phoneshop.model.dao.MainDao;
@@ -38,7 +36,7 @@ public class CartBo{
         if (product.getQuantity() > Amount){
             product.setQuantity(product.getQuantity() - Amount);
             productDao.updateQuantity(product.getProductID(), product.getQuantity());
-            (new CartDao()).addProductToCart(CartID, ProductID, Amount);
+            (new CartDao()).addProductToCart(CustomerID, ProductID, Amount);
             return true;
         }
         return false;

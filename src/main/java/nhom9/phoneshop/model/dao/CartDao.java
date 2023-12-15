@@ -8,58 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CartDao extends BaseDao{
-
-    public Cart getCartByID(int cartID){
-        Cart cart = null;
-        String sql = "SELECT * FROM carts WHERE CartID = ?";
-        try{
-            this.connect();
-            var statement = this.getConnection().prepareStatement(sql);
-            statement.setInt(1, cartID);
-            var resultSet = statement.executeQuery();
-            if(resultSet.next()){
-                cart = new Cart(
-                        resultSet.getInt("CartID"),
-                        resultSet.getInt("CustomerID"),
-                        resultSet.getInt("Status")
-                );
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            this.close();
-        }
-        return cart;
-    }
-
-    public Cart getLastPendingCartByCustomerID(int customerID){
-        Cart cart = null;
-        String sql = "SELECT * FROM carts WHERE CustomerID = ? AND Status = 0";
-        try{
-            this.connect();
-            var statement = this.getConnection().prepareStatement(sql);
-            statement.setInt(1, customerID);
-            var resultSet = statement.executeQuery();
-            if(resultSet.next()){
-                cart = new Cart(
-                        resultSet.getInt("CartID"),
-                        resultSet.getInt("CustomerID"),
-                        resultSet.getInt("Status")
-                );
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            this.close();
-        }
-        return cart;
-    }
-
     public ArrayList<CartItem> getCartItems(int CustomerID){
         ArrayList<CartItem> items = new ArrayList<>();
         String sql =
-                "SELECT * FROM cartsdata " +
-                "INNER JOIN products ON cartsdata.ProductID = products.ProductID " +
+                "SELECT * FROM carts " +
+                "INNER JOIN products ON carts.ProductID = products.ProductID " +
                 "INNER JOIN manufacturers ON products.ManufacturerID = manufacturers.ManufacturerID " +
                 "WHERE CustomerID = ?";
         try{
@@ -93,12 +46,12 @@ public class CartDao extends BaseDao{
         return items;
     }
 
-    public void addProductToCart(int CartID, int ProductID, int Amount){
-        String sql = "INSERT INTO cartsdata (CartID, ProductID, Amount) VALUES (?, ?, ?)";
+    public void addProductToCart(int CustomerID, int ProductID, int Amount){
+        String sql = "INSERT INTO carts (CustomerID, ProductID, Amount) VALUES (?, ?, ?)";
         try{
             this.connect();
             var statement = this.getConnection().prepareStatement(sql);
-            statement.setInt(1, CartID);
+            statement.setInt(1, CustomerID);
             statement.setInt(2, ProductID);
             statement.setInt(3, Amount);
             statement.executeUpdate();
@@ -109,12 +62,12 @@ public class CartDao extends BaseDao{
         }
     }
 
-    public void removeProductFromCart(int CartID, int ProductID){
-        String sql = "DELETE FROM cartsdata WHERE CartID = ? AND ProductID = ?";
+    public void removeProductFromCart(int CustomerID, int ProductID){
+        String sql = "DELETE FROM carts WHERE CustomerID = ? AND ProductID = ?";
         try{
             this.connect();
             var statement = this.getConnection().prepareStatement(sql);
-            statement.setInt(1, CartID);
+            statement.setInt(1, CustomerID);
             statement.setInt(2, ProductID);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -124,62 +77,15 @@ public class CartDao extends BaseDao{
         }
     }
 
-    public void updateProductAmount(int CartID, int ProductID, int Amount){
-        String sql = "UPDATE cartsdata SET Amount = ? WHERE CartID = ? AND ProductID = ?";
-        try{
-            this.connect();
-            var statement = this.getConnection().prepareStatement(sql);
-            statement.setInt(1, Amount);
-            statement.setInt(2, CartID);
-            statement.setInt(3, ProductID);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            this.close();
-        }
-    }
-
-    public void updateCartStatus(int CartID, int Status){
-        String sql = "UPDATE carts SET Status = ? WHERE CartID = ?";
-        try{
-            this.connect();
-            var statement = this.getConnection().prepareStatement(sql);
-            statement.setInt(1, Status);
-            statement.setInt(2, CartID);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            this.close();
-        }
-    }
-
-    public void createCart(int CustomerID){
-        String sql = "INSERT INTO carts (CustomerID, Status) VALUES (?, 0)";
-        try{
-            this.connect();
-            var statement = this.getConnection().prepareStatement(sql);
-            statement.setInt(1, CustomerID);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            this.close();
-        }
-    }
-
-    public void UpdateItemFromCart(String username, ArrayList<CartItem> cartItems) {
+    public void updateProductAmount(int CustomerID, int ProductID, int Amount){
         String sql = "UPDATE carts SET Amount = ? WHERE CustomerID = ? AND ProductID = ?";
         try{
             this.connect();
             var statement = this.getConnection().prepareStatement(sql);
-            for (CartItem item : cartItems){
-                statement.setInt(1, item.getAmount());
-                statement.setInt(2, new MainDao().getCustomerID(username));
-                statement.setInt(3, item.getProduct().getProductID());
-                statement.executeUpdate();
-            }
+            statement.setInt(1, Amount);
+            statement.setInt(2, CustomerID);
+            statement.setInt(3, ProductID);
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
