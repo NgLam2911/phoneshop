@@ -55,40 +55,17 @@ public class CartDao extends BaseDao{
         return cart;
     }
 
-    public Cart getCartByCustomerID(int CustomerID){
-        Cart cart = new Cart();
-        String sql = "SELECT * FROM carts WHERE CustomerID = ?";
-        try{
-            this.connect();
-            var statement = this.getConnection().prepareStatement(sql);
-            statement.setInt(1, CustomerID);
-            var resultSet = statement.executeQuery();
-            if(resultSet.next()){
-                cart = new Cart(
-                        resultSet.getInt("CartID"),
-                        resultSet.getInt("CustomerID"),
-                        resultSet.getInt("Status")
-                );
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            this.close();
-        }
-        return cart;
-    }
-
-    public ArrayList<CartItem> getCartItems(int CartID){
+    public ArrayList<CartItem> getCartItems(int CustomerID){
         ArrayList<CartItem> items = new ArrayList<>();
         String sql =
                 "SELECT * FROM cartsdata " +
                 "INNER JOIN products ON cartsdata.ProductID = products.ProductID " +
                 "INNER JOIN manufacturers ON products.ManufacturerID = manufacturers.ManufacturerID " +
-                "WHERE CartID = ?";
+                "WHERE CustomerID = ?";
         try{
             this.connect();
             var statement = this.getConnection().prepareStatement(sql);
-            statement.setInt(1, CartID);
+            statement.setInt(1, CustomerID);
             var resultSet = statement.executeQuery();
             while(resultSet.next()){
                 ProductBean product = new ProductBean();
@@ -185,6 +162,24 @@ public class CartDao extends BaseDao{
             var statement = this.getConnection().prepareStatement(sql);
             statement.setInt(1, CustomerID);
             statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            this.close();
+        }
+    }
+
+    public void UpdateItemFromCart(String username, ArrayList<CartItem> cartItems) {
+        String sql = "UPDATE carts SET Amount = ? WHERE CustomerID = ? AND ProductID = ?";
+        try{
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            for (CartItem item : cartItems){
+                statement.setInt(1, item.getAmount());
+                statement.setInt(2, new MainDao().getCustomerID(username));
+                statement.setInt(3, item.getProduct().getProductID());
+                statement.executeUpdate();
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
