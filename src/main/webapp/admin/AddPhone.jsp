@@ -62,7 +62,7 @@
         ArrayList<ProductBean> pdList = (ArrayList<ProductBean>)request.getAttribute("pdList");
     %>
     <h2>Thêm sản phẩm</h2>
-    <form name="addProductForm" id="addProductForm" action="AddProduct" method="post">
+    <form name="addProductForm" id="addProductForm" action="/authServlet?action=AddProduct" method="post">
         <table id="registrationTable">
             <tr>
                 <td>Tên sản phẩm</td>

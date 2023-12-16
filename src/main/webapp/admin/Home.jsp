@@ -15,9 +15,9 @@
 	%>
 		<h2>Chào mừng quản trị viên</h2>
         <h2><%= user %></h2>
-		<a href="<%=request.getContextPath()%>/AdminGetProduct">Xem sản phẩm</a> <br>
-		<a href="<%=request.getContextPath()%>/AddProduct">Thêm sản phẩm</a> <br>
-		<a href="<%=request.getContextPath()%>/AdminSearchProduct">Tìm kiếm sản phẩm (admin)</a> <br>
+		<a href="<%=request.getContextPath()%>/authServlet?action=AdminGetProduct">Xem sản phẩm</a> <br>
+		<a href="<%=request.getContextPath()%>/authServlet?action=AddProduct">Thêm sản phẩm</a> <br>
+		<a href="<%=request.getContextPath()%>/authServlet?action=AdminSearchProduct">Tìm kiếm sản phẩm (admin)</a> <br>
 	<% } %>
 </body>
 </html>

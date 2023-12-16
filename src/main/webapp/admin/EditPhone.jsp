@@ -57,7 +57,7 @@
 
 <body>
     <h2>Thêm sản phẩm</h2>
-    <form name="editProductForm" id="editProductForm" action="EditProduct" method="post">
+    <form name="editProductForm" id="editProductForm" action="/authServlet?action=AddProduct" method="post">
         <table id="registrationTable">
             <tr>
                 <td>Tên sản phẩm</td>

@@ -39,7 +39,7 @@
 			<td><%= pdList.get(i).getBattery() %></td>
             <td><%= pdList.get(i).getCapacity() %></td>
 			<td><%= pdList.get(i).getImage() %></td>
-            <td><a href="<%=request.getContextPath()%>/addProductToCart?id=<%= pdList.get(i).getProductID() %>">Thêm vào giỏ hàng</a></td>
+            <td><a href="<%=request.getContextPath()%>/authServlet?action=addProductToCart&id=<%= pdList.get(i).getProductID() %>">Thêm vào giỏ hàng</a></td>
 		</tr>
 	<% } %>
 	</table>

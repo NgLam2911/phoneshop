@@ -11,8 +11,8 @@
 	%>
 		<h2>Chào mừng </h2>
         <h2><%= user %></h2>
-		<a href="<%=request.getContextPath()%>/SearchProduct">Tìm kiếm điện thoại</a> <br>
-		<a href="<%=request.getContextPath()%>/GetProduct">Xem điện thoại</a> <br>
+		<a href="<%=request.getContextPath()%>/authServlet?action=SearchProduct">Tìm kiếm điện thoại</a> <br>
+		<a href="<%=request.getContextPath()%>/authServlet?action=GetProduct">Xem điện thoại</a> <br>
 	<% } %>
 </body>
 </html>
