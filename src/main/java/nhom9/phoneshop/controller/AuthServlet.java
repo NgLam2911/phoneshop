@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import nhom9.phoneshop.model.bean.ProductBean;
+import nhom9.phoneshop.model.bean.tables.Manufacturers;
+import nhom9.phoneshop.model.bo.ManufacturerBo;
 import nhom9.phoneshop.model.bo.ProductBo;
 import nhom9.phoneshop.model.bo.UserBo;
 
@@ -50,8 +52,11 @@ public class AuthServlet extends HttpServlet{
 			case "AdminGetProduct":
                 listProduct(request, response);
                 break;
-			case "AddProduct": 
+			case "AdminAddProduct": 
 				addProduct(request, response);
+				break;
+			case "AddProduct":
+				handleAddProduct(request, response);
 				break;
 			case "EditProduct":
 				editProduct(request, response);
@@ -139,11 +144,21 @@ public class AuthServlet extends HttpServlet{
         ArrayList<ProductBean> list;
 		list = new ProductBo().getAllProducts();
 		request.setAttribute("pdList", list);
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListProduct.jsp");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListPhone.jsp");
 		rd.forward(request, response);	
 	}
 
-    private void addProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void addProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        ArrayList<ProductBean> list;
+		list = new ProductBo().getAllProducts();
+		ArrayList<Manufacturers> mfList = new ManufacturerBo().getAllManufacturers();
+		request.setAttribute("pdList", list);
+		request.setAttribute("mfList", mfList);
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/AddPhone.jsp");
+		rd.forward(request, response);	
+	}
+
+    private void handleAddProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String ProductName = request.getParameter("txtProductName");
 		double Price = Double.parseDouble(request.getParameter("txtPrice"));
         String ManufacturerName = request.getParameter("txtManufacturerName");
@@ -161,9 +176,11 @@ public class AuthServlet extends HttpServlet{
 		String Color = request.getParameter("txtColor");
 		
 		ProductBo productBo = new ProductBo();
-		if (productBo.registerProduct(ProductName, Price, ManufacturerName, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, part, clt, DisplayHeight, Color)) {
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListProduct.jsp");
+		//productBo.registerProduct(ProductName, Price, ManufacturerName, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, part, clt, Quantity, Color);
+		if (productBo.registerProduct(ProductName, Price, ManufacturerName, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, part, clt, Quantity, Color)) {
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListPhone.jsp");
 			rd.forward(request, response);
+			//response.sendRedirect("AdminGetProduct");
 		} else {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/Error.jsp");
 			rd.forward(request, response);
@@ -175,7 +192,7 @@ public class AuthServlet extends HttpServlet{
 		ProductBo productBo = new ProductBo();
 		ProductBean pd = productBo.getProduct(ProductID);
 		request.setAttribute("pd", pd);
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/EditProduct.jsp");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/EditPhone.jsp");
 		rd.forward(request, response);
 	}
 
@@ -183,7 +200,7 @@ public class AuthServlet extends HttpServlet{
 		int ProductID = Integer.parseInt(request.getParameter("ProductID"));
         ProductBo productBo = new ProductBo();
         productBo.deleteProduct(ProductID);
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListProduct.jsp");
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListPhone.jsp");
 		rd.forward(request, response);	
 	}
 }

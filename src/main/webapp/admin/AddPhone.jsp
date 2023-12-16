@@ -1,3 +1,5 @@
+<%@ page import="nhom9.phoneshop.model.bean.tables.Manufacturers"%>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,13 +67,19 @@
                 </td>
             </tr>
             <tr>
-                <td>Giá sản phẩm</td>
+                <td>Giá sản phẩm (VNĐ)</td>
                 <td><label for="txtPrice"></label><input type="text" name="txtPrice" id="txtPrice" value="" required>
                 </td>
             </tr>
             <tr>
                 <td>Tên hãng</td>
-                <td><label for="txtManufacturerName"></label><input type="text" name="txtManufacturerName" id="txtManufacturerName" value="" required>
+                <td><label for="txtManufacturerName"></label><select name="txtManufacturerName" id="txtManufacturerName">
+					<% ArrayList<Manufacturers> mfList = (ArrayList<Manufacturers>)request.getAttribute("mfList"); 
+						for (int i = 0; i < mfList.size(); i++) {
+					%>
+						<option value=<%= mfList.get(i).getManufacturerName() %>><%= mfList.get(i).getManufacturerName() %></option>
+					<% } %>
+					</select>
                 </td>
             </tr>
             <tr>
@@ -80,7 +88,7 @@
                 </td>
             </tr>
             <tr>
-                <td>RAM</td>
+                <td>RAM (GB)</td>
                 <td><label for="txtRAM"></label><input type="text" name="txtRAM" id="txtRAM" value="" required>
                 </td>
             </tr>
@@ -109,18 +117,18 @@
                 </td>
             </tr>
             <tr>
-                <td>Dung lượng pin</td>
+                <td>Dung lượng pin (mAh)</td>
                 <td><label for="txtBattery"></label><input type="text" name="txtBattery" id="txtBattery" value="" required>
                 </td>
             </tr>
             <tr>
-                <td>Dung lượng bộ nhớ</td>
+                <td>Dung lượng bộ nhớ (GB)</td>
                 <td><label for="txtCapacity"></label><input type="text" name="txtCapacity" id="txtCapacity" value="" required>
                 </td>
             </tr>
             <tr>
                 <td>Màu sắc</td>
-                <td><label for="txtColor"></label><input type="file" name="txtColor" id="txtColor" value="" required>
+                <td><label for="txtColor"></label><input type="text" name="txtColor" id="txtColor" value="" required>
                 </td>
             </tr>
             <tr>
@@ -130,11 +138,11 @@
             </tr>
             <tr>
                 <td>Số lượng</td>
-                <td><label for="txtQuantity"></label><input type="file" name="txtQuantity" id="txtQuantity" value="" required>
+                <td><label for="txtQuantity"></label><input type="text" name="txtQuantity" id="txtQuantity" value="" required>
                 </td>
             </tr>
                 <td></td>
-                <td><input type="submit" name="Register" id="Register" value="Đăng ký"></td>
+                <td><input type="submit" name="Register" id="Register" value="Thêm mới"></td>
             </tr>
         </table>
     </form>

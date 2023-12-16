@@ -75,14 +75,14 @@
 	%>
 		<tr>
 			<td><%= pdList.get(i).getProductName() %></td>
-			<td><%= pdList.get(i).getPrice() %></td>
+			<td><%= pdList.get(i).getPrice() %> đ</td>
 			<td><%= pdList.get(i).getManufacturerName() %></td>
 			<td><%= pdList.get(i).getCPU() %></td>
-            <td><%= pdList.get(i).getRAM() %></td>
-			<td><%= pdList.get(i).getDisplaySize() %></td>
+            <td><%= pdList.get(i).getRAM() %> GB</td>
+			<td><%= pdList.get(i).getDisplayHeight() %>x<%= pdList.get(i).getDisplayWidth() %></td>
 			<td><%= pdList.get(i).getOS() %></td>
-			<td><%= pdList.get(i).getBattery() %></td>
-            <td><%= pdList.get(i).getCapacity() %></td>
+			<td><%= pdList.get(i).getBattery() %> mAh</td>
+            <td><%= pdList.get(i).getCapacity() %> GB</td>
 			<td><%= pdList.get(i).getImage() %></td>
             <td><a href="<%=request.getContextPath()%>/authServlet?action=EditProduct&id=<%= pdList.get(i).getProductID() %>">Sửa</a></td>
             <td><a href="<%=request.getContextPath()%>/authServlet?action=RemoveProduct&id=<%= pdList.get(i).getProductID() %>">Xóa</a></td>
