@@ -37,7 +37,7 @@ public class CartBean {
     }
 
     public void addItem(ProductBean product, int Amount, boolean IsPaid){
-        Items.add(new CartItem(product, Amount, IsPaid));
+        Items.add(new CartItem(product, Amount));//, IsPaid));
     }
 
     public void removeItem(int index){

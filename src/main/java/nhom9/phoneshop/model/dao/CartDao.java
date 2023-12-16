@@ -34,7 +34,7 @@ public class CartDao extends BaseDao{
                 product.setBattery(resultSet.getString("Battery"));
                 product.setCapacity(resultSet.getDouble("Capacity"));
                 product.setImage(resultSet.getString("Image"));
-                items.add(new CartItem(product, resultSet.getInt("Amount"), resultSet.getBoolean("IsPaid")));
+                items.add(new CartItem(product, resultSet.getInt("Amount")));//, resultSet.getBoolean("IsPaid")));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -68,18 +68,18 @@ public class CustomerServlet extends HttpServlet {
 			throws ServletException, IOException, SQLException {
 		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("user");
-		//CartBean cartBean = new CartBo().getCartByUsername(username);
-		ProductBean product1 = new ProductBean( 1, "Iphone 11", 10000000, 1, "Apple", "A13 Bionic", "4GB", "6.1 inch", 828, 1792, "IOS 13", "3110 mAh", 64, "https://cdn.tgdd.vn/Products/Images/42/153856/iphone-11-red-400x460.png", 1, "Red");
-		ProductBean product2 = new ProductBean( 2, "Iphone 12", 10000000, 1, "Apple", "A13 Bionic", "4GB", "6.1 inch", 828, 1792, "IOS 13", "3110 mAh", 64, "https://cdn.tgdd.vn/Products/Images/42/153856/iphone-11-red-400x460.png", 1, "Red");
-		CartItem cartItem1 = new CartItem(product1, 3, false);
-		CartItem cartItem2 = new CartItem(product2, 2, false);
-		ArrayList<CartItem> cartItems = new ArrayList<CartItem>();
-		cartItems.add(cartItem1);
-		cartItems.add(cartItem2);
-		CartBean cartBean = new CartBean(1, 1, cartItems);
-		cartBean.getItems().get(0).getProduct().getProductName();
+		CartBean cartBean = new CartBo().getCartByUsername(username);
+		// ProductBean product1 = new ProductBean( 1, "Iphone 11", 10000000, 1, "Apple", "A13 Bionic", "4GB", "6.1 inch", 828, 1792, "IOS 13", "3110 mAh", 64, "https://cdn.tgdd.vn/Products/Images/42/153856/iphone-11-red-400x460.png", 1, "Red");
+		// ProductBean product2 = new ProductBean( 2, "Iphone 12", 10000000, 1, "Apple", "A13 Bionic", "4GB", "6.1 inch", 828, 1792, "IOS 13", "3110 mAh", 64, "https://cdn.tgdd.vn/Products/Images/42/153856/iphone-11-red-400x460.png", 1, "Red");
+		// CartItem cartItem1 = new CartItem(product1, 3, false);
+		// CartItem cartItem2 = new CartItem(product2, 2, false);
+		// ArrayList<CartItem> cartItems = new ArrayList<CartItem>();
+		// cartItems.add(cartItem1);
+		// cartItems.add(cartItem2);
+		// CartBean cartBean = new CartBean(1, 1, cartItems);
+		// cartBean.getItems().get(0).getProduct().getProductName();
 		request.setAttribute("cartBean", cartBean);
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/customer/Cart-test.jsp");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/customer/Cart.jsp");
 		rd.forward(request, response);
 	}
 
