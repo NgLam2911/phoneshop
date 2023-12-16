@@ -15,8 +15,6 @@ public class CartBo{
         ProductDao productDao = new ProductDao();
         ProductBean product = productDao.getProduct(ProductID);
         if (product.getQuantity() > Amount){
-            product.setQuantity(product.getQuantity() - Amount);
-            productDao.updateQuantity(product.getProductID(), product.getQuantity());
             (new CartDao()).addProductToCart(CustomerID, ProductID, Amount);
             return true;
         }
@@ -79,6 +77,30 @@ public class CartBo{
     public void updateCartItemsByUsername(String username, ArrayList<CartItem> items){
         int CustomerID = (new UserDao()).getCustomer(username).getCustomerID();
         this.updateCartItems(CustomerID, items);
+    }
+
+    public boolean onPaid(int CustomerID){
+        ArrayList<CartItem> items = (new CartDao()).getCartItems(CustomerID);
+        // Check if some product is out of stock
+        for (CartItem item : items){
+            if (item.getProduct().getQuantity() < item.getAmount()){
+                return false;
+            }
+        }
+        //Update quantity
+        for (CartItem item : items){
+            int ProductID = item.getProduct().getProductID();
+            int Amount = item.getProduct().getQuantity() - item.getAmount();
+            (new ProductDao()).updateQuantity(ProductID, Amount);
+        }
+        //Clear cart
+        this.clearCart(CustomerID);
+        return true;
+    }
+
+    public boolean onPaid(String username){
+        int CustomerID = (new UserDao()).getCustomer(username).getCustomerID();
+        return this.onPaid(CustomerID);
     }
 
 }
