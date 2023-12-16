@@ -38,6 +38,7 @@ public class CustomerServlet extends HttpServlet {
 					break;
 				case "GetCartItems":
 					getCartItems(request, response);
+					break;
 				case "UpdateItemFromCart":
 					updateItemFromCart(request, response);
 					break;
