@@ -34,7 +34,9 @@ font-size: 25px;
 
 
 	<div class="container my-3">
-		<div class="d-flex py-3"><h3>Total Price: <%=df.format(cartBean.getTotalPrice())%> VND</h3> <a class="mx-3 btn btn-primary" href="cart-check-out">Check Out</a></div>
+		<div class="d-flex py-3"><h3>Total Price: <%=df.format(cartBean.getTotalPrice())%> VND</h3> <a class="mx-3 btn btn-primary" href="<%=request.getContextPath()%>/customerServlet?action=Checkout">Check Out</a>
+			<!-- <a class="mx-3 btn btn-primary" href="<%=request.getContextPath()%>/customerServlet?action=UpdateItemFromCart">Update</a> -->
+		</div>
 		<table class="table table-light">
 			<thead>
 				<tr>
@@ -56,17 +58,17 @@ font-size: 25px;
 					<td><%=cartItem.getProduct().getManufacturerName()%></td>
 					<td><%=df.format(cartItem.getProduct().getPrice())%></td>
 					<td>
-						<form action="order-now" method="post" class="form-inline">
+						<form action="" method="post" class="form-inline">
 						<input type="hidden" name="id" value="id" class="form-input">
 							<div class="form-group d-flex justify-content-between">
-								 
-								<input type="text" name="quantity" class="form-control"  value="<%=cartItem.getAmount()%>" > 
-								
+								<a class="btn btn-sm btn-incre" href="<%=request.getContextPath()%>/customerServlet?action=IncreaseAmountOfItem&id=<%=cartItem.getProduct().getProductID()%>&initialAmount=<%=cartItem.getAmount()%>"><i class="fas fa-plus-square"></i></a>
+								<input type="text" name="quantity" class="form-control"  value="<%=cartItem.getAmount()%>" readonly> 
+								<a class="btn btn-sm btn-decre" href="<%=request.getContextPath()%>/customerServlet?action=DecreaseAmountOfItem&id=<%=cartItem.getProduct().getProductID()%>&initialAmount=<%=cartItem.getAmount()%>"><i class="fas fa-minus-square"></i></a>
 							</div>
-							<button type="submit" class="btn btn-primary btn-sm">Buy</button>
+							<!-- <button type="submit" class="btn btn-primary btn-sm">Buy</button> -->
 						</form>
 					</td>
-					<td><a href="" class="btn btn-sm btn-danger">Remove</a></td>
+					<td><a href="<%=request.getContextPath()%>/customerServlet?action=RemoveItemFromCart&id=<%=cartItem.getProduct().getProductID()%>" class="btn btn-sm btn-danger">Remove</a></td>
 				</tr>
 				<%
 				}}%>

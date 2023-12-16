@@ -30,7 +30,6 @@ public class CustomerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
-		System.out.println(action);
 		try {
 			switch (action) {
 				case "GetItems":
@@ -42,11 +41,20 @@ public class CustomerServlet extends HttpServlet {
 				case "UpdateItemFromCart":
 					updateItemFromCart(request, response);
 					break;
+				case "IncreaseAmountOfItem":
+					increaseAmountOfItem(request, response);
+					break;
+				case "DecreaseAmountOfItem":
+					decreaseAmountOfItem(request, response);
+					break;
 				case "RemoveItemFromCart":
 					removeItemFromCart(request, response);
 					break;
+				case "Checkout":
+					Checkout(request, response);
+					break;
 				default:
-					updateItemFromCart(request, response);
+					getCartItems(request, response);
 					break;
 			}
 		} catch (ServletException ex) {
@@ -54,6 +62,40 @@ public class CustomerServlet extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void decreaseAmountOfItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("user");
+		String id = request.getParameter("id");
+		int initialAmount = Integer.parseInt(request.getParameter("initialAmount"));
+		new CartBo().updateProductAmountByUsername(username, Integer.parseInt(id), initialAmount - 1);
+		CartBean cartBean = new CartBo().getCartByUsername(username);
+		request.setAttribute("cartBean", cartBean);
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/customer/Cart.jsp");
+		rd.forward(request, response);
+	}
+
+	private void increaseAmountOfItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("user");
+		String id = request.getParameter("id");
+		int initialAmount = Integer.parseInt(request.getParameter("initialAmount"));
+		new CartBo().updateProductAmountByUsername(username, Integer.parseInt(id), initialAmount + 1);
+		CartBean cartBean = new CartBo().getCartByUsername(username);
+		request.setAttribute("cartBean", cartBean);
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/customer/Cart.jsp");
+		rd.forward(request, response);
+	}
+
+	private void Checkout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("user");
+		new CartBo().onPaid(username);
+		CartBean cartBean = new CartBean();
+		request.setAttribute("cartBean", cartBean);
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/customer/Cart.jsp");
+		rd.forward(request, response);
 	}
 
 	private void getAllProducts(HttpServletRequest request, HttpServletResponse response)
@@ -90,7 +132,7 @@ public class CustomerServlet extends HttpServlet {
 		String username = (String) session.getAttribute("user");
 		ArrayList<CartItem> cartItems = (ArrayList<CartItem>) session.getAttribute("cartItems");
 		new CartBo().updateCartItemsByUsername(username, cartItems);
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("customer/Cart.jsp");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/customer/Cart.jsp");
 		rd.forward(request, response);
 	}
 
@@ -100,7 +142,9 @@ public class CustomerServlet extends HttpServlet {
 		String username = (String) session.getAttribute("user");
 		String id = request.getParameter("id");
 		new CartBo().removeProductByUsername(username, Integer.parseInt(id)); //TODO: Check Product ID pls.
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("customer/Cart.jsp");
+		CartBean cartBean = new CartBo().getCartByUsername(username);
+		request.setAttribute("cartBean", cartBean);
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/customer/Cart.jsp");
 		rd.forward(request, response);
 	}
 }
