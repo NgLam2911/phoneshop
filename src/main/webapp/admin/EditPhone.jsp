@@ -58,7 +58,7 @@
 </head>
 
 <body>
-    <% ProductBean product = (ProductBean) request.getAttribute("product"); %>
+    <% ProductBean product = (ProductBean) request.getAttribute("pd"); %>
     <h2>Chỉnh sửa sản phẩm</h2>
     <form name="editProductForm" id="editProductForm" action="EditProduct" method="post">
         <table id="registrationTable">
