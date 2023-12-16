@@ -2,7 +2,7 @@ package nhom9.phoneshop.model.dao;
 
 import nhom9.phoneshop.model.bean.CartItem;
 import nhom9.phoneshop.model.bean.ProductBean;
-import nhom9.phoneshop.model.bean.tables.Carts;
+import nhom9.phoneshop.model.bean.tables.Cart;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

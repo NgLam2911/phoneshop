@@ -8,16 +8,28 @@ import java.util.ArrayList;
 
 public class MainDao extends BaseDao{
 
-    public ArrayList<Carts> getAllCarts() throws SQLException {
+    public int getCustomerID(String username) throws SQLException {
+        String sql = "SELECT * FROM customers WHERE Username = ?";
+        PreparedStatement statement = this.getConnection().prepareStatement(sql);
+        statement.setString(1, username);
+        ResultSet resultSet = statement.executeQuery();
+        int customerID = 0;
+        if (resultSet.next()){
+            customerID = resultSet.getInt("CustomerID");
+        }
+        return customerID;
+    }
+
+    public ArrayList<Cart> getAllCarts() throws SQLException {
         String sql = "SELECT * FROM carts";
         PreparedStatement statement = this.getConnection().prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
-        ArrayList<Carts> carts = new ArrayList<>();
+        ArrayList<Cart> carts = new ArrayList<>();
         while (resultSet.next()){
             int cartID = resultSet.getInt("CartID");
             int customerID = resultSet.getInt("CustomerID");
             int status = resultSet.getInt("Status");
-            carts.add(new Carts(cartID, customerID, status));
+            carts.add(new Cart(cartID, customerID, status));
         }
         return carts;
     }
@@ -60,5 +72,28 @@ public class MainDao extends BaseDao{
             categoriesData.add(new CategoriesData(categoryID, productID));
         }
         return categoriesData;
+    }
+    public ArrayList<Cart> getCartItems(int CustomerID) throws SQLException {
+        String sql = "SELECT * FROM carts where CustomerID = ?";
+        PreparedStatement statement = this.getConnection().prepareStatement(sql);
+        statement.setInt(1, CustomerID);
+        ResultSet resultSet = statement.executeQuery();
+        ArrayList<Cart> carts = new ArrayList<>();
+        while (resultSet.next()){
+            int cartID = resultSet.getInt("CartID");
+            int customerID = resultSet.getInt("CustomerID");
+            int status = resultSet.getInt("Status");
+            carts.add(new Cart(cartID, customerID, status));
+        }
+        return carts;
+    }
+
+    public ArrayList<CartsData> addProductToCart(String id) {
+        
+        return null;
+    }
+
+    public Object removeProductFromCart(String id) {
+        return null;
     }
 }

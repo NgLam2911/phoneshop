@@ -22,5 +22,6 @@
 		<a href="<%=request.getContextPath()%>/AdminGetProduct">Xem sản phẩm (admin)</a> <br>
 		<a href="<%=request.getContextPath()%>/GetProduct">Xem sản phẩm</a> <br>
 	<% } %> --%>
+
 </body>
 </html>

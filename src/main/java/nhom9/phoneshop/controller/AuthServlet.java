@@ -17,7 +17,7 @@ import nhom9.phoneshop.model.bean.ProductBean;
 import nhom9.phoneshop.model.bo.ProductBo;
 import nhom9.phoneshop.model.bo.UserBo;
 
-@WebServlet("/")
+@WebServlet("/auth")
 public class AuthServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;
 	
@@ -173,6 +173,7 @@ public class AuthServlet extends HttpServlet{
 		ProductBo productBo = new ProductBo();
 		if (productBo.registerProduct(ProductName, Price, ManufacturerName, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, part, clt, Quantity, Color)) {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListPhone.jsp");
+
 			rd.forward(request, response);
 		} else {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/Error.jsp");
