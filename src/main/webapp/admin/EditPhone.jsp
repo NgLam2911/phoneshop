@@ -68,7 +68,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Giá sản phẩm</td>
+                <td>Giá sản phẩm (VNĐ)</td>
                 <td><label for="txtPrice"></label><input type="text" name="txtPrice" id="txtPrice" value="<%=product.getPrice()%>" required>
                 </td>
             </tr>
@@ -83,7 +83,7 @@
                 </td>
             </tr>
             <tr>
-                <td>RAM</td>
+                <td>RAM (GB)</td>
                 <td><label for="txtRAM"></label><input type="text" name="txtRAM" id="txtRAM" value="<%=product.getRAM()%>" required>
                 </td>
             </tr>
@@ -118,18 +118,18 @@
                 </td>
             </tr>
             <tr>
-                <td>Dung lượng pin</td>
+                <td>Dung lượng pin (mAh)</td>
                 <td><label for="txtBattery"></label><input type="text" name="txtBattery" id="txtBattery" value="<%=product.getBattery()%>" required>
                 </td>
             </tr>
             <tr>
-                <td>Dung lượng bộ nhớ</td>
+                <td>Dung lượng bộ nhớ (GB)</td>
                 <td><label for="txtCapacity"></label><input type="text" name="txtCapacity" id="txtCapacity" value="<%=product.getCapacity()%>" required>
                 </td>
             </tr>
             <tr>
                 <td>Màu sắc</td>
-                <td><label for="txtColor"></label><input type="file" name="txtColor" id="txtColor" value="<%=product.getColor()%>" required>
+                <td><label for="txtColor"></label><input type="text" name="txtColor" id="txtColor" value="<%=product.getColor()%>" required>
                 </td>
             </tr>
             <tr>
@@ -139,7 +139,7 @@
             </tr>
             <tr>
                 <td>Số lượng</td>
-                <td><label for="txtQuantity"></label><input type="file" name="txtQuantity" id="txtQuantity" value="<%=product.getQuantity()%>" required>
+                <td><label for="txtQuantity"></label><input type="text" name="txtQuantity" id="txtQuantity" value="<%=product.getQuantity()%>" required>
                 </td>
             </tr>
                 <td></td>
