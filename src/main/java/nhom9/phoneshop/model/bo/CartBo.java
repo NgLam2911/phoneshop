@@ -15,8 +15,6 @@ public class CartBo{
         ProductDao productDao = new ProductDao();
         ProductBean product = productDao.getProduct(ProductID);
         if (product.getQuantity() > Amount){
-            product.setQuantity(product.getQuantity() - Amount);
-            productDao.updateQuantity(product.getProductID(), product.getQuantity());
             (new CartDao()).addProductToCart(CustomerID, ProductID, Amount);
             return true;
         }
@@ -43,9 +41,7 @@ public class CartBo{
     }
 
     public void updateCartItems(int CustomerID, ArrayList<CartItem> items){
-        //Clear cart and add back stock to products
         this.clearCart(CustomerID);
-        //TODO: Check back stock pls
         for (CartItem item : items){
             this.addProduct(CustomerID, item.getProduct().getProductID(), item.getAmount());
         }
@@ -56,9 +52,9 @@ public class CartBo{
         return this.getCart(CustomerID);
     }
 
-    public void addProductByUsername(String username, int ProductID, int Amount){
+    public boolean addProductByUsername(String username, int ProductID, int Amount){
         int CustomerID = (new UserDao()).getCustomer(username).getCustomerID();
-        this.addProduct(CustomerID, ProductID, Amount);
+        return this.addProduct(CustomerID, ProductID, Amount);
     }
 
     public void removeProductByUsername(String username, int ProductID){
@@ -79,6 +75,30 @@ public class CartBo{
     public void updateCartItemsByUsername(String username, ArrayList<CartItem> items){
         int CustomerID = (new UserDao()).getCustomer(username).getCustomerID();
         this.updateCartItems(CustomerID, items);
+    }
+
+    public boolean onPaid(int CustomerID){
+        ArrayList<CartItem> items = (new CartDao()).getCartItems(CustomerID);
+        // Check if some product is out of stock
+        for (CartItem item : items){
+            if (item.getProduct().getQuantity() < item.getAmount()){
+                return false;
+            }
+        }
+        //Update quantity
+        for (CartItem item : items){
+            int ProductID = item.getProduct().getProductID();
+            int Amount = item.getProduct().getQuantity() - item.getAmount();
+            (new ProductDao()).updateQuantity(ProductID, Amount);
+        }
+        //Clear cart
+        this.clearCart(CustomerID);
+        return true;
+    }
+
+    public boolean onPaid(String username){
+        int CustomerID = (new UserDao()).getCustomer(username).getCustomerID();
+        return this.onPaid(CustomerID);
     }
 
 }
