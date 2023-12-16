@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class CartBo{
 
-    public boolean buyProduct(int CustomerID, int ProductID, int Amount){
+    public boolean addProduct(int CustomerID, int ProductID, int Amount){
         ProductDao productDao = new ProductDao();
         ProductBean product = productDao.getProduct(ProductID);
         if (product.getQuantity() > Amount){

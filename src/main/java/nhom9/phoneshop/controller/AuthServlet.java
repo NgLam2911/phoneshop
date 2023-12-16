@@ -27,36 +27,36 @@ public class AuthServlet extends HttpServlet{
 	}
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action = request.getServletPath();
+		String action = request.getParameter("action");
 		try {
 			switch (action) {
-			case "/LoginServlet": 
+			case "LoginServlet": 
 				checkLogin(request, response);
 				break;
-			case "/RegisterServlet":
+			case "RegisterServlet":
 				checkRegister(request, response);
 				break;
-			case "/GetProduct":
+			case "GetProduct":
 				getAllProducts(request, response);
                 break;
-            case "/GetCart":
+            case "GetCart":
                 getCartProducts(request, response);
-			case "/AddProductToCart":
+			case "AddProductToCart":
 				addProductToCart(request, response);
                 break;
-            case "/RemoveProductFromCart":
+            case "RemoveProductFromCart":
                 addProductToCart(request, response);
                 break;
-			case "/AdminGetProduct":
+			case "AdminGetProduct":
                 listProduct(request, response);
                 break;
-			case "/AddProduct": 
+			case "AddProduct": 
 				addProduct(request, response);
 				break;
-			case "/EditProduct":
+			case "EditProduct":
 				editProduct(request, response);
 				break;
-            case "/RemoveProduct":
+            case "RemoveProduct":
                 delete(request, response);
 			default:
 				checkLogin(request, response);
@@ -110,7 +110,7 @@ public class AuthServlet extends HttpServlet{
 		ArrayList<ProductBean> list;
 		list = new ProductBo().getAllProducts();
 		request.setAttribute("pdList", list);
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/listProduct.jsp");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/listPhone.jsp");
 		rd.forward(request, response);
 	}
 
@@ -161,8 +161,8 @@ public class AuthServlet extends HttpServlet{
 		String Color = request.getParameter("txtColor");
 		
 		ProductBo productBo = new ProductBo();
-		if (productBo.registerProduct(ProductName, Price, ManufacturerName, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, part, clt, Quantity, Color)) {
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListPhone.jsp");
+		if (productBo.registerProduct(ProductName, Price, ManufacturerName, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, part, clt, DisplayHeight, Color)) {
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListProduct.jsp");
 			rd.forward(request, response);
 		} else {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/Error.jsp");
