@@ -90,4 +90,18 @@ public class CartDao extends BaseDao{
             this.close();
         }
     }
+
+    public void clearCart(int CustomerID){
+        String sql = "DELETE FROM carts WHERE CustomerID = ?";
+        try{
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            statement.setInt(1, CustomerID);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            this.close();
+        }
+    }
 }

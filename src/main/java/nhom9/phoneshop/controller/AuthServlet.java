@@ -156,6 +156,7 @@ public class AuthServlet extends HttpServlet{
         String Battery = request.getParameter("txtBattery");
         double Capacity = Double.parseDouble(request.getParameter("txtCapacity"));
         Part part = request.getPart("txtImage");
+		int Quantity = Integer.parseInt(request.getParameter("txtQuantity"));
         Collection<Part> clt = request.getParts();
 		String Color = request.getParameter("txtColor");
 		
