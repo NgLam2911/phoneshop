@@ -18,10 +18,10 @@
 	%>
 		<h2>Chào mừng </h2>
         <h2><%= user %></h2>
-		<a href="<%=request.getContextPath()%>/auth/AdminGetProduct">Xem sản phẩm (admin)</a> <br>
-		<a href="<%=request.getContextPath()%>/auth/GetProduct">Xem sản phẩm</a> <br>
+		<a href="<%=request.getContextPath()%>/authServlet/AdminGetProduct">Xem sản phẩm (admin)</a> <br>
+		<a href="<%=request.getContextPath()%>/authServlet/GetProduct">Xem sản phẩm</a> <br>
 		<br>
-		<a href="<%=request.getContextPath()%>/customer?action=GetItemServlet">Xem gio hang</a> <br>
+		<a href="<%=request.getContextPath()%>/customerServlet?action=GetCartItems">Xem gio hang</a> <br>
 	<% } %>
 </body>
 </html>

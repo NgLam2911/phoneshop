@@ -1,12 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="nhom9.phoneshop.model.bean.CartBean"%>
+<%@page import="nhom9.phoneshop.model.bean.CartItem"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+CartBean cartBean = (CartBean) request.getAttribute("cartBean");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="resources/css/all.min.css" />
-<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/all.min.css" />
+<link rel="stylesheet" href="css/bootstrap.min.css" />
 <title>E-Commerce Cart</title>
 <style type="text/css">
 
@@ -29,32 +35,37 @@ font-size: 25px;
 			<thead>
 				<tr>
 					<th scope="col">Name</th>
-					<th scope="col">Category</th>
+					<th scope="col">Manufacturer</th>
 					<th scope="col">Price</th>
-					<th scope="col">Buy Now</th>
-					<th scope="col">Cancel</th>
+					<th scope="col">Quantity</th>
+					<th scope="col">Remove</th>
 				</tr>
 			</thead>
 			<tbody>
-
+				<%
+				ArrayList<CartItem> cartItems = cartBean.getItems();
+				if (cartItems != null) {
+					for (CartItem cartItem : cartItems) {
+				%>
 				<tr>
-					<td>Name</td>
-					<td>Category></td>
-					<td>Price</td>
+					<td><%=cartItem.getProduct().getProductName()%></td>
+					<td><%=cartItem.getProduct().getManufacturerName()%></td>
+					<td><%=cartItem.getProduct().getPrice()%></td>
 					<td>
 						<form action="order-now" method="post" class="form-inline">
 						<input type="hidden" name="id" value="id" class="form-input">
 							<div class="form-group d-flex justify-content-between">
-								<a class="btn bnt-sm btn-incre" href=""><i class="fas fa-plus-square"></i></a> 
-								<input type="text" name="quantity" class="form-control"  value="" readonly> 
-								<a class="btn btn-sm btn-decre" href=""><i class="fas fa-minus-square"></i></a>
+								 
+								<input type="text" name="quantity" class="form-control"  value="<%=cartItem.getAmount()%>" > 
+								
 							</div>
 							<button type="submit" class="btn btn-primary btn-sm">Buy</button>
 						</form>
 					</td>
 					<td><a href="" class="btn btn-sm btn-danger">Remove</a></td>
 				</tr>
-
+				<%
+				}}%>
 			</tbody>
 		</table>
 	</div>

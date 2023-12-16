@@ -18,7 +18,7 @@ import nhom9.phoneshop.model.bean.ProductBean;
 import nhom9.phoneshop.model.bo.ProductBo;
 import nhom9.phoneshop.model.bo.UserBo;
 
-@WebServlet("/auth")
+@WebServlet("/authServlet")
 public class AuthServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;
 	
