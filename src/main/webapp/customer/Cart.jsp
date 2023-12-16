@@ -5,7 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-DecimalFormat df = new DecimalFormat("#.00");
+DecimalFormat df = new DecimalFormat("#0");
 %>
 <%
 CartBean cartBean = (CartBean) request.getAttribute("cartBean");
@@ -34,7 +34,7 @@ font-size: 25px;
 
 
 	<div class="container my-3">
-		<div class="d-flex py-3"><h3>Total Price: </h3> <a class="mx-3 btn btn-primary" href="cart-check-out">Check Out</a></div>
+		<div class="d-flex py-3"><h3>Total Price: <%=df.format(cartBean.getTotalPrice())%> VND</h3> <a class="mx-3 btn btn-primary" href="cart-check-out">Check Out</a></div>
 		<table class="table table-light">
 			<thead>
 				<tr>
