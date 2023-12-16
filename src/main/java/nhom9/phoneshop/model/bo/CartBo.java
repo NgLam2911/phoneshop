@@ -41,9 +41,7 @@ public class CartBo{
     }
 
     public void updateCartItems(int CustomerID, ArrayList<CartItem> items){
-        //Clear cart and add back stock to products
         this.clearCart(CustomerID);
-        //TODO: Check back stock pls
         for (CartItem item : items){
             this.addProduct(CustomerID, item.getProduct().getProductID(), item.getAmount());
         }
