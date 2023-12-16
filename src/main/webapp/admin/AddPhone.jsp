@@ -1,5 +1,3 @@
-<%@page language="java" import="nhom9.phoneshop.model.bean.ProductBean"%>
-<%@page language="java" import="java.util.ArrayList"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,9 +56,6 @@
 </head>
 
 <body>
-    <%
-        ArrayList<ProductBean> pdList = (ArrayList<ProductBean>)request.getAttribute("pdList");
-    %>
     <h2>Thêm sản phẩm</h2>
     <form name="addProductForm" id="addProductForm" action="AddProduct" method="post">
         <table id="registrationTable">
