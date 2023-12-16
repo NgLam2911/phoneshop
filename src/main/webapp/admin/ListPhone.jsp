@@ -71,21 +71,21 @@
 	</tr>
 	<%
 		ArrayList<ProductBean> pdList = (ArrayList<ProductBean>)request.getAttribute("pdList");
-		for (int i = 0; i < pdList.size(); i++) {
+		for (ProductBean pd : pdList) {
 	%>
 		<tr>
-			<td><%= pdList.get(i).getProductName() %></td>
-			<td><%= pdList.get(i).getPrice() %></td>
-			<td><%= pdList.get(i).getManufacturerName() %></td>
-			<td><%= pdList.get(i).getCPU() %></td>
-            <td><%= pdList.get(i).getRAM() %></td>
-			<td><%= pdList.get(i).getDisplaySize() %></td>
-			<td><%= pdList.get(i).getOS() %></td>
-			<td><%= pdList.get(i).getBattery() %></td>
-            <td><%= pdList.get(i).getCapacity() %></td>
-			<td><%= pdList.get(i).getImage() %></td>
-            <td><a href="<%=request.getContextPath()%>/editProduct?id=<%= pdList.get(i).getProductID() %>">Sửa</a></td>
-            <td><a href="<%=request.getContextPath()%>/removeProduct?id=<%= pdList.get(i).getProductID() %>">Xóa</a></td>
+			<td><%= pd.getProductName() %></td>
+			<td><%= pd.getPrice() %></td>
+			<td><%= pd.getManufacturerName() %></td>
+			<td><%= pd.getCPU() %></td>
+            <td><%= pd.getRAM() %></td>
+			<td><%= pd.getDisplaySize() %></td>
+			<td><%= pd.getOS() %></td>
+			<td><%= pd.getBattery() %></td>
+            <td><%= pd.getCapacity() %></td>
+			<td><%= pd.getImage() %></td>
+            <td><a href="<%=request.getContextPath()%>/editProduct?id=<%= pd.getProductID() %>">Sửa</a></td>
+            <td><a href="<%=request.getContextPath()%>/removeProduct?id=<%= pd.getProductID() %>">Xóa</a></td>
 		</tr>
 	<% } %>
 	</table>
