@@ -56,9 +56,9 @@ public class CartBo{
         return this.getCart(CustomerID);
     }
 
-    public void addProductByUsername(String username, int ProductID, int Amount){
+    public boolean addProductByUsername(String username, int ProductID, int Amount){
         int CustomerID = (new UserDao()).getCustomer(username).getCustomerID();
-        this.addProduct(CustomerID, ProductID, Amount);
+        return this.addProduct(CustomerID, ProductID, Amount);
     }
 
     public void removeProductByUsername(String username, int ProductID){
