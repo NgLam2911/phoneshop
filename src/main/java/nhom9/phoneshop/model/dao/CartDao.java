@@ -2,8 +2,6 @@ package nhom9.phoneshop.model.dao;
 
 import nhom9.phoneshop.model.bean.CartItem;
 import nhom9.phoneshop.model.bean.ProductBean;
-import nhom9.phoneshop.model.bean.tables.Cart;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -36,7 +34,7 @@ public class CartDao extends BaseDao{
                 product.setBattery(resultSet.getString("Battery"));
                 product.setCapacity(resultSet.getDouble("Capacity"));
                 product.setImage(resultSet.getString("Image"));
-                items.add(new CartItem(product, resultSet.getInt("Amount")));
+                items.add(new CartItem(product, resultSet.getInt("Amount")));//, resultSet.getBoolean("IsPaid")));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

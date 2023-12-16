@@ -1,8 +1,11 @@
 package nhom9.phoneshop.model.bo;
 
+import nhom9.phoneshop.model.bean.CustomerBean;
 import nhom9.phoneshop.model.bean.UserBean;
 import nhom9.phoneshop.model.dao.RoleDao;
 import nhom9.phoneshop.model.dao.UserDao;
+
+import java.util.ArrayList;
 
 public class UserBo {
 
@@ -39,5 +42,15 @@ public class UserBo {
     public void updateCustomer(String username, String customerName, String email, String phoneNumber, String address) {
         UserDao dao = new UserDao();
         dao.updateCustomer(username, customerName, email, phoneNumber, address);
+    }
+
+    public ArrayList<CustomerBean> getAllCustomers() {
+        UserDao dao = new UserDao();
+        return dao.getAllCustomers();
+    }
+
+    public CustomerBean getCustomer(String username) {
+        UserDao dao = new UserDao();
+        return dao.getCustomer(username);
     }
 }
