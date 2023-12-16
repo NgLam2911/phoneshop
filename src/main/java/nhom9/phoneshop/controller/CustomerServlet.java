@@ -15,14 +15,10 @@ import javax.servlet.http.HttpSession;
 import nhom9.phoneshop.model.bean.CartBean;
 import nhom9.phoneshop.model.bean.CartItem;
 import nhom9.phoneshop.model.bean.ProductBean;
-import nhom9.phoneshop.model.bean.tables.Cart;
-import nhom9.phoneshop.model.bean.tables.CartsData;
 import nhom9.phoneshop.model.bo.CartBo;
-import nhom9.phoneshop.model.bo.MainBo;
 import nhom9.phoneshop.model.bo.ProductBo;
-import nhom9.phoneshop.model.bo.UserBo;
 
-@WebServlet("/customer")
+@WebServlet("/customerServlet")
 public class CustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -37,15 +33,16 @@ public class CustomerServlet extends HttpServlet {
 		System.out.println(action);
 		try {
 			switch (action) {
-				case "GetItemServlet":
+				case "GetItems":
 					getAllProducts(request, response);
 					break;
-				case "GetCartItemServlet":
+				case "GetCartItems":
 					getCartItems(request, response);
-				case "UpdateItemFromCartServlet":
+					break;
+				case "UpdateItemFromCart":
 					updateItemFromCart(request, response);
 					break;
-				case "RemoveItemFromCartServlet":
+				case "RemoveItemFromCart":
 					removeItemFromCart(request, response);
 					break;
 				default:
@@ -59,25 +56,31 @@ public class CustomerServlet extends HttpServlet {
 		}
 	}
 
-	private ArrayList<ProductBean> getAllProducts(HttpServletRequest request, HttpServletResponse response)
+	private void getAllProducts(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ArrayList<ProductBean> list = new ArrayList<>();
+		ArrayList<ProductBean> list;
 		list = new ProductBo().getAllProducts();
 		request.setAttribute("ItemList", list);
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/listProduct.jsp");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/customer/Cart-test.jsp");
 		rd.forward(request, response);
-		return list;
 	}
 
 	private void getCartItems(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("user");
-		CartBean cartBean = new CartBean();
-		ArrayList<CartItem> cartItems = new CartBo().getCartItems(username);
-		cartBean.setItems(cartItems);
+		CartBean cartBean = new CartBo().getCartByUsername(username);
+		// ProductBean product1 = new ProductBean( 1, "Iphone 11", 10000000, 1, "Apple", "A13 Bionic", "4GB", "6.1 inch", 828, 1792, "IOS 13", "3110 mAh", 64, "https://cdn.tgdd.vn/Products/Images/42/153856/iphone-11-red-400x460.png", 1, "Red");
+		// ProductBean product2 = new ProductBean( 2, "Iphone 12", 10000000, 1, "Apple", "A13 Bionic", "4GB", "6.1 inch", 828, 1792, "IOS 13", "3110 mAh", 64, "https://cdn.tgdd.vn/Products/Images/42/153856/iphone-11-red-400x460.png", 1, "Red");
+		// CartItem cartItem1 = new CartItem(product1, 3, false);
+		// CartItem cartItem2 = new CartItem(product2, 2, false);
+		// ArrayList<CartItem> cartItems = new ArrayList<CartItem>();
+		// cartItems.add(cartItem1);
+		// cartItems.add(cartItem2);
+		// CartBean cartBean = new CartBean(1, 1, cartItems);
+		// cartBean.getItems().get(0).getProduct().getProductName();
 		request.setAttribute("cartBean", cartBean);
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("customer/test.jsp");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/customer/Cart.jsp");
 		rd.forward(request, response);
 	}
 
@@ -86,15 +89,17 @@ public class CustomerServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("user");
 		ArrayList<CartItem> cartItems = (ArrayList<CartItem>) session.getAttribute("cartItems");
-		new CartBo().updateItemFromCart(username, cartItems);
+		new CartBo().updateCartItemsByUsername(username, cartItems);
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("customer/Cart.jsp");
 		rd.forward(request, response);
 	}
 
 	private void removeItemFromCart(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("user");
 		String id = request.getParameter("id");
-		new CartBo().removeItemFromCart(id);
+		new CartBo().removeProductByUsername(username, Integer.parseInt(id)); //TODO: Check Product ID pls.
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("customer/Cart.jsp");
 		rd.forward(request, response);
 	}

@@ -2,8 +2,6 @@ package nhom9.phoneshop.model.dao;
 
 import nhom9.phoneshop.model.bean.CartItem;
 import nhom9.phoneshop.model.bean.ProductBean;
-import nhom9.phoneshop.model.bean.tables.Cart;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -36,7 +34,7 @@ public class CartDao extends BaseDao{
                 product.setBattery(resultSet.getString("Battery"));
                 product.setCapacity(resultSet.getDouble("Capacity"));
                 product.setImage(resultSet.getString("Image"));
-                items.add(new CartItem(product, resultSet.getInt("Amount")));
+                items.add(new CartItem(product, resultSet.getInt("Amount")));//, resultSet.getBoolean("IsPaid")));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -85,6 +83,20 @@ public class CartDao extends BaseDao{
             statement.setInt(1, Amount);
             statement.setInt(2, CustomerID);
             statement.setInt(3, ProductID);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            this.close();
+        }
+    }
+
+    public void clearCart(int CustomerID){
+        String sql = "DELETE FROM carts WHERE CustomerID = ?";
+        try{
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            statement.setInt(1, CustomerID);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

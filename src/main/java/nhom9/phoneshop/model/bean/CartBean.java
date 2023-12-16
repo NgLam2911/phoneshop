@@ -36,8 +36,8 @@ public class CartBean {
         this.Items = Items;
     }
 
-    public void addItem(ProductBean product, int Amount){
-        Items.add(new CartItem(product, Amount));
+    public void addItem(ProductBean product, int Amount, boolean IsPaid){
+        Items.add(new CartItem(product, Amount));//, IsPaid));
     }
 
     public void removeItem(int index){

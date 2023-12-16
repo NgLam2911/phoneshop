@@ -1,12 +1,14 @@
 package nhom9.phoneshop.model.bean;
 
 public class CartItem {
-    private final ProductBean product;
-    private final int Amount;
+    private ProductBean product;
+    private int Amount;
+    //private boolean IsPaid;
 
-    public CartItem(ProductBean product, int Amount){
+    public CartItem(ProductBean product, int Amount){//, boolean IsPaid){
         this.product = product;
         this.Amount = Amount;
+        //this.IsPaid = IsPaid;
     }
 
     public ProductBean getProduct(){

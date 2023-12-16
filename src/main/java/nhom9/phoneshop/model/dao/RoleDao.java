@@ -64,4 +64,46 @@ public class RoleDao extends BaseDao{
         }
     }
 
+    public void addRole(String roleName){
+        String sql = "INSERT INTO roles (RoleName) VALUES (?)";
+        try{
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            statement.setString(1, roleName);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to connect to db", e);
+        } finally {
+            this.close();
+        }
+    }
+
+    public void updateRole(int roleID, String roleName){
+        String sql = "UPDATE roles SET RoleName = ? WHERE RoleID = ?";
+        try{
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            statement.setString(1, roleName);
+            statement.setInt(2, roleID);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to connect to db", e);
+        } finally {
+            this.close();
+        }
+    }
+
+    public void deleteRole(int roleID){
+        String sql = "DELETE FROM roles WHERE RoleID = ?";
+        try{
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            statement.setInt(1, roleID);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to connect to db", e);
+        } finally {
+            this.close();
+        }
+    }
 }

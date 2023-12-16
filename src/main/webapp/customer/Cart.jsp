@@ -1,31 +1,22 @@
-<%@page import="cn.techtutorial.connection.DbCon"%>
-<%@page import="cn.techtutorial.dao.ProductDao"%>
-<%@page import="cn.techtutorial.model.*"%>
-<%@page import="java.util.*"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="nhom9.phoneshop.model.bean.CartBean"%>
+<%@page import="nhom9.phoneshop.model.bean.CartItem"%>
 <%@page import="java.text.DecimalFormat"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%
-DecimalFormat dcf = new DecimalFormat("#.##");
-request.setAttribute("dcf", dcf);
-User auth = (User) request.getSession().getAttribute("auth");
-if (auth != null) {
-    request.setAttribute("person", auth);
-}
-ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
-List<Cart> cartProduct = null;
-if (cart_list != null) {
-	ProductDao pDao = new ProductDao(DbCon.getConnection());
-	cartProduct = pDao.getCartProducts(cart_list);
-	double total = pDao.getTotalCartPrice(cart_list);
-	request.setAttribute("total", total);
-	request.setAttribute("cart_list", cart_list);
-}
+DecimalFormat df = new DecimalFormat("#0");
+%>
+<%
+CartBean cartBean = (CartBean) request.getAttribute("cartBean");
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<%@include file="/includes/head.jsp"%>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="css/all.min.css" />
+<link rel="stylesheet" href="css/bootstrap.min.css" />
 <title>E-Commerce Cart</title>
 <style type="text/css">
 
@@ -37,51 +28,50 @@ box-shadow: none;
 font-size: 25px;
 }
 </style>
+
 </head>
 <body>
-	<%@include file="/includes/navbar.jsp"%>
+
 
 	<div class="container my-3">
-		<div class="d-flex py-3"><h3>Total Price: $ ${(total>0)?dcf.format(total):0} </h3> <a class="mx-3 btn btn-primary" href="cart-check-out">Check Out</a></div>
+		<div class="d-flex py-3"><h3>Total Price: <%=df.format(cartBean.getTotalPrice())%> VND</h3> <a class="mx-3 btn btn-primary" href="cart-check-out">Check Out</a></div>
 		<table class="table table-light">
 			<thead>
 				<tr>
 					<th scope="col">Name</th>
-					<th scope="col">Category</th>
+					<th scope="col">Manufacturer</th>
 					<th scope="col">Price</th>
-					<th scope="col">Buy Now</th>
-					<th scope="col">Cancel</th>
+					<th scope="col">Quantity</th>
+					<th scope="col">Remove</th>
 				</tr>
 			</thead>
 			<tbody>
 				<%
-				if (cart_list != null) {
-					for (Cart c : cartProduct) {
+				ArrayList<CartItem> cartItems = cartBean.getItems();
+				if (cartItems != null) {
+					for (CartItem cartItem : cartItems) {
 				%>
 				<tr>
-					<td><%=c.getName()%></td>
-					<td><%=c.getCategory()%></td>
-					<td><%= dcf.format(c.getPrice())%></td>
+					<td><%=cartItem.getProduct().getProductName()%></td>
+					<td><%=cartItem.getProduct().getManufacturerName()%></td>
+					<td><%=df.format(cartItem.getProduct().getPrice())%></td>
 					<td>
 						<form action="order-now" method="post" class="form-inline">
-						<input type="hidden" name="id" value="<%= c.getId()%>" class="form-input">
+						<input type="hidden" name="id" value="id" class="form-input">
 							<div class="form-group d-flex justify-content-between">
-								<a class="btn bnt-sm btn-incre" href="quantity-inc-dec?action=inc&id=<%=c.getId()%>"><i class="fas fa-plus-square"></i></a> 
-								<input type="text" name="quantity" class="form-control"  value="<%=c.getQuantity()%>" readonly> 
-								<a class="btn btn-sm btn-decre" href="quantity-inc-dec?action=dec&id=<%=c.getId()%>"><i class="fas fa-minus-square"></i></a>
+								 
+								<input type="text" name="quantity" class="form-control"  value="<%=cartItem.getAmount()%>" > 
+								
 							</div>
 							<button type="submit" class="btn btn-primary btn-sm">Buy</button>
 						</form>
 					</td>
-					<td><a href="remove-from-cart?id=<%=c.getId() %>" class="btn btn-sm btn-danger">Remove</a></td>
+					<td><a href="" class="btn btn-sm btn-danger">Remove</a></td>
 				</tr>
-
 				<%
 				}}%>
 			</tbody>
 		</table>
 	</div>
-
-	<%@include file="/includes/footer.jsp"%>
 </body>
 </html>

@@ -7,14 +7,14 @@ import java.util.ArrayList;
 
 public class ProductDao extends BaseDao {
 
-    public ArrayList<ProductBean> getAllProducts(){
+    public ArrayList<ProductBean> getAllProducts() {
         ArrayList<ProductBean> products = new ArrayList<>();
         String sql = "SELECt * FROM products INNER JOIN manufacturers ON products.ManufacturerID = manufacturers.ManufacturerID";
-        try{
+        try {
             this.connect();
             var statement = this.getConnection().prepareStatement(sql);
             var resultSet = statement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 int productID = resultSet.getInt("ProductID");
                 String productName = resultSet.getString("ProductName");
                 double price = resultSet.getDouble("Price");
@@ -41,15 +41,15 @@ public class ProductDao extends BaseDao {
         return products;
     }
 
-    public ProductBean getProduct(int productID){
+    public ProductBean getProduct(int productID) {
         ProductBean product = null;
         String sql = "SELECt * FROM products INNER JOIN manufacturers ON products.ManufacturerID = manufacturers.ManufacturerID WHERE ProductID = ?";
-        try{
+        try {
             this.connect();
             var statement = this.getConnection().prepareStatement(sql);
             statement.setInt(1, productID);
             var resultSet = statement.executeQuery();
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 String productName = resultSet.getString("ProductName");
                 double price = resultSet.getDouble("Price");
                 int manufacturerID = resultSet.getInt("ManufacturerID");
@@ -75,10 +75,10 @@ public class ProductDao extends BaseDao {
         return product;
     }
 
-    public void registerProduct(String productName, double price, int manufacturerID, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, String image, int quantity, String color){
+    public void registerProduct(String productName, double price, int manufacturerID, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, String image, int quantity, String color) {
         String sql = "INSERT INTO products(ProductName, Price, ManufacturerID, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, Image, Quantity, Color) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try{
+        try {
             this.connect();
             var statement = this.getConnection().prepareStatement(sql);
             statement.setString(1, productName);
@@ -103,9 +103,9 @@ public class ProductDao extends BaseDao {
         }
     }
 
-    public void updateProduct(int productID, String productName, double price, int manufacturerID, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, String image, int quantity, String color){
+    public void updateProduct(int productID, String productName, double price, int manufacturerID, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, String image, int quantity, String color) {
         String sql = "UPDATE products SET ProductName = ?, Price = ?, ManufacturerID = ?, CPU = ?, RAM = ?, DisplaySize = ?, DisplayWidth = ?, DisplayHeight = ?, OS = ?, Battery = ?, Capacity = ?, Image = ?, Quantity = ?, Color = ? WHERE ProductID = ?";
-        try{
+        try {
             this.connect();
             var statement = this.getConnection().prepareStatement(sql);
             statement.setString(1, productName);
@@ -131,9 +131,9 @@ public class ProductDao extends BaseDao {
         }
     }
 
-    public void deleteProduct(int productID){
+    public void deleteProduct(int productID) {
         String sql = "DELETE FROM products WHERE ProductID = ?";
-        try{
+        try {
             this.connect();
             var statement = this.getConnection().prepareStatement(sql);
             statement.setInt(1, productID);
@@ -145,9 +145,9 @@ public class ProductDao extends BaseDao {
         }
     }
 
-    public void updateQuantity(int productID, int quantity){
+    public void updateQuantity(int productID, int quantity) {
         String sql = "UPDATE products SET Quantity = ? WHERE ProductID = ?";
-        try{
+        try {
             this.connect();
             var statement = this.getConnection().prepareStatement(sql);
             statement.setInt(1, quantity);
@@ -161,4 +161,39 @@ public class ProductDao extends BaseDao {
     }
 
     //TODO: Filter products
+
+    public ArrayList<ProductBean> searchProduct(String keyword) {
+        ArrayList<ProductBean> products = new ArrayList<>();
+        String sql = "SELECT * FROM products INNER JOIN manufacturers ON products.ManufacturerID = manufacturers.ManufacturerID WHERE ProductName LIKE ? OR ManufacturerName LIKE ?";
+        try {
+            this.connect();
+            var statement = this.getConnection().prepareStatement(sql);
+            statement.setString(1, keyword);
+            var resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int productID = resultSet.getInt("ProductID");
+                String productName = resultSet.getString("ProductName");
+                double price = resultSet.getDouble("Price");
+                int manufacturerID = resultSet.getInt("ManufacturerID");
+                String manufacturerName = resultSet.getString("ManufacturerName");
+                String cpu = resultSet.getString("CPU");
+                String ram = resultSet.getString("RAM");
+                String displaySize = resultSet.getString("DisplaySize");
+                int displayWidth = resultSet.getInt("DisplayWidth");
+                int displayHeight = resultSet.getInt("DisplayHeight");
+                String os = resultSet.getString("OS");
+                String battery = resultSet.getString("Battery");
+                double capacity = resultSet.getDouble("Capacity");
+                String image = resultSet.getString("Image");
+                int quantity = resultSet.getInt("Quantity");
+                String color = resultSet.getString("Color");
+                products.add(new ProductBean(productID, productName, price, manufacturerID, manufacturerName, cpu, ram, displaySize, displayWidth, displayHeight, os, battery, capacity, image, quantity, color));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            this.close();
+        }
+        return products;
+    }
 }
