@@ -8,6 +8,7 @@ import java.util.Collection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import nhom9.phoneshop.model.bo.ManufacturerBo;
 import nhom9.phoneshop.model.bo.ProductBo;
 import nhom9.phoneshop.model.bo.UserBo;
 
+@MultipartConfig(maxFileSize = 16177215)
 @WebServlet("/authServlet")
 public class AuthServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;
@@ -214,7 +216,6 @@ public class AuthServlet extends HttpServlet{
         double Capacity = Double.parseDouble(request.getParameter("txtCapacity"));
         Part part = request.getPart("txtImage");
 		int Quantity = Integer.parseInt(request.getParameter("txtQuantity"));
-        Collection<Part> clt = request.getParts();
 		String Color = request.getParameter("txtColor");
 		ProductBo productBo = new ProductBo();
 		if (productBo.updateProduct(ProductID, ProductName, Price, ManufacturerName, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, part, Quantity, Color)) {
