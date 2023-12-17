@@ -16,7 +16,7 @@ DecimalFormat df = new DecimalFormat("#0");
 <body>
     <%@ include file="common/header.jsp" %>
     <div class="container mt-4">
-        <h3 class="text-center">Bảng sản phẩm</h3>
+        <h3 class="text-center">Danh sách hóa đơn</h3>
         <table class="table table-bordered">
             <thead>
                 <tr>
