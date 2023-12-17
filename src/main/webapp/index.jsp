@@ -43,9 +43,9 @@
 		ArrayList<ProductBean> pdList = (ArrayList<ProductBean>)request.getAttribute("pdList");%>
 <div class="row">
 <% for (int i = 0; i < pdList.size(); i++) { %>
-    <div class="col-md-4 mb-4">
+    <div class="col-lg-3 mb-4">
         <div class="card h-100">
-            <img class="card-img-top" src="img/apple-iphone-15-pro-max-1.jpg">
+            <img class="card-img-top" src="img/<%= pdList.get(i).getImage() %>">
             <div class="card-body">
                 <h5 class="card-title"><%= pdList.get(i).getProductName() %></h5>
                 <p class="card-text">
@@ -56,7 +56,8 @@
                     Display Size: <%= pdList.get(i).getDisplaySize() %><br>
                     OS: <%= pdList.get(i).getOS() %><br>
                     Battery: <%= pdList.get(i).getBattery() %><br>
-                    Capacity: <%= pdList.get(i).getCapacity() %>
+                    Capacity: <%= pdList.get(i).getCapacity() %><br>
+                    <a href="<%=request.getContextPath()%>/customerServlet?action=AddProductToCart&id=<%= pdList.get(i).getProductID() %>">Thêm vào giỏ hàng</a>
                 </p>
             </div>
             <% if (session.getAttribute("user") != null){%>
@@ -66,7 +67,7 @@
             <% }%>
         </div>
     </div>
-    <% if ((i + 1) % 3 == 0) { %>
+    <% if ((i + 1) % 4 == 0) { %>
         </div><div class="row">
     <% } %>
 <% } %>
