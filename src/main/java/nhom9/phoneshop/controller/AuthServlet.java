@@ -45,15 +45,6 @@ public class AuthServlet extends HttpServlet{
 			case "GetProduct":
 				getAllProducts(request, response);
                 break;
-            case "GetCart":
-                getCartProducts(request, response);
-				break;
-			case "AddProductToCart":
-				addProductToCart(request, response);
-                break;
-            case "RemoveProductFromCart":
-                addProductToCart(request, response);
-                break;
 			case "AdminGetProduct":
                 listProduct(request, response);
                 break;

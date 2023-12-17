@@ -1,4 +1,4 @@
-%@page language="java" import="nhom9.phoneshop.model.bean.ProductBean"%>
+<%@page language="java" import="nhom9.phoneshop.model.bean.ProductBean"%>
 <%@page language="java" import="java.util.ArrayList"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
@@ -47,7 +47,17 @@ DecimalFormat df = new DecimalFormat("#0");
         }
     </style>
 </head>
-	@@ -66,28 +68,37 @@
+<body>
+	<h3 align="center">Bảng sản phẩm</h3>
+	<table border="1" width="100%">
+	<tr>
+		<td>Tên sản phẩm</td>
+		<td>Giá sản phẩm</td>
+        <td>Tên hãng</td>
+		<td>CPU</td>
+		<td>RAM</td>
+        <td>Kích thước màn hình</td>
+        <td>Hệ điều hành</td>
         <td>Dung lượng pin</td>
         <td>Dung lượng bộ nhớ</td>
         <td>Hình ảnh sản phẩm</td>
