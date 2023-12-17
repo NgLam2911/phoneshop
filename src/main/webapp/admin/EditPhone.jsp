@@ -105,19 +105,27 @@ DecimalFormat df = new DecimalFormat("#0");
             </tr>
             <tr>
                 <td>Kích thước màn hình</td>
-                <td><label for="txtDisplaySize"></label><input type="text" name="txtDisplaySize" id="txtDisplaySize" value="<%=product.getDisplaySize()%>" required>
+                <td><label for="txtDisplaySize"></label><input type="text" name="txtDisplaySize" id="txtDisplaySize" value="<%=product.getDisplaySize()%>" readonly required>
                 </td>
             </tr>
             <tr>
                 <td>Chiều rộng màn hình</td>
-                <td><label for="txtDisplayWidth"></label><input type="text" name="txtDisplayWidth" id="txtDisplayWidth" value="<%=product.getDisplayWidth()%>" required>
+                <td><label for="txtDisplayWidth"></label><input type="text" name="txtDisplayWidth" id="txtDisplayWidth" value="<%=product.getDisplayWidth()%>" required oninput="updateDisplaySize()">
                 </td>
             </tr>
             <tr>
                 <td>Chiều cao màn hình</td>
-                <td><label for="txtDisplayHeight"></label><input type="text" name="txtDisplayHeight" id="txtDisplayHeight" value="<%=product.getDisplayHeight()%>" required>
+                <td><label for="txtDisplayHeight"></label><input type="text" name="txtDisplayHeight" id="txtDisplayHeight" value="<%=product.getDisplayHeight()%>" required oninput="updateDisplaySize()">
                 </td>
             </tr>
+            <script>
+                function updateDisplaySize() {
+                    var width = document.getElementById("txtDisplayWidth").value;
+                    var height = document.getElementById("txtDisplayHeight").value;
+                    var displaySize = height + "x" + width;
+                    document.getElementById("txtDisplaySize").value = displaySize;
+                }
+            </script>
             <tr>
                 <%
                     ArrayList<String> os = new ArrayList<String>();

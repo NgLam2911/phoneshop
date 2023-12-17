@@ -27,7 +27,7 @@ public class ProductBo {
             manufacturer = manufacturerDao.getManufactureByName(manufacturerName);
         }
         int manufacturerID = manufacturer.getManufacturerID();
-        (new ProductDao()).registerProduct(productName, price, manufacturerID, cpu, ram, displaySize, displayWidth, displayHeight, os, battery, capacity, imageLink, quantity, color);
+        (new ProductDao()).registerProduct(productName, price, manufacturerID, cpu, ram, displaySize, displayWidth, displayHeight, os, battery, capacity, image.getSubmittedFileName(), quantity, color);
         return true;
     }
 
@@ -40,7 +40,7 @@ public class ProductBo {
             manufacturer = manufacturerDao.getManufactureByName(manufacturerName);
         }
         int manufacturerID = manufacturer.getManufacturerID();
-        (new ProductDao()).updateProduct(productID, productName, price, manufacturerID, cpu, ram, displaySize, displayWidth, displayHeight, os, battery, capacity, imageLink, quantity, color);
+        (new ProductDao()).updateProduct(productID, productName, price, manufacturerID, cpu, ram, displaySize, displayWidth, displayHeight, os, battery, capacity, image.getSubmittedFileName(), quantity, color);
         return true;
     }
 

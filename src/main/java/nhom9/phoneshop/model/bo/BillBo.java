@@ -10,7 +10,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 public class BillBo {
-
     public BillBean getBill(int BillID){
         BillBean bill = new BillBean();
         BillDao billDao = new BillDao();
@@ -25,10 +24,9 @@ public class BillBo {
 
     public void addBill(int CustomerID, Date PurchaseDate, ArrayList<CartItem> items){
         BillDao billDao = new BillDao();
-        billDao.addBill(CustomerID, PurchaseDate);
-        var billID = billDao.getBill(CustomerID, PurchaseDate).getBillID();
+        var newBillID = billDao.addBill(CustomerID, PurchaseDate);
         for (CartItem item : items){
-            billDao.addBillItem(billID, item.getProduct().getProductID(), item.getAmount());
+            billDao.addBillItem(newBillID, item.getProduct().getProductID(), item.getAmount());
         }
     }
 
