@@ -9,9 +9,9 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="#">Xem sản phẩm</a>
+            <a class="nav-link" href="<%=request.getContextPath()%>/index.jsp">Xem sản phẩm</a>
           </li>
-          <% if (request.getAttribute("user") != null) { %>
+          <% if (request.getAttribute("user") != null && session.getAttribute("user") != null) { %>
           <% session.setAttribute("user", request.getAttribute("user"));%>
           <li class="nav-item">
             <a class="nav-link" href="<%=request.getContextPath()%>/customerServlet?action=GetCartItems">Xem giỏ hàng</a>
@@ -19,14 +19,18 @@
           <% } %>
       </ul>
       <div class="ml-auto navbar-nav">
-        <% if (request.getAttribute("user") == null) { %>
+        <% if (request.getAttribute("user") == null && session.getAttribute("user") == null) { %>
           <li class="nav-item">
-              <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Login</a>
+              <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Đăng nhập</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="<%=request.getContextPath()%>/register.jsp">Register</a>
+              <a class="nav-link" href="<%=request.getContextPath()%>/register.jsp">Đăng ký</a>
           </li>
-      <% } %>
+          <% } else {%>
+          <li class="nav-item">
+              <a class="nav-link" href="<%=request.getContextPath()%>/authServlet?action=LogoutServlet">Đăng xuất</a>
+          </li>
+          <% } %>
       </div>
     </div>
   </nav>
