@@ -69,7 +69,7 @@ public class BillDao extends BaseDao{
             }
             try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    id = generatedKeys.getInt("BillID");
+                    id = generatedKeys.getInt(1);
                 }
                 else {
                     throw new SQLException("Error");
