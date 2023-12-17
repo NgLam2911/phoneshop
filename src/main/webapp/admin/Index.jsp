@@ -1,5 +1,14 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@page import="java.text.DecimalFormat"%>
+<%
+DecimalFormat df = new DecimalFormat("#0");
+%>
+<!DOCTYPE html>
+<html lang="en">
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin page</title>
     <style>
         body {
@@ -83,13 +92,15 @@
     <div class="button-container">
         <a href="<%=request.getContextPath()%>/authServlet?action=AdminGetProduct" class="button">Xem sản phẩm</a>
 		<a href="<%=request.getContextPath()%>/authServlet?action=AdminGetBill" class="button">Xem hóa đơn</a>
+        <a href="<%=request.getContextPath()%>/authServlet?action=AdminGetCustomer" class="button">Xem thông tin người dùng</a>
         <a href="<%=request.getContextPath()%>/authServlet?action=AdminAddProduct" class="button">Thêm sản phẩm</a>
-        <a href="<%=request.getContextPath()%>/authServlet?action=AdminSearchProduct" class="button">Tìm kiếm sản phẩm</a>
 
         <!-- New input field and button -->
         <div id="search-container">
-            <input type="text" id="search-input" placeholder="Nhập từ khóa">
+            <form name="searchProductForm" id="searchProductForm" action="<%=request.getContextPath()%>/authServlet?action=SearchProduct" enctype="multipart/form-data" method="post" >
+            <input type="text" id="search-input" placeholder="Nhập điện thoại cần tìm kiếm">
             <button type="button" id="search-button">Tìm kiếm</button>
+            </form> 
         </div>
     </div>
     <% } %>

@@ -15,8 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import nhom9.phoneshop.model.bean.BillBean;
+import nhom9.phoneshop.model.bean.CartItem;
+import nhom9.phoneshop.model.bean.CustomerBean;
 import nhom9.phoneshop.model.bean.ProductBean;
+import nhom9.phoneshop.model.bean.UserBean;
 import nhom9.phoneshop.model.bean.tables.Manufacturers;
+import nhom9.phoneshop.model.bo.BillBo;
 import nhom9.phoneshop.model.bo.ManufacturerBo;
 import nhom9.phoneshop.model.bo.ProductBo;
 import nhom9.phoneshop.model.bo.UserBo;
@@ -42,12 +47,12 @@ public class AuthServlet extends HttpServlet{
 			case "RegisterServlet":
 				checkRegister(request, response);
 				break;
-			case "GetProduct":
-				getAllProducts(request, response);
-                break;
 			case "AdminGetProduct":
                 listProduct(request, response);
                 break;
+			case "AdminGetCustomer":
+				listCustomer(request, response);
+				break;
 			case "AdminAddProduct": 
 				addProduct(request, response);
 				break;
@@ -61,7 +66,16 @@ public class AuthServlet extends HttpServlet{
 				handleEditProduct(request, response);
 				break;
             case "RemoveProduct":
-                delete(request, response);
+                deleteProduct(request, response);
+				break;
+			case "GetBill":
+				listBill(request, response);
+				break;
+			case "GetBillDetail":
+				getBillDetail(request, response);
+				break;
+			case "SearchProduct":
+				searchProduct(request, response);
 				break;
 			default:
 				checkLogin(request, response);
@@ -83,7 +97,6 @@ public class AuthServlet extends HttpServlet{
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/Index.jsp");
 				rd.forward(request, response);
 			} else if (userBo.login(username, password).getRoleID() == 2) {
-				request.setAttribute("role", "customer");
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 				rd.forward(request, response);
 			}
@@ -112,14 +125,6 @@ public class AuthServlet extends HttpServlet{
 		}
 	}
 
-	private void getAllProducts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<ProductBean> list;
-		list = new ProductBo().getAllProducts();
-		request.setAttribute("pdList", list);
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/listPhone.jsp");
-		rd.forward(request, response);
-	}
-
 	private void listProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         ArrayList<ProductBean> list;
 		list = new ProductBo().getAllProducts();
@@ -127,6 +132,34 @@ public class AuthServlet extends HttpServlet{
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListPhone.jsp");
 		rd.forward(request, response);	
 	}
+
+	private void listCustomer(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        ArrayList<CustomerBean> list;
+		list = new UserBo().getAllCustomers();
+		request.setAttribute("ctList", list);
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListCustomer.jsp");
+		rd.forward(request, response);	
+	}
+
+	private void listBill(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		BillBo billBo = new BillBo();
+		ArrayList<BillBean> bb = billBo.getBillsOfCustomer(id);
+		request.setAttribute("bb", bb);
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListBill.jsp");
+		rd.forward(request, response);
+	}
+
+	private void getBillDetail(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		BillBo billBo = new BillBo();
+		BillBean bb = billBo.getBill(id);
+		ArrayList<CartItem> ci = bb.getBillItems();
+		request.setAttribute("bb", bb);
+		request.setAttribute("ci", ci);
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/BillDetail.jsp");
+		rd.forward(request, response);
+	}	
 
 	private void addProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         ArrayList<ProductBean> list;
@@ -205,7 +238,20 @@ public class AuthServlet extends HttpServlet{
 		}
 	}
 
-	private void delete(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+	private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+		int ProductID = Integer.parseInt(request.getParameter("id"));
+        ProductBo productBo = new ProductBo();
+        productBo.deleteProduct(ProductID);
+		ArrayList<ProductBean> list;
+			list = new ProductBo().getAllProducts();
+			request.setAttribute("pdList", list);
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListPhone.jsp");
+		rd.forward(request, response);	
+	}
+
+	
+
+	private void searchProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
 		int ProductID = Integer.parseInt(request.getParameter("id"));
         ProductBo productBo = new ProductBo();
         productBo.deleteProduct(ProductID);

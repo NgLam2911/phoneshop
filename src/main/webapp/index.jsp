@@ -27,7 +27,6 @@
     <% if (session.getAttribute("user") != null ) {
         String user = (String)request.getAttribute("user");
     %>
-	@@ -34,6 +23,7 @@
         <br>
         <a href="<%=request.getContextPath()%>/customerServlet?action=GetCartItems">Xem gio hang</a> <br>
     <% } %>
