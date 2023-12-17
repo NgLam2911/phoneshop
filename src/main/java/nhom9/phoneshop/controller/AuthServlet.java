@@ -175,15 +175,14 @@ public class AuthServlet extends HttpServlet{
         String OS = request.getParameter("txtOS");
         String Battery = request.getParameter("txtBattery");
         double Capacity = Double.parseDouble(request.getParameter("txtCapacity"));
-        Part part = request.getPart("txtImage");
 		int Quantity = Integer.parseInt(request.getParameter("txtQuantity"));
-        Collection<Part> clt = request.getParts();
 		String Color = request.getParameter("txtColor");
+		Part part = request.getPart("txtImage");
 		
 		ProductBo productBo = new ProductBo();
-		//productBo.registerProduct(ProductName, Price, ManufacturerName, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, part, clt, Quantity, Color);
-		if (productBo.registerProduct(ProductName, Price, ManufacturerName, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, part, clt, Quantity, Color)) {
+		if (productBo.registerProduct(ProductName, Price, ManufacturerName, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, part, Quantity, Color)) {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListPhone.jsp");
+
 			rd.forward(request, response);
 		} else {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/Error.jsp");
@@ -218,7 +217,7 @@ public class AuthServlet extends HttpServlet{
         Collection<Part> clt = request.getParts();
 		String Color = request.getParameter("txtColor");
 		ProductBo productBo = new ProductBo();
-		if (productBo.updateProduct(ProductID, ProductName, Price, ProductID, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, part, clt, Quantity, Color)) {
+		if (productBo.updateProduct(ProductID, ProductName, Price, ManufacturerName, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, part, Quantity, Color)) {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListPhone.jsp");
 			rd.forward(request, response);
 		} else {
