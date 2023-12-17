@@ -15,10 +15,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Đăng nhập</a>
+                    <a class="nav-link" href="<%=request.getContextPath()%>/authServlet?action=Login">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/register.jsp">Đăng ký</a>
+                    <a class="nav-link" href="<%=request.getContextPath()%>/authServlet?action=Register">Register</a>
                 </li>
             </ul>
         </div>
@@ -29,10 +29,8 @@
     %>
         <h2>Chào mừng </h2>
         <h2><%= user %></h2>
-        <a href="<%=request.getContextPath()%>/authServlet?action=AdminGetProduct">Xem sản phẩm (admin)</a> <br>
-        <a href="<%=request.getContextPath()%>/authServlet?action=GetProduct">Xem sản phẩm</a> <br>
-        <br>
-        <a href="<%=request.getContextPath()%>/customerServlet?action=GetCartItems">Xem gio hang</a> <br>
+        <a href="<%=request.getContextPath()%>/authServlet?action=SearchProduct">Tìm kiếm điện thoại</a> <br>
+        <a href="<%=request.getContextPath()%>/authServlet?action=GetProduct">Xem điện thoại</a> <br>
     <% } %>
 	<%@ include file="common/footer.html" %>
 </body>
