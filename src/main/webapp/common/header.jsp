@@ -19,7 +19,7 @@
           <% } %>
       </ul>
       <div class="ml-auto navbar-nav">
-        <% if (request.getAttribute("user") != null) { %>
+        <% if (request.getAttribute("user") == null) { %>
           <li class="nav-item">
               <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Login</a>
           </li>
