@@ -7,7 +7,7 @@
     <groupId>nhom9</groupId>
     <artifactId>phoneshop</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>phoneshop</name>
+    <name>phone shop</name>
     <packaging>war</packaging>
 
     <properties>

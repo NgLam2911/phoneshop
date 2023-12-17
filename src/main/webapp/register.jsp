@@ -59,7 +59,7 @@
 
 <body>
     <h2>Đăng ký</h2>
-    <form name="registerForm" id="registerForm" action="authServlet?action=RegisterServlet" method="post">
+    <form name="registerForm" id="registerForm" action="<%=request.getContextPath()%>/authServlet?action=RegisterServlet" method="post">
         <table id="registrationTable">
             <tr>
                 <td>Tên người dùng (Nhập họ và tên)</td>

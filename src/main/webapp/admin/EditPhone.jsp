@@ -60,8 +60,13 @@
 <body>
     <% ProductBean product = (ProductBean) request.getAttribute("pd"); %>
     <h2>Chỉnh sửa sản phẩm</h2>
-    <form name="editProductForm" id="editProductForm" action="/authServlet?action=AddProduct" method="post">
+    <form name="editProductForm" id="editProductForm" action="/authServlet?action=handleEditProduct" enctype="multipart/form-data" method="post">
         <table id="registrationTable">
+            <tr>
+                <td>ID sản phẩm</td>
+                <td><label for="txtProductID"></label><input type="text" name="txtProductID" id="txtProductID" value="<%=product.getProductID()%>>" readonly required>
+                </td>
+            </tr>
             <tr>
                 <td>Tên sản phẩm</td>
                 <td><label for="txtProductName"></label><input type="text" name="txtProductName" id="txtProductName" value="<%=product.getProductName()%>>" required>

@@ -59,7 +59,7 @@
 
 <body>
     <h2>Thêm sản phẩm</h2>
-    <form name="addProductForm" id="addProductForm" action="<%=request.getContextPath()%>/authServlet?action=AddProduct" method="post">
+    <form name="addProductForm" id="addProductForm" action="<%=request.getContextPath()%>/authServlet?action=AddProduct" enctype="multipart/form-data" method="post">
         <table id="registrationTable">
             <tr>
                 <td>Tên sản phẩm</td>
