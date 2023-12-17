@@ -11,8 +11,15 @@
           <li class="nav-item">
             <a class="nav-link" href="<%=request.getContextPath()%>/index.jsp">Xem sản phẩm</a>
           </li>
-          <% if (request.getAttribute("user") != null && session.getAttribute("user") != null) { %>
+          <% if (request.getAttribute("user") != null) { %>
           <% session.setAttribute("user", request.getAttribute("user"));%>
+          <li class="nav-item">
+            <a class="nav-link" href="<%=request.getContextPath()%>/customerServlet?action=GetCartItems">Xem giỏ hàng</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<%=request.getContextPath()%>/customerServlet?action=GetBill">Xem hóa đơn</a>
+          </li>
+          <% }else if (session.getAttribute("user") != null){ %>
           <li class="nav-item">
             <a class="nav-link" href="<%=request.getContextPath()%>/customerServlet?action=GetCartItems">Xem giỏ hàng</a>
           </li>
