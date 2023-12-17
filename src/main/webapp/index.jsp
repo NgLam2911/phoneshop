@@ -27,10 +27,7 @@
     <% if (session.getAttribute("user") != null ) {
         String user = (String)request.getAttribute("user");
     %>
-        <h2>Chào mừng </h2>
-        <h2><%= user %></h2>
-        <a href="<%=request.getContextPath()%>/authServlet?action=AdminGetProduct">Xem sản phẩm (admin)</a> <br>
-        <a href="<%=request.getContextPath()%>/authServlet?action=GetProduct">Xem sản phẩm</a> <br>
+	@@ -34,6 +23,7 @@
         <br>
         <a href="<%=request.getContextPath()%>/customerServlet?action=GetCartItems">Xem gio hang</a> <br>
     <% } %>
