@@ -23,9 +23,11 @@ public class ProductBo {
     }
 
     public boolean registerProduct(String productName, double price, String manufacturerName, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, Part image, int quantity, String color) throws IOException {
+        String separator = FileSystems.getDefault().getSeparator();
         String fileName = image.getSubmittedFileName();
         InputStream ip = image.getInputStream();
-        String imageLink = "uploads" + FileSystems.getDefault().getSeparator() + fileName;
+        String imageLink = System.getProperty("user.dir") + separator + "uploads" + separator + fileName;
+        System.out.println(imageLink);
         File imageFile = new File(imageLink);
         imageFile.createNewFile();
         imageFile.setWritable(true);
@@ -45,9 +47,10 @@ public class ProductBo {
     }
 
     public boolean updateProduct(int productID, String productName, double price, String manufacturerName, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, Part image, int quantity, String color) throws IOException {
+        String separator = FileSystems.getDefault().getSeparator();
         String fileName = image.getSubmittedFileName();
         InputStream ip = image.getInputStream();
-        String imageLink = "uploads" + FileSystems.getDefault().getSeparator() + fileName;
+        String imageLink = System.getProperty("user.dir") + separator + "uploads" + separator + fileName;
         File imageFile = new File(imageLink);
         imageFile.createNewFile();
         imageFile.setWritable(true);
