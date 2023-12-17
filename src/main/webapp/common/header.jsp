@@ -16,6 +16,9 @@
           <li class="nav-item">
             <a class="nav-link" href="<%=request.getContextPath()%>/customerServlet?action=GetCartItems">Xem giỏ hàng</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<%=request.getContextPath()%>/customerServlet?action=GetBill">Xem hóa đơn</a>
+          </li>
           <% } %>
       </ul>
       <div class="ml-auto navbar-nav">

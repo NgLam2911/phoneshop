@@ -13,11 +13,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import nhom9.phoneshop.model.bean.BillBean;
 import nhom9.phoneshop.model.bean.CartBean;
 import nhom9.phoneshop.model.bean.CartItem;
+import nhom9.phoneshop.model.bean.CustomerBean;
 import nhom9.phoneshop.model.bean.ProductBean;
+import nhom9.phoneshop.model.bo.BillBo;
 import nhom9.phoneshop.model.bo.CartBo;
 import nhom9.phoneshop.model.bo.ProductBo;
+import nhom9.phoneshop.model.bo.UserBo;
 
 @MultipartConfig(fileSizeThreshold=102410242, 
 maxFileSize=1024102410, 
@@ -59,6 +63,12 @@ public class CustomerServlet extends HttpServlet {
 					break;
 				case "Checkout":
 					Checkout(request, response);
+					break;
+				case "GetBill":
+					listBill(request, response);
+					break;
+				case "GetBillDetail":
+					getBillDetail(request, response);
 					break;
 				default:
 					getCartItems(request, response);
@@ -178,6 +188,31 @@ public class CustomerServlet extends HttpServlet {
 		CartBean cartBean = new CartBo().getCartByUsername(username);
 		request.setAttribute("cartBean", cartBean);
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/customer/Cart.jsp");
+		rd.forward(request, response);
+	}
+
+	private void listBill(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("user");
+		BillBo billBo = new BillBo();
+		ArrayList<BillBean> bb = billBo.getBillsOfCustomerByUsername(username);
+		request.setAttribute("bb", bb);
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/ListBill.jsp");
+		rd.forward(request, response);
+	}
+
+	private void getBillDetail(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		BillBo billBo = new BillBo();
+		UserBo userBo = new UserBo();
+		
+		BillBean bb = billBo.getBill(id);
+		CustomerBean customerBean = userBo.getCustomer(bb.getCustomerID());
+		request.setAttribute("cb", customerBean);
+		ArrayList<CartItem> ci = bb.getBillItems();
+		request.setAttribute("bb", bb);
+		request.setAttribute("ci", ci);
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/BillDetail.jsp");
 		rd.forward(request, response);
 	}
 }
