@@ -61,9 +61,9 @@ font-size: 25px;
 						<form action="" method="post" class="form-inline">
 						<input type="hidden" name="id" value="id" class="form-input">
 							<div class="form-group d-flex justify-content-between">
-								<a class="btn btn-sm btn-incre" href="<%=request.getContextPath()%>/customerServlet?action=IncreaseAmountOfItem&id=<%=cartItem.getProduct().getProductID()%>&initialAmount=<%=cartItem.getAmount()%>"><i class="fas fa-plus-square"></i></a>
+								<a class="btn btn-sm btn-success m-1" href="<%=request.getContextPath()%>/customerServlet?action=IncreaseAmountOfItem&id=<%=cartItem.getProduct().getProductID()%>&initialAmount=<%=cartItem.getAmount()%>">+</a>
 								<input type="text" name="quantity" class="form-control"  value="<%=cartItem.getAmount()%>" readonly> 
-								<a class="btn btn-sm btn-decre" href="<%=request.getContextPath()%>/customerServlet?action=DecreaseAmountOfItem&id=<%=cartItem.getProduct().getProductID()%>&initialAmount=<%=cartItem.getAmount()%>"><i class="fas fa-minus-square"></i></a>
+								<a class="btn btn-sm btn-danger m-1" href="<%=request.getContextPath()%>/customerServlet?action=DecreaseAmountOfItem&id=<%=cartItem.getProduct().getProductID()%>&initialAmount=<%=cartItem.getAmount()%>">-</a>
 							</div>
 							<!-- <button type="submit" class="btn btn-primary btn-sm">Buy</button> -->
 						</form>
