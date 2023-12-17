@@ -91,15 +91,14 @@ DecimalFormat df = new DecimalFormat("#0");
     <h2>Chào mừng quản trị viên <%= user %></h2><br><br>
     <div class="button-container">
         <a href="<%=request.getContextPath()%>/authServlet?action=AdminGetProduct" class="button">Xem sản phẩm</a>
-		<a href="<%=request.getContextPath()%>/authServlet?action=AdminGetBill" class="button">Xem hóa đơn</a>
-        <a href="<%=request.getContextPath()%>/authServlet?action=AdminGetCustomer" class="button">Xem thông tin người dùng</a>
+        <a href="<%=request.getContextPath()%>/authServlet?action=AdminGetCustomer" class="button">Xem thông tin người dùng và hóa đơn</a>
         <a href="<%=request.getContextPath()%>/authServlet?action=AdminAddProduct" class="button">Thêm sản phẩm</a>
 
         <!-- New input field and button -->
         <div id="search-container">
             <form name="searchProductForm" id="searchProductForm" action="<%=request.getContextPath()%>/authServlet?action=SearchProduct" enctype="multipart/form-data" method="post" >
-            <input type="text" id="search-input" placeholder="Nhập điện thoại cần tìm kiếm">
-            <button type="button" id="search-button">Tìm kiếm</button>
+            <input type="text" id="txtSearch" name="txtSearch" placeholder="Nhập điện thoại cần tìm kiếm">
+            <input type="submit" name="Register" id="Register" value="Tìm kiếm">
             </form> 
         </div>
     </div>

@@ -156,6 +156,8 @@ public class AuthServlet extends HttpServlet{
 		UserBo userBo = new UserBo();
 		
 		BillBean bb = billBo.getBill(id);
+		CustomerBean customerBean = userBo.getCustomer(bb.getCustomerID());
+		request.setAttribute("cb", customerBean);
 		ArrayList<CartItem> ci = bb.getBillItems();
 		request.setAttribute("bb", bb);
 		request.setAttribute("ci", ci);
@@ -254,13 +256,11 @@ public class AuthServlet extends HttpServlet{
 	
 
 	private void searchProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-		int ProductID = Integer.parseInt(request.getParameter("id"));
-        ProductBo productBo = new ProductBo();
-        productBo.deleteProduct(ProductID);
-		ArrayList<ProductBean> list;
-			list = new ProductBo().getAllProducts();
-			request.setAttribute("pdList", list);
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListPhone.jsp");
-		rd.forward(request, response);	
+		String key = request.getParameter("txtSearch");
+		ProductBo productBo = new ProductBo();
+		ArrayList<ProductBean> result = productBo.search(key);
+		request.setAttribute("pdList", result);
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListPhone.jsp");
+		rd.forward(request, response);
 	}
 }

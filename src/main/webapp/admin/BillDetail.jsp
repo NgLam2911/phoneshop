@@ -1,4 +1,5 @@
 <%@page language="java" import="nhom9.phoneshop.model.bean.BillBean"%>
+<%@page language="java" import="nhom9.phoneshop.model.bean.CustomerBean"%>
 <%@page language="java" import="nhom9.phoneshop.model.bean.CartItem"%>
 <%@page language="java" import="java.util.ArrayList"%>
 <%@page import="java.text.DecimalFormat"%>
@@ -50,6 +51,10 @@ DecimalFormat df = new DecimalFormat("#0");
 </head>
 <body>
 	<h3 align="center">Bảng sản phẩm</h3>
+    <%
+        CustomerBean cb = (CustomerBean)request.getAttribute("cb");
+    %>
+    <h2>Người tiêu dùng: <%= cb.getCustomerName() %></h2>
 	<table border="1" width="100%">
 	<tr>
 		<td>Tên sản phẩm</td>
@@ -66,6 +71,7 @@ DecimalFormat df = new DecimalFormat("#0");
 		</tr>
 	<% } %>
 	</table>
+    <h2> Đơn giá: <%= df.format(bb.getBillTotalPrice()) %></h2>
     <a href="javascript:history.back()">Quay lại</a>
 </body>
 </html>
