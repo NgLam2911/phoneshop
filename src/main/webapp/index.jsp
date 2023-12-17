@@ -2,7 +2,10 @@
 <%@page language="java" import="java.util.ArrayList"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% session.setAttribute("user", request.getAttribute("user"));%>
+<% if (session.getAttribute("user") == null){
+	session.setAttribute("user", request.getAttribute("user"));
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +21,6 @@
         </jsp:include>
     <% }%>
 
-	<% out.println(request.getAttribute("check"));%>
 	<h3 align="center">Bảng sản phẩm</h3>
 	<table border="1" width="100%">
 	<tr>

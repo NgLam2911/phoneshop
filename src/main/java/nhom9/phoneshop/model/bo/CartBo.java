@@ -81,8 +81,6 @@ public class CartBo{
         ArrayList<CartItem> items = (new CartDao()).getCartItems(CustomerID);
         // Check if some product is out of stock
         for (CartItem item : items){
-            System.out.println(item.getProduct().getQuantity());
-            System.out.println(item.getAmount());
             if (item.getProduct().getQuantity() < item.getAmount()){
                 return false;
             }
