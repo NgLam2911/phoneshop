@@ -70,7 +70,7 @@ DecimalFormat df = new DecimalFormat("#0");
             <td><%= ctList.get(i).getAddress() %></td>
             <td class="action-buttons">
                     <a href="<%=request.getContextPath()%>/authServlet?action=GetBill&id=<%= ctList.get(i).getCustomerID() %>"
-                        class="edit-button">Xem hóa đơn</a>
+                        class="edit-button">Xem tất cả hóa đơn</a>
             </td>
 		</tr>
 	<% } %>
