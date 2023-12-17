@@ -33,10 +33,17 @@ public class ProductBo {
         return true;
     }
 
-    public boolean updateProduct(int productID, String productName, double price, int manufacturerID, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, Part image, int quantity, String color) throws IOException {
+    public boolean updateProduct(int productID, String productName, double price, String manufacturerName, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, Part image, int quantity, String color) throws IOException {
         String fileName = image.getSubmittedFileName();
         String imageLink = "upload/" + fileName;
         image.write(imageLink);
+        ManufacturerDao manufacturerDao = new ManufacturerDao();
+        Manufacturers manufacturer = manufacturerDao.getManufactureByName(manufacturerName);
+        if (manufacturer == null) {
+            manufacturerDao.registerManufacturer(manufacturerName);
+            manufacturer = manufacturerDao.getManufactureByName(manufacturerName);
+        }
+        int manufacturerID = manufacturer.getManufacturerID();
         (new ProductDao()).updateProduct(productID, productName, price, manufacturerID, cpu, ram, displaySize, displayWidth, displayHeight, os, battery, capacity, imageLink, quantity, color);
         return true;
     }
