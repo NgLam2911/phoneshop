@@ -41,6 +41,6 @@ DecimalFormat df = new DecimalFormat("#0");
         </table>
     </div>
 
-    <%@ include file="common/footer.jsp" %>
+
 </body>
 </html>

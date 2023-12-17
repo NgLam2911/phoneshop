@@ -32,6 +32,5 @@
         <a href="<%=request.getContextPath()%>/authServlet?action=SearchProduct">Tìm kiếm điện thoại</a> <br>
         <a href="<%=request.getContextPath()%>/authServlet?action=GetProduct">Xem điện thoại</a> <br>
     <% } %>
-	<%@ include file="common/footer.html" %>
 </body>
 </html>

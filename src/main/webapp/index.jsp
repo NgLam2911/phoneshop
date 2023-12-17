@@ -1,7 +1,11 @@
 <%@page language="java" import="nhom9.phoneshop.model.bean.ProductBean"%>
 <%@page language="java" import="java.util.ArrayList"%>
-<%@page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+DecimalFormat df = new DecimalFormat("#0");
+%>
 <% if (session.getAttribute("user") == null){
 	session.setAttribute("user", request.getAttribute("user"));
 	}
@@ -49,15 +53,14 @@
             <div class="card-body">
                 <h5 class="card-title"><%= pdList.get(i).getProductName() %></h5>
                 <p class="card-text">
-                    Price: <%= pdList.get(i).getPrice() %><br>
+                    Price: <%= df.format(pdList.get(i).getPrice()) %> đ<br>
                     Manufacturer: <%= pdList.get(i).getManufacturerName() %><br>
                     CPU: <%= pdList.get(i).getCPU() %><br>
-                    RAM: <%= pdList.get(i).getRAM() %><br>
+                    RAM: <%= pdList.get(i).getRAM() %> GB<br>
                     Display Size: <%= pdList.get(i).getDisplaySize() %><br>
                     OS: <%= pdList.get(i).getOS() %><br>
-                    Battery: <%= pdList.get(i).getBattery() %><br>
-                    Capacity: <%= pdList.get(i).getCapacity() %><br>
-                    <a href="<%=request.getContextPath()%>/customerServlet?action=AddProductToCart&id=<%= pdList.get(i).getProductID() %>">Thêm vào giỏ hàng</a>
+                    Battery: <%= pdList.get(i).getBattery() %> mAh<br>
+                    Capacity: <%= pdList.get(i).getCapacity() %> GB<br>
                 </p>
             </div>
             <% if (session.getAttribute("user") != null){%>
@@ -72,6 +75,6 @@
     <% } %>
 <% } %>
 </div>
-<%@ include file="common/footer.jsp" %>
+
 </body>
 </html>

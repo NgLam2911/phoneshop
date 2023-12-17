@@ -30,7 +30,6 @@ DecimalFormat df = new DecimalFormat("#0");
                 <th>ID Sản phẩm</th>
                 <th>Tên sản phẩm</th>
                 <th>Số lượng</th>
-                <th>Giá</th>
             </tr>
         </thead>
         <tbody>
@@ -50,8 +49,7 @@ DecimalFormat df = new DecimalFormat("#0");
         </tbody>
         </table>
         <h2> Ngày mua hàng: <%= bb.getPurchaseDate() %></h2>
-        <h2> Đơn giá: <%= df.format(bb.getBillTotalPrice()) %></h2>
-        </div>
-<%@ include file="common/footer.jsp" %>
+        <h2> Tổng giá tiền: <%= df.format(bb.getBillTotalPrice()) %> đ</h2>
+    </div>
 </body>
 </html>
