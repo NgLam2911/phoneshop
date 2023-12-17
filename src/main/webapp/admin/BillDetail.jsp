@@ -71,6 +71,7 @@ DecimalFormat df = new DecimalFormat("#0");
 		</tr>
 	<% } %>
 	</table>
+    <h2> Ngày mua hàng: <%= bb.getPurchaseDate() %></h2>
     <h2> Đơn giá: <%= df.format(bb.getBillTotalPrice()) %></h2>
     <a href="javascript:history.back()">Quay lại</a>
 </body>

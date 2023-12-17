@@ -93,7 +93,7 @@ DecimalFormat df = new DecimalFormat("#0");
         <a href="<%=request.getContextPath()%>/authServlet?action=AdminGetProduct" class="button">Xem sản phẩm</a>
         <a href="<%=request.getContextPath()%>/authServlet?action=AdminGetCustomer" class="button">Xem thông tin người dùng và hóa đơn</a>
         <a href="<%=request.getContextPath()%>/authServlet?action=AdminAddProduct" class="button">Thêm sản phẩm</a>
-
+        <a href="<%=request.getContextPath()%>/authServlet?action=LogoutServlet" class="button">Đăng xuất</a>
         <!-- New input field and button -->
         <div id="search-container">
             <form name="searchProductForm" id="searchProductForm" action="<%=request.getContextPath()%>/authServlet?action=SearchProduct" enctype="multipart/form-data" method="post" >
