@@ -34,17 +34,17 @@ font-size: 25px;
 	<%@include file="../common/header.jsp"%>
 
 	<div class="container my-3">
-		<div class="d-flex py-3"><h3>Total Price: <%=df.format(cartBean.getTotalPrice())%> VND</h3> <a class="mx-3 btn btn-primary" href="<%=request.getContextPath()%>/customerServlet?action=Checkout">Check Out</a>
+		<div class="d-flex py-3"><h3>Tổng giá tiền: <%=df.format(cartBean.getTotalPrice())%> VND</h3> <a class="mx-3 btn btn-primary" href="<%=request.getContextPath()%>/customerServlet?action=Checkout">Check Out</a>
 			<!-- <a class="mx-3 btn btn-primary" href="<%=request.getContextPath()%>/customerServlet?action=UpdateItemFromCart">Update</a> -->
 		</div>
 		<table class="table table-light">
 			<thead>
 				<tr>
-					<th scope="col">Name</th>
-					<th scope="col">Manufacturer</th>
-					<th scope="col">Price</th>
-					<th scope="col">Quantity</th>
-					<th scope="col">Remove</th>
+					<th scope="col">Tên sản phẩm</th>
+					<th scope="col">Hãng sản xuất</th>
+					<th scope="col">Đơn giá</th>
+					<th scope="col">Số lượng</th>
+					<th scope="col">Xóa</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -68,7 +68,7 @@ font-size: 25px;
 							<!-- <button type="submit" class="btn btn-primary btn-sm">Buy</button> -->
 						</form>
 					</td>
-					<td><a href="<%=request.getContextPath()%>/customerServlet?action=RemoveItemFromCart&id=<%=cartItem.getProduct().getProductID()%>" class="btn btn-sm btn-danger">Remove</a></td>
+					<td><a href="<%=request.getContextPath()%>/customerServlet?action=RemoveItemFromCart&id=<%=cartItem.getProduct().getProductID()%>" class="btn btn-sm btn-danger">Xóa</a></td>
 				</tr>
 				<%
 				}}%>

@@ -13,67 +13,45 @@ DecimalFormat df = new DecimalFormat("#0");
 <head>
     <meta charset="UTF-8">
     <title>Xem danh sách sản phẩm</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        img {
-            max-width: 100px;
-            max-height: 100px;
-        }
-        .action-buttons {
-            display: flex;
-            justify-content: space-between;
-        }
-        .edit-button, .remove-button {
-            padding: 6px 12px;
-            text-decoration: none;
-            color: #fff;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .edit-button {
-            background-color: #007bff;
-        }
-        .remove-button {
-            background-color: #dc3545;
-        }
-    </style>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
-	<%@ include file="common/header.jsp" %>
-	<h3 align="center">Bảng sản phẩm</h3>
-    <%
-        CustomerBean cb = (CustomerBean)request.getAttribute("cb");
-    %>
-    <h2>Người tiêu dùng: <%= cb.getCustomerName() %></h2>
-	<table border="1" width="100%">
-	<tr>
-		<td>Tên sản phẩm</td>
-        <td>Số lượng</td>
-	</tr>
-	<%
-		BillBean bb = (BillBean)request.getAttribute("bb");
-        ArrayList<CartItem> ci = (ArrayList<CartItem>)request.getAttribute("ci");
-		for (int i = 0; i < ci.size(); i++) {
-	%>
-		<tr>
-			<td><%= ci.get(i).getProduct().getProductName() %></td>
-			<td><%= ci.get(i).getAmount() %></td>
-		</tr>
-	<% } %>
-	</table>
-    <h2> Đơn giá: <%= df.format(bb.getBillTotalPrice()) %></h2>
-    <a href="javascript:history.back()">Quay lại</a>
-    <%@ include file="common/footer.jsp" %>
+    <%@ include file="common/header.jsp" %>
+    <div class="container mt-4">
+        <%
+            CustomerBean cb = (CustomerBean)request.getAttribute("cb");
+        %>
+        <h2>Người tiêu dùng: <%= cb.getCustomerName() %></h2>
+        <h3 class="text-center">Chi tiết hóa đơn</h3>
+        <table class="table table-bordered">
+            <thead class="thead-light">
+        <thead class="thead-light">
+            <tr>
+                <th>ID Sản phẩm</th>
+                <th>Tên sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Giá</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%
+                BillBean bb = (BillBean)request.getAttribute("bb");
+                ArrayList<CartItem> ci = (ArrayList<CartItem>)request.getAttribute("ci");
+                for (int i = 0; i < ci.size(); i++) {
+            %>
+            <tr>
+                <td><%= ci.get(i).getProduct().getProductName() %></td>
+                <td><%= ci.get(i).getAmount() %></td>
+                <td><%= df.format(ci.get(i).getProduct().getPrice()) %></td>
+            </tr>
+            <%
+                }
+            %>
+        </tbody>
+        </table>
+        <h2> Ngày mua hàng: <%= bb.getPurchaseDate() %></h2>
+        <h2> Đơn giá: <%= df.format(bb.getBillTotalPrice()) %></h2>
+        </div>
+<%@ include file="common/footer.jsp" %>
 </body>
 </html>
