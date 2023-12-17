@@ -40,27 +40,37 @@
 
 	</tr>
 	<%
-		ArrayList<ProductBean> pdList = (ArrayList<ProductBean>)request.getAttribute("pdList");
-		for (int i = 0; i < pdList.size(); i++) {
-	%>
-		<tr>
-			<td><%= pdList.get(i).getProductName() %></td>
-			<td><%= pdList.get(i).getPrice() %></td>
-			<td><%= pdList.get(i).getManufacturerName() %></td>
-			<td><%= pdList.get(i).getCPU() %></td>
-            <td><%= pdList.get(i).getRAM() %></td>
-			<td><%= pdList.get(i).getDisplaySize() %></td>
-			<td><%= pdList.get(i).getOS() %></td>
-			<td><%= pdList.get(i).getBattery() %></td>
-            <td><%= pdList.get(i).getCapacity() %></td>
-			<td><%= pdList.get(i).getImage() %></td>
+		ArrayList<ProductBean> pdList = (ArrayList<ProductBean>)request.getAttribute("pdList");%>
+<div class="row">
+<% for (int i = 0; i < pdList.size(); i++) { %>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img class="card-img-top" src="img/apple-iphone-15-pro-max-1.jpg">
+            <div class="card-body">
+                <h5 class="card-title"><%= pdList.get(i).getProductName() %></h5>
+                <p class="card-text">
+                    Price: <%= pdList.get(i).getPrice() %><br>
+                    Manufacturer: <%= pdList.get(i).getManufacturerName() %><br>
+                    CPU: <%= pdList.get(i).getCPU() %><br>
+                    RAM: <%= pdList.get(i).getRAM() %><br>
+                    Display Size: <%= pdList.get(i).getDisplaySize() %><br>
+                    OS: <%= pdList.get(i).getOS() %><br>
+                    Battery: <%= pdList.get(i).getBattery() %><br>
+                    Capacity: <%= pdList.get(i).getCapacity() %>
+                </p>
+            </div>
             <% if (session.getAttribute("user") != null){%>
-            <td><a href="<%=request.getContextPath()%>/customerServlet?action=AddProductToCart&id=<%= pdList.get(i).getProductID() %>">Thêm vào giỏ hàng</a></td>
-            <% }%>   
-		</tr>
-	<% } %>
-	</table>
-
-	<%@ include file="common/footer.jsp" %>
+                <div class="card-footer">
+                    <a href="<%=request.getContextPath()%>/customerServlet?action=AddProductToCart&id=<%= pdList.get(i).getProductID() %>" class="btn btn-primary">Thêm vào giỏ hàng</a>
+                </div>
+            <% }%>
+        </div>
+    </div>
+    <% if ((i + 1) % 3 == 0) { %>
+        </div><div class="row">
+    <% } %>
+<% } %>
+</div>
+<%@ include file="common/footer.jsp" %>
 </body>
 </html>
