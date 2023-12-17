@@ -1,4 +1,5 @@
 <%@page language="java" import="nhom9.phoneshop.model.bean.BillBean"%>
+<%@page language="java" import="nhom9.phoneshop.model.bean.CartItem"%>
 <%@page language="java" import="java.util.ArrayList"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
@@ -51,30 +52,20 @@ DecimalFormat df = new DecimalFormat("#0");
 	<h3 align="center">Bảng sản phẩm</h3>
 	<table border="1" width="100%">
 	<tr>
-		<td>Tên người dùng</td>
-		<td>Tên tài khoản</td>
-        <td>Email</td>
-		<td>Số điện thoại</td>
-		<td>Địa chỉ</td>
-        <td>Thao tác</td>
+		<td>Tên sản phẩm</td>
+        <td>Số lượng</td>
 	</tr>
 	<%
 		BillBean bb = (BillBean)request.getAttribute("bb");
-		for (int i = 0; i < bb.size(); i++) {
+        ArrayList<CartItem> ci = (ArrayList<CartItem>)request.getAttribute("ci");
+		for (int i = 0; i < ci.size(); i++) {
 	%>
 		<tr>
-			<td><%= bb.get(i).getCustomerName() %></td>
-			<td><%= bb.get(i).getUsername() %></td>
-			<td><%= bb.get(i).getEmail() %></td>
-			<td><%= bb.get(i).getPhoneNumber() %></td>
-            <td><%= bb.get(i).getAddress() %></td>
-            <td class="action-buttons">
-                    <a href="<%=request.getContextPath()%>/authServlet?action=GetBill&id=<%= bb.get(i).getCustomerID() %>"
-                        class="edit-button">Xem hóa đơn</a>
-            </td>
+			<td><%= ci.get(i).getProduct().getProductName() %></td>
+			<td><%= ci.get(i).getAmount() %></td>
 		</tr>
 	<% } %>
-        <a href="javascript:history.back()">Quay lại</a>
 	</table>
+    <a href="javascript:history.back()">Quay lại</a>
 </body>
 </html>

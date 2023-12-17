@@ -153,6 +153,8 @@ public class AuthServlet extends HttpServlet{
 	private void getBillDetail(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		BillBo billBo = new BillBo();
+		UserBo userBo = new UserBo();
+		
 		BillBean bb = billBo.getBill(id);
 		ArrayList<CartItem> ci = bb.getBillItems();
 		request.setAttribute("bb", bb);

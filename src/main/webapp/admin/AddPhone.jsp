@@ -106,14 +106,22 @@
             </tr>
             <tr>
                 <td>Chiều rộng màn hình</td>
-                <td><label for="txtDisplayWidth"></label><input type="text" name="txtDisplayWidth" id="txtDisplayWidth" value="" required>
+                <td><label for="txtDisplayWidth"></label><input type="text" name="txtDisplayWidth" id="txtDisplayWidth" value="" required oninput="updateDisplaySize()">
                 </td>
             </tr>
             <tr>
                 <td>Chiều cao màn hình</td>
-                <td><label for="txtDisplayHeight"></label><input type="text" name="txtDisplayHeight" id="txtDisplayHeight" value="" required>
+                <td><label for="txtDisplayHeight"></label><input type="text" name="txtDisplayHeight" id="txtDisplayHeight" value="" required oninput="updateDisplaySize()">
                 </td>
             </tr>
+            <script>
+                function updateDisplaySize() {
+                    var width = document.getElementById("txtDisplayWidth").value;
+                    var height = document.getElementById("txtDisplayHeight").value;
+                    var displaySize = height + "x" + width;
+                    document.getElementById("txtDisplaySize").value = displaySize;
+                }
+            </script>
             <tr>
                 <td>Hệ điều hành</td>
                 <td><label for="txtOS"></label>

@@ -74,7 +74,7 @@ DecimalFormat df = new DecimalFormat("#0");
             </td>
 		</tr>
 	<% } %>
-        <a href="javascript:history.back()">Quay lại</a>
 	</table>
+    <a href="javascript:history.back()">Quay lại</a>
 </body>
 </html>
