@@ -91,6 +91,8 @@ public class CartBo{
             int Amount = item.getProduct().getQuantity() - item.getAmount();
             (new ProductDao()).updateQuantity(ProductID, Amount);
         }
+        //Add to bill
+        (new BillBo()).addBill(CustomerID, new java.sql.Date(System.currentTimeMillis()), items);
         //Clear cart
         this.clearCart(CustomerID);
         return true;
