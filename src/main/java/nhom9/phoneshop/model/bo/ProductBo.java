@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.FileSystems;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -24,7 +25,7 @@ public class ProductBo {
     public boolean registerProduct(String productName, double price, String manufacturerName, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, Part image, int quantity, String color) throws IOException {
         String fileName = image.getSubmittedFileName();
         InputStream ip = image.getInputStream();
-        String imageLink = "upload/" + fileName;
+        String imageLink = "uploads" + FileSystems.getDefault().getSeparator() + fileName;
         File imageFile = new File(imageLink);
         imageFile.createNewFile();
         imageFile.setWritable(true);
@@ -46,7 +47,7 @@ public class ProductBo {
     public boolean updateProduct(int productID, String productName, double price, String manufacturerName, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, Part image, int quantity, String color) throws IOException {
         String fileName = image.getSubmittedFileName();
         InputStream ip = image.getInputStream();
-        String imageLink = "upload/" + fileName;
+        String imageLink = "uploads" + FileSystems.getDefault().getSeparator() + fileName;
         File imageFile = new File(imageLink);
         imageFile.createNewFile();
         imageFile.setWritable(true);
