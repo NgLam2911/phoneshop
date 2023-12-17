@@ -47,6 +47,10 @@ public class AuthServlet extends HttpServlet{
 			case "RegisterServlet":
 				checkRegister(request, response);
 				break;
+			case "LogoutServlet":
+				request.getSession().invalidate();
+				response.sendRedirect(request.getContextPath() + "/index.jsp");
+				break;
 			case "AdminGetProduct":
                 listProduct(request, response);
                 break;
