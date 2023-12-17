@@ -8,7 +8,10 @@ import nhom9.phoneshop.model.dao.ManufacturerDao;
 import nhom9.phoneshop.model.dao.ProductDao;
 
 import javax.servlet.http.Part;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -20,8 +23,15 @@ public class ProductBo {
 
     public boolean registerProduct(String productName, double price, String manufacturerName, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, Part image, int quantity, String color) throws IOException {
         String fileName = image.getSubmittedFileName();
+        InputStream ip = image.getInputStream();
         String imageLink = "upload/" + fileName;
-        image.write(imageLink);
+        File imageFile = new File(imageLink);
+        imageFile.createNewFile();
+        imageFile.setWritable(true);
+        imageFile.setReadable(true);
+        FileWriter imageWriter = new FileWriter(imageFile);
+        imageWriter.write(ip.read());
+        imageWriter.close();
         ManufacturerDao manufacturerDao = new ManufacturerDao();
         Manufacturers manufacturer = manufacturerDao.getManufactureByName(manufacturerName);
         if (manufacturer == null) {
@@ -35,8 +45,15 @@ public class ProductBo {
 
     public boolean updateProduct(int productID, String productName, double price, String manufacturerName, String cpu, String ram, String displaySize, int displayWidth, int displayHeight, String os, String battery, double capacity, Part image, int quantity, String color) throws IOException {
         String fileName = image.getSubmittedFileName();
+        InputStream ip = image.getInputStream();
         String imageLink = "upload/" + fileName;
-        image.write(imageLink);
+        File imageFile = new File(imageLink);
+        imageFile.createNewFile();
+        imageFile.setWritable(true);
+        imageFile.setReadable(true);
+        FileWriter imageWriter = new FileWriter(imageFile);
+        imageWriter.write(ip.read());
+        imageWriter.close();
         ManufacturerDao manufacturerDao = new ManufacturerDao();
         Manufacturers manufacturer = manufacturerDao.getManufactureByName(manufacturerName);
         if (manufacturer == null) {
