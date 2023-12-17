@@ -45,15 +45,6 @@ public class AuthServlet extends HttpServlet{
 			case "GetProduct":
 				getAllProducts(request, response);
                 break;
-            case "GetCart":
-                getCartProducts(request, response);
-				break;
-			case "AddProductToCart":
-				addProductToCart(request, response);
-                break;
-            case "RemoveProductFromCart":
-                addProductToCart(request, response);
-                break;
 			case "AdminGetProduct":
                 listProduct(request, response);
                 break;
@@ -89,9 +80,11 @@ public class AuthServlet extends HttpServlet{
 		if (userBo.login(username, password) != null) {
 			request.setAttribute("user", username);
 			if (userBo.login(username, password).getRoleID() == 1) {
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/Index.jsp");
+				request.setAttribute("role", "admin");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 				rd.forward(request, response);
 			} else if (userBo.login(username, password).getRoleID() == 2) {
+				request.setAttribute("role", "customer");
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 				rd.forward(request, response);
 			}
@@ -127,27 +120,6 @@ public class AuthServlet extends HttpServlet{
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/listPhone.jsp");
 		rd.forward(request, response);
 	}
-
-	private void addProductToCart(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-		String id = request.getParameter("id");
-		//new MainBo().addProductToCart(id);
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/Cart.jsp");
-		rd.forward(request, response);
-	}
-
-    private void removeProductFromCart(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        String id = request.getParameter("id");
-        //new MainBo().removeProductFromCart(id);
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/Cart.jsp");
-        rd.forward(request, response);
-    }
-
-    private void getCartProducts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ArrayList<ProductBean> list = new ArrayList<>();
-        //list = new MainBo().getCartProducts();
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/Cart.jsp");
-        rd.forward(request, response);
-    }
 
 	private void listProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         ArrayList<ProductBean> list;
