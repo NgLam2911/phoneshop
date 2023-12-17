@@ -85,6 +85,7 @@ public class CartBo{
                 return false;
             }
         }
+
         //Update quantity
         for (CartItem item : items){
             int ProductID = item.getProduct().getProductID();
