@@ -164,11 +164,12 @@ public class ProductDao extends BaseDao {
 
     public ArrayList<ProductBean> searchProduct(String keyword) {
         ArrayList<ProductBean> products = new ArrayList<>();
-        String sql = "SELECT * FROM products INNER JOIN manufacturers ON products.ManufacturerID = manufacturers.ManufacturerID WHERE ProductName LIKE ? OR ManufacturerName LIKE ?";
+        String sql = "SELECT * FROM products INNER JOIN manufacturers ON products.ManufacturerID = manufacturers.ManufacturerID WHERE (ProductName LIKE ?) OR (ManufacturerName LIKE ?)";
         try {
             this.connect();
             var statement = this.getConnection().prepareStatement(sql);
             statement.setString(1, keyword);
+            statement.setString(2, keyword);
             var resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int productID = resultSet.getInt("ProductID");
