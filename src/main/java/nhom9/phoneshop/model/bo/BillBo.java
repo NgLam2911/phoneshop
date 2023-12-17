@@ -3,6 +3,7 @@ package nhom9.phoneshop.model.bo;
 import nhom9.phoneshop.model.bean.BillBean;
 import nhom9.phoneshop.model.bean.CartItem;
 import nhom9.phoneshop.model.dao.BillDao;
+import nhom9.phoneshop.model.dao.UserDao;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -44,5 +45,15 @@ public class BillBo {
             result.add(new BillBean(bill.getBillID(), bill.getCustomerID(), bill.getPurchaseDate(), billItem));
         }
         return result;
+    }
+
+    public void addBillByUsername(String username, Date PurchaseDate, ArrayList<CartItem> items){
+        int CustomerID = (new UserDao()).getCustomer(username).getCustomerID();
+        this.addBill(CustomerID, PurchaseDate, items);
+    }
+
+    public ArrayList<BillBean> getBillsOfCustomerByUsername(String username){
+        int CustomerID = (new UserDao()).getCustomer(username).getCustomerID();
+        return this.getBillsOfCustomer(CustomerID);
     }
 }
