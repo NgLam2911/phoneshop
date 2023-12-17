@@ -179,4 +179,23 @@ public class BillDao extends BaseDao{
             throw new RuntimeException(e);
         }
     }
+
+    public ArrayList<Bill> getAllBill(){
+        String sql = "SELECT * FROM bills";
+        ArrayList<Bill> bills = new ArrayList<>();
+        try{
+            this.connect();
+            var ps = this.getConnection().prepareStatement(sql);
+            var rs = ps.executeQuery();
+            while (rs.next()){
+                int BillID = rs.getInt("BillID");
+                int Customer = rs.getInt("CustomerID");
+                Date PurchaseDate = rs.getDate("PurchaseDate");
+                bills.add(new Bill(BillID, Customer, PurchaseDate));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return bills;
+    }
 }

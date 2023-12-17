@@ -53,4 +53,9 @@ public class UserBo {
         UserDao dao = new UserDao();
         return dao.getCustomer(username);
     }
+
+    public CustomerBean getCustomer(int CustomerID){
+        UserDao dao = new UserDao();
+        return dao.getCustomer(CustomerID);
+    }
 }

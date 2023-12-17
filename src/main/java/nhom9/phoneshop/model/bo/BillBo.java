@@ -2,6 +2,7 @@ package nhom9.phoneshop.model.bo;
 
 import nhom9.phoneshop.model.bean.BillBean;
 import nhom9.phoneshop.model.bean.CartItem;
+import nhom9.phoneshop.model.bean.tables.Bill;
 import nhom9.phoneshop.model.dao.BillDao;
 import nhom9.phoneshop.model.dao.UserDao;
 
@@ -55,5 +56,10 @@ public class BillBo {
     public ArrayList<BillBean> getBillsOfCustomerByUsername(String username){
         int CustomerID = (new UserDao()).getCustomer(username).getCustomerID();
         return this.getBillsOfCustomer(CustomerID);
+    }
+
+    public ArrayList<Bill> getAllBill(){
+        BillDao billDao = new BillDao();
+        return billDao.getAllBill();
     }
 }
