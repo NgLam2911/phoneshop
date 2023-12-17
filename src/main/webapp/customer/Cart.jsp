@@ -31,7 +31,7 @@ font-size: 25px;
 
 </head>
 <body>
-
+	<%@include file="../common/header.jsp"%>
 
 	<div class="container my-3">
 		<div class="d-flex py-3"><h3>Total Price: <%=df.format(cartBean.getTotalPrice())%> VND</h3> <a class="mx-3 btn btn-primary" href="<%=request.getContextPath()%>/customerServlet?action=Checkout">Check Out</a>
@@ -75,5 +75,6 @@ font-size: 25px;
 			</tbody>
 		</table>
 	</div>
+	<%@include file="../common/footer.jsp"%>
 </body>
 </html>

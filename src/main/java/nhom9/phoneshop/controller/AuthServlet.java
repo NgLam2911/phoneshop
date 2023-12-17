@@ -83,7 +83,6 @@ public class AuthServlet extends HttpServlet{
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/Index.jsp");
 				rd.forward(request, response);
 			} else if (userBo.login(username, password).getRoleID() == 2) {
-				request.setAttribute("role", "customer");
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 				rd.forward(request, response);
 			}
@@ -116,7 +115,7 @@ public class AuthServlet extends HttpServlet{
 		ArrayList<ProductBean> list;
 		list = new ProductBo().getAllProducts();
 		request.setAttribute("pdList", list);
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/listPhone.jsp");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 		rd.forward(request, response);
 	}
 
