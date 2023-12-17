@@ -169,6 +169,7 @@ public class ProductDao extends BaseDao {
             this.connect();
             var statement = this.getConnection().prepareStatement(sql);
             statement.setString(1, keyword);
+            statement.setString(2, keyword);
             var resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int productID = resultSet.getInt("ProductID");
