@@ -5,7 +5,9 @@ import nhom9.phoneshop.model.bean.tables.Bill;
 import nhom9.phoneshop.model.bean.tables.BillInfo;
 
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class BillDao extends BaseDao{
@@ -26,6 +28,8 @@ public class BillDao extends BaseDao{
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            this.close();
         }
         return bills;
     }
@@ -45,40 +49,38 @@ public class BillDao extends BaseDao{
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            this.close();
         }
         return bill;
     }
 
-    public Bill getBill(int CustomerID, Date date){
-        String sql = "SELECT * FROM bills WHERE CustomerID = ? AND PurchaseDate = ?";
-        Bill bill = null;
+    public int addBill(int CustomerID, Date PurchaseDate) {
+        String sql = "INSERT INTO bills(CustomerID, PurchaseDate) VALUES (?, ?)";
+        int id = -1;
         try{
             this.connect();
-            var ps = this.getConnection().prepareStatement(sql);
+            var ps = this.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, CustomerID);
-            ps.setDate(2, date);
-            var rs = ps.executeQuery();
-            if (rs.next()){
-                int BillID = rs.getInt("BillID");
-                bill = new Bill(BillID, CustomerID, date);
+            ps.setDate(2, PurchaseDate);
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
+            try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    id = generatedKeys.getInt("BillID");
+                }
+                else {
+                    throw new SQLException("Error");
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            this.close();
         }
-        return bill;
-    }
-
-    public void addBill(int CustomerID, Date PurchaseDate) {
-        String sql = "INSERT INTO bills(CustomerID, PurchaseDate) VALUES (?, ?)";
-        try{
-            this.connect();
-            var ps = this.getConnection().prepareStatement(sql);
-            ps.setInt(1, CustomerID);
-            ps.setDate(2, PurchaseDate);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return id;
     }
 
     public void deleteBill(int BillID) {
@@ -90,6 +92,8 @@ public class BillDao extends BaseDao{
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            this.close();
         }
     }
 
@@ -104,6 +108,8 @@ public class BillDao extends BaseDao{
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            this.close();
         }
     }
 
@@ -123,6 +129,8 @@ public class BillDao extends BaseDao{
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            this.close();
         }
         return billInfos;
     }
@@ -150,6 +158,8 @@ public class BillDao extends BaseDao{
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            this.close();
         }
     }
 
@@ -163,6 +173,8 @@ public class BillDao extends BaseDao{
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            this.close();
         }
     }
 
@@ -177,6 +189,8 @@ public class BillDao extends BaseDao{
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            this.close();
         }
     }
 
@@ -195,6 +209,8 @@ public class BillDao extends BaseDao{
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            this.close();
         }
         return bills;
     }
