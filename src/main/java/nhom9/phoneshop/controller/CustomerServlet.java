@@ -36,7 +36,7 @@ public class CustomerServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		try {
 			switch (action) {
-				case "GetItems":
+				case "GetProduct":
 					getAllProducts(request, response);
 					break;
 				case "GetCartItems":
@@ -69,6 +69,13 @@ public class CustomerServlet extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	private void getAllProducts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ArrayList<ProductBean> list;
+		list = new ProductBo().getAllProducts();
+		request.setAttribute("pdList", list);
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+		rd.forward(request, response);
 	}
 
 	private void addProductToCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -130,15 +137,6 @@ public class CustomerServlet extends HttpServlet {
 		(new CartBo()).onPaid(username);
 		request.setAttribute("user", username);
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-		rd.forward(request, response);
-	}
-
-	private void getAllProducts(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		ArrayList<ProductBean> list;
-		list = new ProductBo().getAllProducts();
-		request.setAttribute("ItemList", list);
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/customer/Cart-test.jsp");
 		rd.forward(request, response);
 	}
 

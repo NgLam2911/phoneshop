@@ -16,7 +16,7 @@
 	<%@ include file="common/header.jsp" %>
 
     <% if (request.getAttribute("pdList") == null){%>
-        <jsp:include page="/authServlet" >
+        <jsp:include page="/customerServlet" >
             <jsp:param name="action" value="GetProduct"/>
         </jsp:include>
     <% }%>
