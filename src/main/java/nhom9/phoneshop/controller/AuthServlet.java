@@ -21,7 +21,9 @@ import nhom9.phoneshop.model.bo.ManufacturerBo;
 import nhom9.phoneshop.model.bo.ProductBo;
 import nhom9.phoneshop.model.bo.UserBo;
 
-@MultipartConfig(maxFileSize = 16177215)
+@MultipartConfig(fileSizeThreshold=102410242, 
+maxFileSize=1024102410, 
+maxRequestSize=1024102450)
 @WebServlet("/authServlet")
 public class AuthServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;
@@ -78,11 +80,11 @@ public class AuthServlet extends HttpServlet{
 		if (userBo.login(username, password) != null) {
 			request.setAttribute("user", username);
 			if (userBo.login(username, password).getRoleID() == 1) {
-				request.setAttribute("role", "admin");
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				//request.setAttribute("role", "admin");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/Index.jsp");
 				rd.forward(request, response);
 			} else if (userBo.login(username, password).getRoleID() == 2) {
-				request.setAttribute("role", "customer");
+				//request.setAttribute("role", "customer");
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 				rd.forward(request, response);
 			}
@@ -115,7 +117,7 @@ public class AuthServlet extends HttpServlet{
 		ArrayList<ProductBean> list;
 		list = new ProductBo().getAllProducts();
 		request.setAttribute("pdList", list);
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/listPhone.jsp");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListPhone.jsp");
 		rd.forward(request, response);
 	}
 
@@ -137,7 +139,7 @@ public class AuthServlet extends HttpServlet{
 		rd.forward(request, response);	
 	}
 
-    private void handleAddProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void handleAddProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
 		String ProductName = request.getParameter("txtProductName");
 		double Price = Double.parseDouble(request.getParameter("txtPrice"));
         String ManufacturerName = request.getParameter("txtManufacturerName");
@@ -155,8 +157,10 @@ public class AuthServlet extends HttpServlet{
 		
 		ProductBo productBo = new ProductBo();
 		if (productBo.registerProduct(ProductName, Price, ManufacturerName, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, part, Quantity, Color)) {
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListPhone.jsp");
-
+            ArrayList<ProductBean> list;
+			list = new ProductBo().getAllProducts();
+			request.setAttribute("pdList", list);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListPhone.jsp");
 			rd.forward(request, response);
 		} else {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/Error.jsp");
@@ -174,7 +178,7 @@ public class AuthServlet extends HttpServlet{
 	}
 
 	private void handleEditProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-		int ProductID = Integer.parseInt(request.getParameter("id"));
+		int ProductID = Integer.parseInt(request.getParameter("txtProductID"));
 		String ProductName = request.getParameter("txtProductName");
 		double Price = Double.parseDouble(request.getParameter("txtPrice"));
         String ManufacturerName = request.getParameter("txtManufacturerName");
@@ -191,6 +195,9 @@ public class AuthServlet extends HttpServlet{
 		String Color = request.getParameter("txtColor");
 		ProductBo productBo = new ProductBo();
 		if (productBo.updateProduct(ProductID, ProductName, Price, ManufacturerName, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, part, Quantity, Color)) {
+			ArrayList<ProductBean> list;
+			list = new ProductBo().getAllProducts();
+			request.setAttribute("pdList", list);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListPhone.jsp");
 			rd.forward(request, response);
 		} else {
@@ -200,9 +207,12 @@ public class AuthServlet extends HttpServlet{
 	}
 
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-		int ProductID = Integer.parseInt(request.getParameter("ProductID"));
+		int ProductID = Integer.parseInt(request.getParameter("id"));
         ProductBo productBo = new ProductBo();
         productBo.deleteProduct(ProductID);
+		ArrayList<ProductBean> list;
+			list = new ProductBo().getAllProducts();
+			request.setAttribute("pdList", list);
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListPhone.jsp");
 		rd.forward(request, response);	
 	}
