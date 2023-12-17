@@ -62,7 +62,7 @@
         <h2><%= login %></h2>
     <% } %>
     <h2>Đăng nhập</h2>
-    <form name="loginForm" id="loginForm" action="authServlet?action=LoginServlet" method="post">
+    <form name="loginForm" id="loginForm" action="<%=request.getContextPath()%>/authServlet?action=LoginServlet" method="post">
         <table id="loginTable">
             <tr>
                 <td>Tên tài khoản</td>

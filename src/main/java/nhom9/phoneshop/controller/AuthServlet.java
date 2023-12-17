@@ -43,6 +43,7 @@ public class AuthServlet extends HttpServlet{
                 break;
             case "GetCart":
                 getCartProducts(request, response);
+				break;
 			case "AddProductToCart":
 				addProductToCart(request, response);
                 break;
@@ -61,8 +62,12 @@ public class AuthServlet extends HttpServlet{
 			case "EditProduct":
 				editProduct(request, response);
 				break;
+			case "handleEditProduct":
+				handleEditProduct(request, response);
+				break;
             case "RemoveProduct":
                 delete(request, response);
+				break;
 			default:
 				checkLogin(request, response);
 				break;
@@ -180,7 +185,6 @@ public class AuthServlet extends HttpServlet{
 		if (productBo.registerProduct(ProductName, Price, ManufacturerName, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, part, clt, Quantity, Color)) {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListPhone.jsp");
 			rd.forward(request, response);
-			//response.sendRedirect("AdminGetProduct");
 		} else {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/Error.jsp");
 			rd.forward(request, response);
@@ -194,6 +198,33 @@ public class AuthServlet extends HttpServlet{
 		request.setAttribute("pd", pd);
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/EditPhone.jsp");
 		rd.forward(request, response);
+	}
+
+	private void handleEditProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+		int ProductID = Integer.parseInt(request.getParameter("id"));
+		String ProductName = request.getParameter("txtProductName");
+		double Price = Double.parseDouble(request.getParameter("txtPrice"));
+        String ManufacturerName = request.getParameter("txtManufacturerName");
+        String CPU = request.getParameter("txtCPU");
+        String RAM = request.getParameter("txtRAM");
+        String DisplaySize = request.getParameter("txtDisplaySize");
+        int DisplayWidth = Integer.parseInt(request.getParameter("txtDisplayWidth"));
+        int DisplayHeight = Integer.parseInt(request.getParameter("txtDisplayHeight"));
+        String OS = request.getParameter("txtOS");
+        String Battery = request.getParameter("txtBattery");
+        double Capacity = Double.parseDouble(request.getParameter("txtCapacity"));
+        Part part = request.getPart("txtImage");
+		int Quantity = Integer.parseInt(request.getParameter("txtQuantity"));
+        Collection<Part> clt = request.getParts();
+		String Color = request.getParameter("txtColor");
+		ProductBo productBo = new ProductBo();
+		if (productBo.updateProduct(ProductID, ProductName, Price, ProductID, CPU, RAM, DisplaySize, DisplayWidth, DisplayHeight, OS, Battery, Capacity, part, clt, Quantity, Color)) {
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ListPhone.jsp");
+			rd.forward(request, response);
+		} else {
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/Error.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
