@@ -55,10 +55,10 @@ public class UserDao extends BaseDao{
     public void registerCustomer(String customerName, String username, String email, String phoneNumber, String password, String address, int roleID) {
         String sql1 = "INSERT INTO users (Username, Password, RoleID) VALUES (?, ?, ?)";
         String sql2 = "INSERT INTO customers (CustomerName, Username, Email, Phone, Address) VALUES (?, ?, ?, ?, ?)";
-        var connection = getConnection();
         try {
-            var statement1 = connection.prepareStatement(sql1);
-            var statement2 = connection.prepareStatement(sql2);
+            this.connect();
+            var statement1 = this.getConnection().prepareStatement(sql1);
+            var statement2 = this.getConnection().prepareStatement(sql2);
             statement1.setString(1, username);
             statement1.setString(2, password);
             statement1.setInt(3, roleID);
