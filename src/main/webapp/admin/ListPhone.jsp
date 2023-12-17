@@ -80,7 +80,7 @@ DecimalFormat df = new DecimalFormat("#0");
 			<td><%= pdList.get(i).getOS() %></td>
 			<td><%= pdList.get(i).getBattery() %> mAh</td>
             <td><%= pdList.get(i).getCapacity() %> GB</td>
-			<td><img src="<%= pdList.get(i).getImage() %>" alt="<%= pdList.get(i).getProductName() %>" ></td>
+			<td><img src="img/<%= pdList.get(i).getImage() %>" alt="<%= pdList.get(i).getProductName() %>" ></td>
             <td><%= pdList.get(i).getColor() %></td>
             <td><%= pdList.get(i).getQuantity() %></td>
             <td class="action-buttons">
