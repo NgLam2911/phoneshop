@@ -72,6 +72,8 @@ public class UserDao extends BaseDao{
             statement2.executeUpdate();
         } catch (Exception e) {
             throw new RuntimeException("Failed to connect to db", e);
+        } finally {
+            this.close();
         }
     }
 
