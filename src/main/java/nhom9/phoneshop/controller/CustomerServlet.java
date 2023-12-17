@@ -19,9 +19,7 @@ import nhom9.phoneshop.model.bean.ProductBean;
 import nhom9.phoneshop.model.bo.CartBo;
 import nhom9.phoneshop.model.bo.ProductBo;
 
-@MultipartConfig(fileSizeThreshold=102410242, 
-maxFileSize=1024102410, 
-maxRequestSize=1024102450)
+@MultipartConfig(maxFileSize = 16177215)
 @WebServlet("/customerServlet")
 public class CustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

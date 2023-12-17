@@ -1,77 +1,58 @@
 <%@ page import="nhom9.phoneshop.model.bean.ProductBean"%>
 <%@ page import="java.util.ArrayList" %>
-<%@page import="java.text.DecimalFormat"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%
-DecimalFormat df = new DecimalFormat("#0");
-%>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chỉnh sửa sản phẩm</title>
     <style>
+        /* Your existing styles here */ 
+        #editProductForm {
+            margin-top: 20px;
+        }
         body {
             font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
             background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
         }
 
-        h2 {
+        h1 {
             color: #333;
         }
 
-        form {
-            width: 70%;
-            max-width: 600px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        table {
+            border-collapse: collapse;
+            width: 100%;
             margin-top: 20px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        td, th {
-            padding: 10px;
+        th,
+        td {
             border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
         }
 
-        label {
-            display: none;
+        th {
+            background-color: #4CAF50;
+            color: white;
         }
 
-        input[type="text"], select, input[type="file"] {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
+        a {
+            text-decoration: none;
+            color: #3498db;
         }
 
-        input[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
+        a:hover {
+            color: #207db5;
         }
 
-        input[type="submit"]:hover {
-            background-color: #0056b3;
+        form {
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -79,21 +60,21 @@ DecimalFormat df = new DecimalFormat("#0");
 <body>
     <% ProductBean product = (ProductBean) request.getAttribute("pd"); %>
     <h2>Chỉnh sửa sản phẩm</h2>
-    <form name="editProductForm" id="editProductForm" action="<%=request.getContextPath()%>/authServlet?action=handleEditProduct" enctype="multipart/form-data" method="post">
+    <form name="editProductForm" id="editProductForm" action="/authServlet?action=handleEditProduct" enctype="multipart/form-data" method="post">
         <table id="registrationTable">
             <tr>
                 <td>ID sản phẩm</td>
-                <td><label for="txtProductID"></label><input type="text" name="txtProductID" id="txtProductID" value="<%=product.getProductID()%>" readonly required>
+                <td><label for="txtProductID"></label><input type="text" name="txtProductID" id="txtProductID" value="<%=product.getProductID()%>>" readonly required>
                 </td>
             </tr>
             <tr>
                 <td>Tên sản phẩm</td>
-                <td><label for="txtProductName"></label><input type="text" name="txtProductName" id="txtProductName" value="<%=product.getProductName()%>" required>
+                <td><label for="txtProductName"></label><input type="text" name="txtProductName" id="txtProductName" value="<%=product.getProductName()%>>" required>
                 </td>
             </tr>
             <tr>
                 <td>Giá sản phẩm (VNĐ)</td>
-                <td><label for="txtPrice"></label><input type="text" name="txtPrice" id="txtPrice" value="<%=df.format(product.getPrice())%>" required>
+                <td><label for="txtPrice"></label><input type="text" name="txtPrice" id="txtPrice" value="<%=product.getPrice()%>" required>
                 </td>
             </tr>
             <tr>

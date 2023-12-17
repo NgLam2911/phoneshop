@@ -9,66 +9,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thêm sản phẩm</title>
     <style>
+        /* Your existing styles here */ 
+        #addProductForm {
+            margin-top: 20px;
+        }
         body {
             font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
             background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
         }
 
-        h2 {
+        h1 {
             color: #333;
         }
 
-        form {
-            width: 70%;
-            max-width: 600px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        table {
+            border-collapse: collapse;
+            width: 100%;
             margin-top: 20px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        td, th {
-            padding: 10px;
+        th,
+        td {
             border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
         }
 
-        label {
-            display: none;
+        th {
+            background-color: #4CAF50;
+            color: white;
         }
 
-        input[type="text"], select, input[type="file"] {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
+        a {
+            text-decoration: none;
+            color: #3498db;
         }
 
-        input[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
+        a:hover {
+            color: #207db5;
         }
 
-        input[type="submit"]:hover {
-            background-color: #0056b3;
+        form {
+            margin-top: 20px;
         }
     </style>
 </head>
