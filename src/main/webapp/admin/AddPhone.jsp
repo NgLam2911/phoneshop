@@ -101,7 +101,7 @@
             </tr>
             <tr>
                 <td>Kích thước màn hình</td>
-                <td><label for="txtDisplaySize"></label><input type="text" name="txtDisplaySize" id="txtDisplaySize" value="" required>
+                <td><label for="txtDisplaySize"></label><input type="text" name="txtDisplaySize" id="txtDisplaySize" value="" readonly required>
                 </td>
             </tr>
             <tr>
